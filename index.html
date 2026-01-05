@@ -2,1331 +2,1226 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuo Chi Lin | Blockchain and Web Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PENGU | Terminal Portfolio</title>
+
+    <!-- Preload fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="PENGU - Backend & Blockchain Engineer. Interactive terminal portfolio showcasing blockchain projects and experience.">
+    <meta name="keywords" content="blockchain, developer, solana, ethereum, web3, portfolio, pengu">
+
     <style>
+        /* ===========================================
+           CSS VARIABLES - Terminal Color Scheme
+           =========================================== */
         :root {
-            --primary: #6c63ff;
-            --secondary: #4CAF50;
-            --dark: #2c2c2c;
-            --light: #f5f5f5;
-            --gray: #888;
-            --code-bg: #1e1e2e;
-            --gradient: linear-gradient(135deg, var(--primary), #8c52ff);
+            /* Core Terminal Colors */
+            --terminal-bg: #0d0d0d;
+            --terminal-text: #f0f0f0;
+            --terminal-link: #58a6ff;
+            --terminal-success: #3fb950;
+            --terminal-prompt: #8b949e;
+            --terminal-error: #f85149;
+            --terminal-warning: #d29922;
+            --terminal-cyan: #39c5cf;
+            --terminal-magenta: #db61a2;
+
+            /* Window Chrome Colors */
+            --window-header: #2d2d2d;
+            --window-border: #3e3e42;
+            --btn-close: #e81123;
+            --btn-minimize: #3e3e42;
+            --btn-maximize: #3e3e42;
+
+            /* Fonts */
+            --font-mono: 'Fira Code', 'JetBrains Mono', 'SF Mono', 'Consolas', 'Monaco', monospace;
+
+            /* Spacing */
+            --terminal-padding: 20px;
+            --line-height: 1.6;
         }
 
+        /* ===========================================
+           BASE RESET & TYPOGRAPHY
+           =========================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
 
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            line-height: var(--line-height);
+            background-color: var(--terminal-bg);
+            color: var(--terminal-text);
         }
 
-        a {
-            text-decoration: none;
-            color: var(--primary);
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: var(--secondary);
-        }
-
-        .container {
+        /* ===========================================
+           TERMINAL CONTAINER
+           =========================================== */
+        .terminal-window {
+            display: flex;
+            flex-direction: column;
             width: 100%;
+            height: 100vh;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Header Styles */
-        header {
-            background: var(--gradient);
-            color: white;
-            padding-top: 80px;
-            padding-bottom: 100px;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        /* Desktop: Add margin and sizing */
+        @media (min-width: 768px) {
+            .terminal-window {
+                height: calc(100vh - 40px);
+                margin: 20px auto;
+                max-width: calc(100% - 40px);
+            }
         }
 
-        nav {
+        /* ===========================================
+           TERMINAL HEADER (Window Chrome)
+           =========================================== */
+        .terminal-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: var(--window-header);
+            border-bottom: 1px solid var(--window-border);
+            user-select: none;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: white;
-        }
-
-        .nav-links {
+        .window-controls {
             display: flex;
-            gap: 30px;
+            gap: 10px;
+            order: 2;
         }
 
-        .nav-links a {
-            color: white;
+        .window-btn {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .window-btn:hover {
+            opacity: 0.8;
+        }
+
+        .window-btn.close { background-color: var(--btn-close); }
+        .window-btn.minimize { background-color: var(--btn-minimize); }
+        .window-btn.maximize { background-color: var(--btn-maximize); }
+
+        .terminal-title {
+            flex: 1;
+            text-align: left;
+            color: var(--terminal-text);
+            font-size: 12px;
+            padding-left: 10px;
             font-weight: 500;
         }
 
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 50px 0;
+        /* ===========================================
+           TERMINAL OUTPUT AREA
+           =========================================== */
+        .terminal-output {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--terminal-padding);
+            scroll-behavior: smooth;
         }
 
-        .hero-content {
-            max-width: 600px;
+        /* Custom Scrollbar */
+        .terminal-output::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .terminal-output::-webkit-scrollbar-track {
+            background: var(--terminal-bg);
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb {
+            background: var(--window-border);
+            border-radius: 4px;
+        }
+
+        .terminal-output::-webkit-scrollbar-thumb:hover {
+            background: var(--terminal-prompt);
+        }
+
+        /* ===========================================
+           OUTPUT CONTENT STYLING
+           =========================================== */
+        .output-line {
+            margin-bottom: 4px;
+            word-wrap: break-word;
+        }
+
+        .output-command {
+            color: var(--terminal-success);
+        }
+
+        .output-prompt {
+            color: var(--terminal-prompt);
+        }
+
+        .output-error {
+            color: var(--terminal-error);
+        }
+
+        .output-info {
+            color: var(--terminal-cyan);
+        }
+
+        .output-warning {
+            color: var(--terminal-warning);
+        }
+
+        .output-link {
+            color: var(--terminal-link);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .output-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ===========================================
+           ASCII ART STYLING
+           =========================================== */
+        .ascii-art {
+            color: var(--terminal-success);
+            white-space: pre;
+            font-size: 10px;
             line-height: 1.2;
+            margin: 10px 0;
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
+        @media (min-width: 768px) {
+            .ascii-art {
+                font-size: 14px;
+            }
         }
 
-        .btn {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            color: var(--primary);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-            margin-left: 15px;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-        }
-
-        .profile-img {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* About Section */
-        .about {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--dark);
-            margin-bottom: 20px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 100px;
-            height: 3px;
-            background: var(--gradient);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .about-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 50px;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: var(--gray);
-        }
-
-        .skills {
-            flex: 1;
-        }
-
-        .skill-item {
-            margin-bottom: 20px;
-        }
-
-        .skill-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 10px;
-            background: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 10px;
-        }
-
-        /* Projects Section */
-        .projects {
-            padding: 100px 0;
-            background-color: #f9f9f9;
-        }
-
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-content {
-            padding: 20px;
-        }
-
-        .project-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .project-content p {
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        .project-tech {
+        /* ===========================================
+           COMMAND HINTS / SUGGESTIONS
+           =========================================== */
+        .command-hints {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin: 15px 0;
         }
 
-        .tech-tag {
-            background: #f0f0f0;
-            color: var(--dark);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .project-links a {
-            color: var(--gray);
-            transition: color 0.3s;
-        }
-
-        .project-links a:hover {
-            color: var(--primary);
-        }
-
-        /* Experience Section */
-        .experience {
-            padding: 100px 0;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 2px;
-            background: var(--primary);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -1px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .timeline-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .timeline-content h4 {
-            color: var(--primary);
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .timeline-content p {
-            color: var(--gray);
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            top: 15px;
-            z-index: 1;
-        }
-
-        .timeline-item:nth-child(odd)::after {
-            right: -10px;
-        }
-
-        .timeline-item:nth-child(even)::after {
-            left: -10px;
-        }
-
-        /* Code Samples Section */
-        .code-samples {
-            padding: 100px 0;
-            background-color: #f9f9f9;
-        }
-
-        .code-block {
-            background: var(--code-bg);
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            overflow-x: auto;
-        }
-
-        .code-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .code-title h3 {
-            color: white;
-            font-size: 1.3rem;
-        }
-
-        .code-title span {
-            color: #8be9fd;
-            font-size: 0.9rem;
-        }
-
-        pre {
-            margin: 0;
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.5;
-        }
-
-        .code-keyword {
-            color: #ff79c6;
-        }
-
-        .code-function {
-            color: #50fa7b;
-        }
-
-        .code-string {
-            color: #f1fa8c;
-        }
-
-        .code-comment {
-            color: #6272a4;
-        }
-
-        /* Testimonials Section */
-        .testimonials {
-            padding: 100px 0;
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-
-        .author-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-
-        .author-info h4 {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .author-info p {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            background-color: #f9f9f9;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-
-        .contact-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-info p {
-            color: var(--gray);
-            margin-bottom: 30px;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .contact-link i {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-link span {
-            color: var(--gray);
-        }
-
-        .contact-form form {
-            display: grid;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .form-group label {
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-btn {
-            background: var(--gradient);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
+        .hint-btn {
+            background: transparent;
+            border: 1px solid var(--terminal-prompt);
+            color: var(--terminal-prompt);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 12px;
             cursor: pointer;
-            font-weight: 500;
-            transition: opacity 0.3s;
+            transition: all 0.2s ease;
         }
 
-        .submit-btn:hover {
-            opacity: 0.9;
+        .hint-btn:hover {
+            border-color: var(--terminal-link);
+            color: var(--terminal-link);
+            background: rgba(88, 166, 255, 0.1);
         }
 
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 50px 0 20px;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 20px;
-        }
-
-        .footer-social a {
-            color: white;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
+        /* ===========================================
+           TERMINAL INPUT AREA
+           =========================================== */
+        .terminal-input-area {
             display: flex;
             align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
+            padding: var(--terminal-padding);
+            border-top: 1px solid var(--window-border);
+            background-color: var(--terminal-bg);
         }
 
-        .footer-social a:hover {
-            background: var(--primary);
+        .input-prompt {
+            color: var(--terminal-success);
+            margin-right: 8px;
+            white-space: nowrap;
         }
 
-        .footer-bottom {
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        .terminal-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--terminal-text);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            caret-color: var(--terminal-text);
         }
 
-        .footer-bottom p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
+        .terminal-input::placeholder {
+            color: var(--terminal-prompt);
+            opacity: 0.5;
         }
 
-        /* Blockchain-specific Elements */
-        .blockchain-address {
-            font-family: 'Courier New', Courier, monospace;
-            background: rgba(108, 99, 255, 0.1);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            display: inline-block;
-            margin-top: 10px;
+        /* ===========================================
+           BLINKING CURSOR ANIMATION
+           =========================================== */
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
-        .token-metrics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 30px;
+        /* ===========================================
+           PROJECT / TIMELINE STYLING
+           =========================================== */
+        .project-item {
+            margin: 8px 0;
+            padding-left: 20px;
         }
 
-        .metric-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
+        .project-name {
+            color: var(--terminal-link);
+            cursor: pointer;
         }
 
-        .metric-card h3 {
-            color: var(--primary);
-            font-size: 2rem;
-            margin-bottom: 10px;
+        .project-name:hover {
+            text-decoration: underline;
         }
 
-        .metric-card p {
-            color: var(--gray);
-            font-size: 0.9rem;
+        .project-tech-tags {
+            color: var(--terminal-prompt);
+            font-size: 12px;
         }
 
-        /* Work Experience Section */
-        .work-experience {
-            padding: 100px 0;
-            background-color: #f9f9f9;
+        .timeline-entry {
+            margin: 15px 0;
+            padding-left: 20px;
+            border-left: 2px solid var(--terminal-prompt);
         }
 
         .timeline-date {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            color: var(--terminal-cyan);
+            font-size: 12px;
         }
 
-        .timeline-content .project-tech {
-            margin-top: 15px;
+        .timeline-title {
+            color: var(--terminal-success);
         }
 
-        /* Languages Section */
-        .languages {
-            padding: 100px 0;
+        .timeline-company {
+            color: var(--terminal-magenta);
         }
 
-        .languages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 600px;
-            margin: 0 auto;
+        /* ===========================================
+           SKILL BARS (ASCII Style)
+           =========================================== */
+        .skill-bar {
+            color: var(--terminal-prompt);
         }
 
-        .language-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            text-align: center;
+        .skill-fill {
+            color: var(--terminal-success);
         }
 
-        .language-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-
-        .language-icon i {
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .language-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-
-        .language-card p {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-
-        .language-bar {
-            width: 100%;
-            height: 8px;
-            background: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .language-progress {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 10px;
-        }
-
-        /* Scroll Animation Styles */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .fade-in-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .fade-in-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .fade-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Project Filter Styles */
-        .project-filters {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 40px;
-        }
-
-        .filter-btn {
-            background: white;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            padding: 8px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--gradient);
-            color: white;
-            border-color: transparent;
-        }
-
-        .project-card.hidden {
-            display: none;
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                gap: 50px;
+        /* ===========================================
+           MOBILE RESPONSIVE ADJUSTMENTS
+           =========================================== */
+        @media (max-width: 767px) {
+            body {
+                font-size: 13px;
             }
 
-            .about-content {
-                flex-direction: column;
+            .terminal-window {
+                border-radius: 0;
+                border: none;
             }
 
-            .contact-grid {
-                grid-template-columns: 1fr;
+            .terminal-header {
+                padding: 10px 12px;
             }
 
-            .timeline::after {
-                left: 31px;
+            .terminal-output,
+            .terminal-input-area {
+                padding: 12px;
             }
 
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+            .input-prompt {
+                font-size: 12px;
             }
 
-            .timeline-item:nth-child(even) {
-                left: 0;
+            /* Shorter prompt on mobile */
+            .mobile-prompt {
+                display: inline;
             }
 
-            .timeline-item:nth-child(odd)::after,
-            .timeline-item:nth-child(even)::after {
-                left: 18px;
+            .desktop-prompt {
+                display: none;
+            }
+
+            .ascii-art {
+                font-size: 6px;
+                overflow-x: auto;
+            }
+
+            .command-hints {
+                gap: 6px;
+            }
+
+            .hint-btn {
+                padding: 8px 12px;
+                font-size: 13px;
             }
         }
 
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                gap: 20px;
+        @media (min-width: 768px) {
+            .mobile-prompt {
+                display: none;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
+            .desktop-prompt {
+                display: inline;
             }
+        }
 
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
+        /* ===========================================
+           PROFILE PHOTO STYLING
+           =========================================== */
+        .profile-photo {
+            max-width: 200px;
+            height: auto;
+            margin: 15px 0;
+            border: none;
+            display: block;
+        }
 
-            .testimonial-grid {
-                grid-template-columns: 1fr;
+        /* ===========================================
+           ACCESSIBILITY
+           =========================================== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
             }
+        }
 
-            .token-metrics {
-                grid-template-columns: 1fr;
-            }
+        /* Focus styles for keyboard navigation */
+        .hint-btn:focus,
+        .terminal-input:focus,
+        .output-link:focus {
+            outline: 2px solid var(--terminal-link);
+            outline-offset: 2px;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">CamelSean.eth</div>
-                <div class="nav-links">
-                    <a href="#about">About</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#work-experience">Experience</a>
-                    <a href="#education">Education</a>
-                    <a href="#contact">Contact</a>
-                </div>
-            </nav>
-            <div class="hero">
-                <div class="hero-content">
-                    <h1>Backend & Blockchain Engineer</h1>
-                    <p>Full-stack blockchain developer with hands-on experience in Solana and Ethereum ecosystems. Currently building workflow automation tools for Web3 at PinTool. Passionate about creating decentralized solutions.</p>
-                    <a href="#projects" class="btn">View Projects</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                    <div class="blockchain-address">
-                        <i class="fas fa-wallet"></i> 0x5ae4...fdd2
-                    </div>
-                </div>
-                <img src="kcl.jpg" alt="Profile Photo" class="profile-img">
-            </div>
-        </div>
-    </header>
+    <div class="terminal-window" role="application" aria-label="Terminal Portfolio">
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>About Me</h2>
+        <!-- Terminal Header with Window Controls -->
+        <div class="terminal-header">
+            <div class="window-controls" aria-hidden="true">
+                <span class="window-btn close"></span>
+                <span class="window-btn minimize"></span>
+                <span class="window-btn maximize"></span>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Aspiring Blockchain and Web Developer</h3>
-                    <p>I'm a new grad with a strong foundation in blockchain technology and Web development. Through coursework, online learning, and personal projects, I've built familiarity with smart contract development and on-chain interactions.</p>
-                    <p>My academic focus has been on understanding blockchain fundamentals, Web3 architecture, and developing secure smart contracts. I'm particularly interested in DeFi protocols and user-based applications.</p>
-                    <div class="token-metrics">
-                        <div class="metric-card">
-                            <h3>3</h3>
-                            <p>Smart Contract Projects</p>
-                        </div>
-                        <div class="metric-card">
-                            <h3>1</h3>
-                            <p>Blockchain Courses</p>
-                        </div>
-                        <div class="metric-card">
-                            <h3>5</h3>
-                            <p>Hackathons</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="skills">
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Solidity</span>
-                            <span></span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Blockchain Fundamentals</span>
-                            <span></span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Web3.js / Ethers.js</span>
-                            <span></span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>JavaScript/React</span>
-                            <span></span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-info">
-                            <span>Web development</span>
-                            <span></span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-progress" style="width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="terminal-title">visitor@pengu - PowerShell</div>
         </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Featured Projects</h2>
-            </div>
-            <div class="project-filters fade-in">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="blockchain">Blockchain</button>
-                <button class="filter-btn" data-filter="solana">Solana</button>
-                <button class="filter-btn" data-filter="ethereum">Ethereum</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="game">Game Dev</button>
-            </div>
-            <div class="project-grid">
-                <div class="project-card fade-in" data-category="blockchain ethereum">
-                    <div class="project-content">
-                        <h3>XueDao-Hackathon</h3>
-                        <p>A hackathon project creating a decentralized news platform that allow users to post, vote, and comment on news articles.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Solidity</span>
-                            <span class="tech-tag">OpenZeppelin</span>
-                            <span class="tech-tag">IPFS</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/XueDao-Hackathon" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="blockchain ethereum web">
-                    <div class="project-content">
-                        <h3>SeedGrow</h3>
-                        <p>A web3 crowd-funding app that allows users to create and manage campaigns, and donate to campaigns.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Solidity</span>
-                            <span class="tech-tag">Web3.js</span>
-                            <span class="tech-tag">Hardhat</span>
-                            <span class="tech-tag">React</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/Seed-Grow" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="blockchain solana">
-                    <div class="project-content">
-                        <h3>HandMatch</h3>
-                        <p>A decentralized rental marketplace using Solana blockchain for secure peer-to-peer item rentals with mobile-first experience.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Rust</span>
-                            <span class="tech-tag">Solana</span>
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Python</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/HandMatch" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="game">
-                    <div class="project-content">
-                        <h3>UT-project</h3>
-                        <p>A Unity game development project showcasing C# programming skills and game development fundamentals.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">C#</span>
-                            <span class="tech-tag">Unity</span>
-                            <span class="tech-tag">Game Development</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/UT-project" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="web">
-                    <div class="project-content">
-                        <h3>CamelSean</h3>
-                        <p>A TypeScript and Python based project demonstrating full-stack development capabilities and modern web technologies.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">Full-Stack</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/camelsean" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="blockchain solana web">
-                    <div class="project-content">
-                        <h3>Kairoria</h3>
-                        <p>A Next.js project integrate with supabase and utilize solana as payment.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Next.js</span>
-                            <span class="tech-tag">Supabase</span>
-                            <span class="tech-tag">Solana Anchor</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/Kairoria" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="blockchain ethereum web">
-                    <div class="project-content">
-                        <h3>BaseArcade</h3>
-                        <p>A blockchain base web game platform, use react as frontend and node.js as backend and solidity as smart contract.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">react</span>
-                            <span class="tech-tag">Supabase</span>
-                            <span class="tech-tag">node.js</span>
-                            <span class="tech-tag">solidity</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/BaseArcade" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card fade-in" data-category="web">
-                    <div class="project-content">
-                        <h3>Prokflow</h3>
-                        <p>A project management system that have many project management framework in default for choose. Use react as frontend and supabase as backend service.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">react</span>
-                            <span class="tech-tag">Supabase</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/KCL1104/Prokflow" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Terminal Output Area (Scrollable) -->
+        <div class="terminal-output" id="terminal-output" role="log" aria-live="polite">
+            <!-- Output will be dynamically inserted here -->
         </div>
-    </section>
 
-    <!-- Work Experience Section -->
-    <section class="work-experience" id="work-experience">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Work Experience</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item fade-in-left">
-                    <div class="timeline-content">
-                        <h3>Backend / Blockchain Engineer</h3>
-                        <h4>PinTool | Taipei</h4>
-                        <p class="timeline-date">October 2025 - Present</p>
-                        <p>Founding engineer at a startup building an n8n-like workflow editor for Solana users. Responsible for designing and implementing backend systems with seamless blockchain integration.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Solana</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">Backend</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in-right">
-                    <div class="timeline-content">
-                        <h3>Full-stack / Blockchain Developer</h3>
-                        <h4>Je Pun International Co., Ltd. | Taipei</h4>
-                        <p class="timeline-date">September 2025 - Present</p>
-                        <p>Providing technical guidance to team members, designing customized blockchain architectures, and conducting thorough code reviews to maintain high-quality standards.</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Blockchain</span>
-                            <span class="tech-tag">Full-Stack</span>
-                            <span class="tech-tag">Architecture</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Terminal Input Area -->
+        <div class="terminal-input-area">
+            <span class="input-prompt">
+                <span class="desktop-prompt">visitor@pengu:~$</span>
+                <span class="mobile-prompt">$</span>
+            </span>
+            <input
+                type="text"
+                class="terminal-input"
+                id="terminal-input"
+                placeholder="Type a command or click below..."
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+                aria-label="Terminal input"
+            >
         </div>
-    </section>
 
-    <!-- Education Section -->
-    <section class="experience" id="education">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Education & Learning Journey</h2>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item fade-in-left">
-                    <div class="timeline-content">
-                        <h3>Bachelor of Science in Computer Science</h3>
-                        <h4>University of Taipei | Taipei, Taiwan</h4>
-                        <p class="timeline-date">Graduated June 2025</p>
-                        <p>Focused on software development, algorithms, data structures, and blockchain technology fundamentals.</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in-right">
-                    <div class="timeline-content">
-                        <h3>Self-Learning Blockchain Development</h3>
-                        <h4>2021 - Present</h4>
-                        <p>Self-taught blockchain developer with a strong foundation in Solidity, Ethereum, and smart contract development. Active participant in blockchain communities and forums.</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in-left">
-                    <div class="timeline-content">
-                        <h3>Blockchain Development Bootcamp</h3>
-                        <h4>Online Learning Platform | Summer 2024</h4>
-                        <p>Completed intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation.</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in-right">
-                    <div class="timeline-content">
-                        <h3>XueDao-Hackathon</h3>
-                        <h4>ETH Global | Summer 2024</h4>
-                        <p>Participated in 48-hour hackathon developing a decentralized news platform. Collaborated with students from other schools.</p>
-                    </div>
-                </div>
-                <div class="timeline-item fade-in-left">
-                    <div class="timeline-content">
-                        <h3>Blockchain Study Group</h3>
-                        <h4>2025 - Present</h4>
-                        <p>A blockchain study group that hosts monthly meetups to discuss and learn about blockchain technology.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
-    <!-- Languages Section -->
-    <section class="languages" id="languages">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Languages</h2>
-            </div>
-            <div class="languages-grid">
-                <div class="language-card fade-in">
-                    <div class="language-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>English</h3>
-                    <p>Full Professional Proficiency</p>
-                    <div class="language-bar">
-                        <div class="language-progress" style="width: 90%;"></div>
-                    </div>
-                </div>
-                <div class="language-card fade-in">
-                    <div class="language-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Chinese (Mandarin)</h3>
-                    <p>Native or Bilingual Proficiency</p>
-                    <div class="language-bar">
-                        <div class="language-progress" style="width: 100%;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>Get In Touch</h2>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>Let's Connect</h3>
-                    <p>I'm eager to connect with blockchain professionals, potential employers, and fellow students. Looking for internship opportunities, mentorship, or collaboration on blockchain projects.</p>
-                    <div class="contact-links">
-                        <div class="contact-link">
-                            <i class="far fa-envelope"></i>
-                            <span>charlie011111@gmail.com</span>
-                        </div>
-                        <div class="contact-link">
-                            <i class="fab fa-telegram"></i>
-                            <span>@wen1645</span>
-                        </div>
-                        <div class="contact-link">
-                            <i class="fab fa-discord"></i>
-                            <span>guoba8343</span>
-                        </div>
-                        <div class="contact-link">
-                            <i class="fas fa-wallet"></i>
-                            <span>camelsean.eth</span>
-                        </div>
-                        <div class="contact-link">
-                            <i class="fab fa-linkedin"></i>
-                            <a href="https://www.linkedin.com/in/chi-lin-kuo-a47608209/" target="_blank">LinkedIn Profile</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">camelsean.eth</div>
-                <div class="footer-social">
-                    <a href="https://github.com/KCL1104" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/chi-lin-kuo-a47608209/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Chi Lin Kuo | Backend & Blockchain Engineer</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+        // ===========================================
+        // TERMINAL PORTFOLIO - JavaScript Implementation
+        // ===========================================
 
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        (function() {
+            'use strict';
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+            // ===========================================
+            // DATA STORE - All Portfolio Content
+            // ===========================================
+            const PORTFOLIO_DATA = {
+                name: "Kuo Chi Lin",
+                handle: "PENGU",
+                title: "Backend & Blockchain Engineer",
+                wallet: "0x5ae4...fdd2",
+
+                about: {
+                    intro: "Full-stack blockchain developer with hands-on experience in Solana and Ethereum ecosystems. Currently building workflow automation tools for Web3 at PinTool.",
+                    background: "New grad with a strong foundation in blockchain technology and Web development. Focused on smart contract development, DeFi protocols, and user-based applications.",
+                    metrics: {
+                        smartContracts: 3,
+                        courses: 1,
+                        hackathons: 6
+                    },
+                    skills: [
+                        { name: "Solidity", level: 100 },
+                        { name: "Blockchain Fundamentals", level: 100 },
+                        { name: "Web3.js / Ethers.js", level: 100 },
+                        { name: "JavaScript / React", level: 100 },
+                        { name: "Web Development", level: 100 }
+                    ]
+                },
+
+                projects: [
+                    {
+                        id: "xuedao",
+                        name: "XueDao-Hackathon",
+                        description: "A hackathon project creating a decentralized news platform that allows users to post, vote, and comment on news articles.",
+                        tech: ["Solidity", "OpenZeppelin", "IPFS"],
+                        category: ["blockchain", "ethereum"],
+                        github: "https://github.com/KCL1104/XueDao-Hackathon"
+                    },
+                    {
+                        id: "seedgrow",
+                        name: "SeedGrow",
+                        description: "A web3 crowd-funding app that allows users to create and manage campaigns, and donate to campaigns.",
+                        tech: ["Solidity", "Web3.js", "Hardhat", "React"],
+                        category: ["blockchain", "ethereum", "web"],
+                        github: "https://github.com/KCL1104/Seed-Grow"
+                    },
+                    {
+                        id: "handmatch",
+                        name: "HandMatch",
+                        description: "A decentralized rental marketplace using Solana blockchain for secure peer-to-peer item rentals with mobile-first experience.",
+                        tech: ["Rust", "Solana", "React Native", "TypeScript", "Python"],
+                        category: ["blockchain", "solana"],
+                        github: "https://github.com/KCL1104/HandMatch"
+                    },
+                    {
+                        id: "utproject",
+                        name: "UT-project",
+                        description: "A Unity game development project showcasing C# programming skills and game development fundamentals.",
+                        tech: ["C#", "Unity", "Game Development"],
+                        category: ["game"],
+                        github: "https://github.com/KCL1104/UT-project"
+                    },
+                    {
+                        id: "camelsean",
+                        name: "CamelSean",
+                        description: "A TypeScript and Python based project demonstrating full-stack development capabilities and modern web technologies.",
+                        tech: ["TypeScript", "Python", "Full-Stack"],
+                        category: ["web"],
+                        github: "https://github.com/KCL1104/camelsean"
+                    },
+                    {
+                        id: "kairoria",
+                        name: "Kairoria",
+                        description: "A Next.js project integrated with Supabase utilizing Solana as payment.",
+                        tech: ["Next.js", "Supabase", "Solana Anchor"],
+                        category: ["blockchain", "solana", "web"],
+                        github: "https://github.com/KCL1104/Kairoria"
+                    },
+                    {
+                        id: "basearcade",
+                        name: "BaseArcade",
+                        description: "A blockchain-based web game platform using React frontend, Node.js backend, and Solidity smart contracts.",
+                        tech: ["React", "Supabase", "Node.js", "Solidity"],
+                        category: ["blockchain", "ethereum", "web"],
+                        github: "https://github.com/KCL1104/BaseArcade"
+                    },
+                    {
+                        id: "prokflow",
+                        name: "Prokflow",
+                        description: "A project management system with multiple default framework templates. Built with React and Supabase.",
+                        tech: ["React", "Supabase"],
+                        category: ["web"],
+                        github: "https://github.com/KCL1104/Prokflow"
+                    },
+                    {
+                        id: "pintool",
+                        name: "Pintool",
+                        description: "A n8n-liked workflow editor that allow users to automate their web3 strategies.",
+                        tech: ["web3", "nest.js", "react.js"],
+                        category: ["web3", "blockchain"],
+                        github: "https://github.com/pintoolx"
+                    }
+                ],
+
+                experience: [
+                    {
+                        title: "Backend / Blockchain Engineer",
+                        company: "PinTool",
+                        location: "Taipei",
+                        date: "October 2025 - Present",
+                        description: "Founding engineer at a startup building an n8n-like workflow editor for Solana users. Responsible for designing and implementing backend systems with seamless blockchain integration.",
+                        tech: ["Solana", "Node.js", "Backend"]
+                    },
+                    {
+                        title: "Full-stack / Blockchain Developer",
+                        company: "Je Pun International Co., Ltd.",
+                        location: "Taipei",
+                        date: "September 2025 - Present",
+                        description: "Providing technical guidance to team members, designing customized blockchain architectures, and conducting thorough code reviews.",
+                        tech: ["Blockchain", "Full-Stack", "Architecture"]
+                    }
+                ],
+
+                education: [
+                    {
+                        title: "Bachelor of Science in Computer Science",
+                        institution: "University of Taipei",
+                        location: "Taipei, Taiwan",
+                        date: "Graduated June 2025",
+                        description: "Focused on software development, algorithms, data structures, and blockchain technology fundamentals."
+                    },
+                    {
+                        title: "Self-Learning Blockchain Development",
+                        institution: "Independent Study",
+                        date: "2021 - Present",
+                        description: "Self-taught blockchain developer with strong foundation in Solidity, Ethereum, and smart contract development."
+                    },
+                    {
+                        title: "Blockchain Development Bootcamp",
+                        institution: "Online Learning Platform",
+                        date: "Summer 2024",
+                        description: "Completed intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation."
+                    },
+                    {
+                        title: "XueDao-Hackathon",
+                        institution: "ETH Global",
+                        date: "Summer 2024",
+                        description: "Participated in 48-hour hackathon developing a decentralized news platform."
+                    },
+                    {
+                        title: "Blockchain Study Group",
+                        institution: "Community",
+                        date: "2025 - Present",
+                        description: "A blockchain study group that hosts monthly meetups to discuss and learn about blockchain technology."
+                    }
+                ],
+
+                languages: [
+                    { name: "English", proficiency: "Full Professional Proficiency", level: 90 },
+                    { name: "Chinese (Mandarin)", proficiency: "Native or Bilingual Proficiency", level: 100 }
+                ],
+
+                contact: {
+                    email: "charlie011111@gmail.com",
+                    telegram: "@wen1645",
+                    discord: "guoba8343",
+                    ens: "camelsean.eth",
+                    linkedin: "https://www.linkedin.com/in/chi-lin-kuo-a47608209/",
+                    github: "https://github.com/KCL1104"
                 }
-            });
-        }, observerOptions);
+            };
 
-        // Observe all elements with animation classes
-        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
-            observer.observe(el);
-        });
+            // ===========================================
+            // ASCII ART BANNER
+            // ===========================================
+            const ASCII_BANNER = `
+██████╗ ███████╗███╗   ██╗ ██████╗ ██╗   ██╗
+██╔══██╗██╔════╝████╗  ██║██╔════╝ ██║   ██║
+██████╔╝█████╗  ██╔██╗ ██║██║  ███╗██║   ██║
+██╔═══╝ ██╔══╝  ██║╚██╗██║██║   ██║██║   ██║
+██║     ███████╗██║ ╚████║╚██████╔╝╚██████╔╝
+╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝`;
 
-        // Project filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
+            // ===========================================
+            // COMMAND DEFINITIONS
+            // ===========================================
+            const COMMANDS = {
+                help: {
+                    description: "Show available commands",
+                    execute: showHelp
+                },
+                about: {
+                    description: "Learn about me",
+                    execute: showAbout
+                },
+                skills: {
+                    description: "View my technical skills",
+                    execute: showSkills
+                },
+                projects: {
+                    description: "List all projects",
+                    execute: showProjects
+                },
+                experience: {
+                    description: "View work experience",
+                    execute: showExperience
+                },
+                education: {
+                    description: "View education history",
+                    execute: showEducation
+                },
+                languages: {
+                    description: "View language proficiencies",
+                    execute: showLanguages
+                },
+                contact: {
+                    description: "Get contact information",
+                    execute: showContact
+                },
+                clear: {
+                    description: "Clear the terminal",
+                    execute: clearTerminal
+                },
+                whoami: {
+                    description: "Display current user",
+                    execute: whoami
+                },
+                date: {
+                    description: "Show current date/time",
+                    execute: showDate
+                },
+                cat: {
+                    description: "View project details (usage: cat <project-id>)",
+                    execute: catProject
+                },
+                ls: {
+                    description: "List available sections",
+                    execute: listSections
+                },
+                social: {
+                    description: "View social links",
+                    execute: showSocial
+                },
+                // Easter eggs
+                sudo: {
+                    description: "Hidden command",
+                    hidden: true,
+                    execute: sudoCommand
+                },
+                hack: {
+                    description: "Hidden command",
+                    hidden: true,
+                    execute: hackCommand
+                },
+                matrix: {
+                    description: "Hidden command",
+                    hidden: true,
+                    execute: matrixCommand
+                },
+                cowsay: {
+                    description: "Hidden command",
+                    hidden: true,
+                    execute: cowsayCommand
+                },
+                neofetch: {
+                    description: "Hidden command",
+                    hidden: true,
+                    execute: neofetchCommand
+                }
+            };
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+            // ===========================================
+            // TERMINAL STATE
+            // ===========================================
+            let commandHistory = [];
+            let historyIndex = -1;
+            let outputEl, inputEl;
 
-                const filter = button.dataset.filter;
+            // ===========================================
+            // INITIALIZATION
+            // ===========================================
+            function init() {
+                outputEl = document.getElementById('terminal-output');
+                inputEl = document.getElementById('terminal-input');
 
-                projectCards.forEach(card => {
-                    if (filter === 'all') {
-                        card.classList.remove('hidden');
-                    } else {
-                        const categories = card.dataset.category.split(' ');
-                        if (categories.includes(filter)) {
-                            card.classList.remove('hidden');
-                        } else {
-                            card.classList.add('hidden');
-                        }
+                // Show welcome message
+                showWelcome();
+
+                // Event listeners
+                inputEl.addEventListener('keydown', handleKeydown);
+                inputEl.addEventListener('input', handleInput);
+
+                // Focus input on click anywhere
+                document.querySelector('.terminal-window').addEventListener('click', (e) => {
+                    if (!e.target.closest('a') && !e.target.closest('.hint-btn')) {
+                        inputEl.focus();
                     }
                 });
-            });
-        });
+
+                // Initial focus
+                inputEl.focus();
+            }
+
+            // ===========================================
+            // EVENT HANDLERS
+            // ===========================================
+            function handleKeydown(e) {
+                switch(e.key) {
+                    case 'Enter':
+                        e.preventDefault();
+                        executeCommand(inputEl.value.trim());
+                        inputEl.value = '';
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        navigateHistory(-1);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        navigateHistory(1);
+                        break;
+                    case 'Tab':
+                        e.preventDefault();
+                        autocomplete();
+                        break;
+                    case 'l':
+                        if (e.ctrlKey) {
+                            e.preventDefault();
+                            clearTerminal();
+                        }
+                        break;
+                }
+            }
+
+            function handleInput() {
+                historyIndex = -1;
+            }
+
+            function navigateHistory(direction) {
+                if (commandHistory.length === 0) return;
+
+                historyIndex += direction;
+
+                if (historyIndex < 0) {
+                    historyIndex = -1;
+                    inputEl.value = '';
+                    return;
+                }
+
+                if (historyIndex >= commandHistory.length) {
+                    historyIndex = commandHistory.length - 1;
+                }
+
+                inputEl.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                // Move cursor to end
+                setTimeout(() => {
+                    inputEl.selectionStart = inputEl.selectionEnd = inputEl.value.length;
+                }, 0);
+            }
+
+            function autocomplete() {
+                const input = inputEl.value.toLowerCase();
+                if (!input) return;
+
+                const matches = Object.keys(COMMANDS)
+                    .filter(cmd => !COMMANDS[cmd].hidden && cmd.startsWith(input));
+
+                if (matches.length === 1) {
+                    inputEl.value = matches[0];
+                } else if (matches.length > 1) {
+                    printOutput(`\nPossible commands: ${matches.join(', ')}`);
+                    printPrompt();
+                }
+            }
+
+            // ===========================================
+            // COMMAND EXECUTION
+            // ===========================================
+            function executeCommand(input) {
+                if (!input) return;
+
+                // Add to history
+                commandHistory.push(input);
+                historyIndex = -1;
+
+                // Echo the command
+                printOutput(`<span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">${escapeHtml(input)}</span>`);
+
+                // Parse command
+                const parts = input.split(' ');
+                const cmd = parts[0].toLowerCase();
+                const args = parts.slice(1);
+
+                if (COMMANDS[cmd]) {
+                    COMMANDS[cmd].execute(args);
+                } else {
+                    printOutput(`<span class="output-error">Command not found: ${escapeHtml(cmd)}</span>`);
+                    printOutput('Type <span class="output-command">help</span> for available commands.');
+                }
+
+                scrollToBottom();
+            }
+
+            // ===========================================
+            // OUTPUT HELPERS
+            // ===========================================
+            function printOutput(html, className = '') {
+                const line = document.createElement('div');
+                line.className = `output-line ${className}`;
+                line.innerHTML = html;
+                outputEl.appendChild(line);
+            }
+
+            function printPrompt() {
+                // Visual line break after command output
+                printOutput('');
+            }
+
+            function scrollToBottom() {
+                outputEl.scrollTop = outputEl.scrollHeight;
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            function generateSkillBar(level, width = 20) {
+                const filled = Math.round((level / 100) * width);
+                const empty = width - filled;
+                return `<span class="skill-fill">${'█'.repeat(filled)}</span><span class="skill-bar">${'░'.repeat(empty)}</span>`;
+            }
+
+            // ===========================================
+            // COMMAND IMPLEMENTATIONS
+            // ===========================================
+            function showWelcome() {
+                printOutput(`<pre class="ascii-art">${ASCII_BANNER}</pre>`);
+                printOutput('');
+                printOutput(`Welcome to <span class="output-info">${PORTFOLIO_DATA.handle}</span>'s terminal portfolio!`);
+                printOutput(`<span class="output-prompt">${PORTFOLIO_DATA.title}</span>`);
+                printOutput('');
+                printOutput('Type <span class="output-command">help</span> to see available commands, or click below:');
+                printOutput('');
+
+                // Add clickable command hints
+                printOutput(generateCommandHints());
+                printOutput('');
+            }
+
+            function generateCommandHints() {
+                const mainCommands = ['about', 'projects', 'experience', 'contact'];
+                const buttons = mainCommands.map(cmd =>
+                    `<button class="hint-btn" onclick="runCommand('${cmd}')">${cmd}</button>`
+                ).join('');
+                return `<div class="command-hints">${buttons}</div>`;
+            }
+
+            function showHelp() {
+                printOutput('');
+                printOutput('<span class="output-info">Available Commands:</span>');
+                printOutput('');
+
+                Object.entries(COMMANDS).forEach(([name, cmd]) => {
+                    if (!cmd.hidden) {
+                        printOutput(`  <span class="output-command">${name.padEnd(12)}</span> ${cmd.description}`);
+                    }
+                });
+
+                printOutput('');
+                printOutput('<span class="output-prompt">Tip: Use Tab for autocomplete, Up/Down for history</span>');
+                printPrompt();
+            }
+
+            function showAbout() {
+                const { about, name, title, wallet } = PORTFOLIO_DATA;
+
+                printOutput('');
+                printOutput(`<span class="output-info">// About ${name}</span>`);
+                printOutput('');
+                printOutput(`<img src="kcl.jpg" alt="${name}" class="profile-photo">`);
+                printOutput('');
+                printOutput(`<span class="output-command">Name:</span>     ${name}`);
+                printOutput(`<span class="output-command">Handle:</span>   ${PORTFOLIO_DATA.handle}`);
+                printOutput(`<span class="output-command">Title:</span>    ${title}`);
+                printOutput(`<span class="output-command">Wallet:</span>   ${wallet}`);
+                printOutput('');
+                printOutput(about.intro);
+                printOutput('');
+                printOutput(about.background);
+                printOutput('');
+                printOutput('<span class="output-info">// Metrics</span>');
+                printOutput(`  Smart Contracts: ${about.metrics.smartContracts}`);
+                printOutput(`  Courses:         ${about.metrics.courses}`);
+                printOutput(`  Hackathons:      ${about.metrics.hackathons}`);
+                printOutput('');
+                printOutput('Run <span class="output-command">skills</span> to see technical skills.');
+                printPrompt();
+            }
+
+            function showSkills() {
+                printOutput('');
+                printOutput('<span class="output-info">// Technical Skills</span>');
+                printOutput('');
+
+                PORTFOLIO_DATA.about.skills.forEach(skill => {
+                    const bar = generateSkillBar(skill.level);
+                    printOutput(`  ${skill.name.padEnd(25)} ${bar}`);
+                });
+
+                printPrompt();
+            }
+
+            function showProjects() {
+                printOutput('');
+                printOutput('<span class="output-info">// Featured Projects</span>');
+                printOutput('');
+                printOutput('Use <span class="output-command">cat &lt;project-id&gt;</span> to view project details.');
+                printOutput('');
+
+                PORTFOLIO_DATA.projects.forEach((project, index) => {
+                    printOutput(`  <span class="project-name" onclick="runCommand('cat ${project.id}')">[${index + 1}] ${project.name}</span>`);
+                    printOutput(`      <span class="project-tech-tags">${project.tech.join(' | ')}</span>`);
+                });
+
+                printPrompt();
+            }
+
+            function catProject(args) {
+                const projectId = args[0]?.toLowerCase();
+
+                if (!projectId) {
+                    printOutput('<span class="output-error">Usage: cat &lt;project-id&gt;</span>');
+                    printOutput('');
+                    printOutput('Available projects:');
+                    PORTFOLIO_DATA.projects.forEach(p => {
+                        printOutput(`  - ${p.id}`);
+                    });
+                    return;
+                }
+
+                const project = PORTFOLIO_DATA.projects.find(p =>
+                    p.id === projectId || p.name.toLowerCase().includes(projectId)
+                );
+
+                if (!project) {
+                    printOutput(`<span class="output-error">Project not found: ${escapeHtml(projectId)}</span>`);
+                    return;
+                }
+
+                printOutput('');
+                printOutput(`<span class="output-info">// ${project.name}</span>`);
+                printOutput('');
+                printOutput(project.description);
+                printOutput('');
+                printOutput(`<span class="output-command">Technologies:</span> ${project.tech.join(', ')}`);
+                printOutput(`<span class="output-command">Categories:</span>   ${project.category.join(', ')}`);
+                printOutput(`<span class="output-command">GitHub:</span>       <a href="${project.github}" target="_blank" class="output-link">${project.github}</a>`);
+                printPrompt();
+            }
+
+            function showExperience() {
+                printOutput('');
+                printOutput('<span class="output-info">// Work Experience</span>');
+                printOutput('');
+
+                PORTFOLIO_DATA.experience.forEach(exp => {
+                    printOutput(`<div class="timeline-entry">`);
+                    printOutput(`  <span class="timeline-title">${exp.title}</span>`);
+                    printOutput(`  <span class="timeline-company">${exp.company}</span> | ${exp.location}`);
+                    printOutput(`  <span class="timeline-date">${exp.date}</span>`);
+                    printOutput(`  ${exp.description}`);
+                    printOutput(`  <span class="project-tech-tags">${exp.tech.join(' | ')}</span>`);
+                    printOutput(`</div>`);
+                });
+
+                printPrompt();
+            }
+
+            function showEducation() {
+                printOutput('');
+                printOutput('<span class="output-info">// Education & Learning Journey</span>');
+                printOutput('');
+
+                PORTFOLIO_DATA.education.forEach(edu => {
+                    printOutput(`<div class="timeline-entry">`);
+                    printOutput(`  <span class="timeline-title">${edu.title}</span>`);
+                    printOutput(`  <span class="timeline-company">${edu.institution}</span>${edu.location ? ` | ${edu.location}` : ''}`);
+                    printOutput(`  <span class="timeline-date">${edu.date}</span>`);
+                    printOutput(`  ${edu.description}`);
+                    printOutput(`</div>`);
+                });
+
+                printPrompt();
+            }
+
+            function showLanguages() {
+                printOutput('');
+                printOutput('<span class="output-info">// Languages</span>');
+                printOutput('');
+
+                PORTFOLIO_DATA.languages.forEach(lang => {
+                    const bar = generateSkillBar(lang.level);
+                    printOutput(`  <span class="output-command">${lang.name.padEnd(20)}</span> ${bar}`);
+                    printOutput(`  ${' '.repeat(20)} ${lang.proficiency}`);
+                    printOutput('');
+                });
+
+                printPrompt();
+            }
+
+            function showContact() {
+                const { contact } = PORTFOLIO_DATA;
+
+                printOutput('');
+                printOutput('<span class="output-info">// Contact Information</span>');
+                printOutput('');
+                printOutput(`  <span class="output-command">Email:</span>    <a href="mailto:${contact.email}" class="output-link">${contact.email}</a>`);
+                printOutput(`  <span class="output-command">Telegram:</span> ${contact.telegram}`);
+                printOutput(`  <span class="output-command">Discord:</span>  ${contact.discord}`);
+                printOutput(`  <span class="output-command">ENS:</span>      ${contact.ens}`);
+                printOutput(`  <span class="output-command">LinkedIn:</span> <a href="${contact.linkedin}" target="_blank" class="output-link">${contact.linkedin}</a>`);
+                printOutput(`  <span class="output-command">GitHub:</span>   <a href="${contact.github}" target="_blank" class="output-link">${contact.github}</a>`);
+                printOutput('');
+                printOutput('I am eager to connect with blockchain professionals, potential employers,');
+                printOutput('and fellow developers. Looking for collaboration on blockchain projects!');
+                printPrompt();
+            }
+
+            function showSocial() {
+                const { contact } = PORTFOLIO_DATA;
+
+                printOutput('');
+                printOutput('<span class="output-info">// Social Links</span>');
+                printOutput('');
+                printOutput(`  [GitHub]   <a href="${contact.github}" target="_blank" class="output-link">${contact.github}</a>`);
+                printOutput(`  [LinkedIn] <a href="${contact.linkedin}" target="_blank" class="output-link">${contact.linkedin}</a>`);
+                printOutput(`  [Email]    <a href="mailto:${contact.email}" class="output-link">${contact.email}</a>`);
+                printPrompt();
+            }
+
+            function clearTerminal() {
+                outputEl.innerHTML = '';
+                showWelcome();
+            }
+
+            function whoami() {
+                printOutput('');
+                printOutput('visitor');
+                printPrompt();
+            }
+
+            function showDate() {
+                printOutput('');
+                printOutput(new Date().toString());
+                printPrompt();
+            }
+
+            function listSections() {
+                printOutput('');
+                printOutput('about/     projects/     experience/');
+                printOutput('education/ languages/    contact/');
+                printOutput('skills/    social/');
+                printPrompt();
+            }
+
+            // ===========================================
+            // EASTER EGGS
+            // ===========================================
+            function sudoCommand(args) {
+                printOutput('');
+                printOutput('<span class="output-error">[sudo] password for visitor: </span>');
+                printOutput('<span class="output-error">Sorry, visitor is not in the sudoers file. This incident will be reported.</span>');
+                printPrompt();
+            }
+
+            function hackCommand() {
+                printOutput('');
+                printOutput('<span class="output-success">Initiating hack sequence...</span>');
+                printOutput('<span class="output-error">Just kidding! I am a friendly portfolio, not a hacker tool.</span>');
+                printOutput('<span class="output-info">But if you want to see real blockchain magic, check out my projects!</span>');
+                printPrompt();
+            }
+
+            function matrixCommand() {
+                printOutput('');
+                printOutput('<span class="output-success">Wake up, Neo...</span>');
+                printOutput('<span class="output-success">The Matrix has you...</span>');
+                printOutput('<span class="output-success">Follow the white rabbit.</span>');
+                printOutput('');
+                printOutput('(Try the <span class="output-command">projects</span> command instead)');
+                printPrompt();
+            }
+
+            function cowsayCommand(args) {
+                const message = args.join(' ') || 'Moo! Check out my projects!';
+                const border = '_'.repeat(message.length + 2);
+
+                printOutput('');
+                printOutput(`  ${border}`);
+                printOutput(`< ${message} >`);
+                printOutput(`  ${'-'.repeat(message.length + 2)}`);
+                printOutput('        \\   ^__^');
+                printOutput('         \\  (oo)\\_______');
+                printOutput('            (__)\\       )\\/\\');
+                printOutput('                ||----w |');
+                printOutput('                ||     ||');
+                printPrompt();
+            }
+
+            function neofetchCommand() {
+                printOutput('');
+                printOutput(`<pre class="ascii-art" style="color: var(--terminal-cyan);">
+       .--.        <span style="color: var(--terminal-text)">visitor@pengu</span>
+      |o_o |       <span style="color: var(--terminal-text)">--------------</span>
+      |:_/ |       <span style="color: var(--terminal-text)">OS: Portfolio Terminal</span>
+     //   \\ \\      <span style="color: var(--terminal-text)">Host: ${PORTFOLIO_DATA.name}</span>
+    (|     | )     <span style="color: var(--terminal-text)">Role: ${PORTFOLIO_DATA.title}</span>
+   /'\\_   _/\`\\     <span style="color: var(--terminal-text)">Projects: ${PORTFOLIO_DATA.projects.length}</span>
+   \\___)=(___/     <span style="color: var(--terminal-text)">Skills: ${PORTFOLIO_DATA.about.skills.length}</span>
+</pre>`);
+                printPrompt();
+            }
+
+            // ===========================================
+            // GLOBAL FUNCTION FOR CLICKABLE COMMANDS
+            // ===========================================
+            window.runCommand = function(cmd) {
+                inputEl.value = cmd;
+                executeCommand(cmd);
+                inputEl.value = '';
+                inputEl.focus();
+            };
+
+            // ===========================================
+            // START APPLICATION
+            // ===========================================
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
     </script>
 </body>
 </html>
