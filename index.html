@@ -1180,15 +1180,17 @@
                 const message = args.join(' ') || 'Moo! Check out my projects!';
                 const border = '_'.repeat(message.length + 2);
 
+                const cow = `  ${border}
+< ${message} >
+  ${'-'.repeat(message.length + 2)}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`;
+
                 printOutput('');
-                printOutput(`  ${border}`);
-                printOutput(`< ${message} >`);
-                printOutput(`  ${'-'.repeat(message.length + 2)}`);
-                printOutput('        \\   ^__^');
-                printOutput('         \\  (oo)\\_______');
-                printOutput('            (__)\\       )\\/\\');
-                printOutput('                ||----w |');
-                printOutput('                ||     ||');
+                printOutput(`<pre style="margin: 0; font-family: inherit;">${cow}</pre>`);
                 printPrompt();
             }
 
