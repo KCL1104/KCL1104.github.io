@@ -657,6 +657,150 @@
             font-size: 0.9rem;
         }
 
+        /* Work Experience Section */
+        .work-experience {
+            padding: 100px 0;
+            background-color: #f9f9f9;
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content .project-tech {
+            margin-top: 15px;
+        }
+
+        /* Languages Section */
+        .languages {
+            padding: 100px 0;
+        }
+
+        .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .language-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .language-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .language-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .language-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .language-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .language-bar {
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .language-progress {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+        }
+
+        /* Scroll Animation Styles */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Project Filter Styles */
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gradient);
+            color: white;
+            border-color: transparent;
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero {
@@ -726,14 +870,15 @@
                 <div class="nav-links">
                     <a href="#about">About</a>
                     <a href="#projects">Projects</a>
-                    <a href="#experience">Experience</a>
+                    <a href="#work-experience">Experience</a>
+                    <a href="#education">Education</a>
                     <a href="#contact">Contact</a>
                 </div>
             </nav>
             <div class="hero">
                 <div class="hero-content">
-                    <h1>Blockchain and Web Developer</h1>
-                    <p>Fresh graduate passionate about blockchain technology and Web development, eager to contribute to Web3 innovation.</p>
+                    <h1>Backend & Blockchain Engineer</h1>
+                    <p>Full-stack blockchain developer with hands-on experience in Solana and Ethereum ecosystems. Currently building workflow automation tools for Web3 at PinTool. Passionate about creating decentralized solutions.</p>
                     <a href="#projects" class="btn">View Projects</a>
                     <a href="#contact" class="btn btn-secondary">Get In Touch</a>
                     <div class="blockchain-address">
@@ -748,7 +893,7 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>About Me</h2>
             </div>
             <div class="about-content">
@@ -825,11 +970,19 @@
     <!-- Projects Section -->
     <section class="projects" id="projects">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>Featured Projects</h2>
             </div>
+            <div class="project-filters fade-in">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="blockchain">Blockchain</button>
+                <button class="filter-btn" data-filter="solana">Solana</button>
+                <button class="filter-btn" data-filter="ethereum">Ethereum</button>
+                <button class="filter-btn" data-filter="web">Web</button>
+                <button class="filter-btn" data-filter="game">Game Dev</button>
+            </div>
             <div class="project-grid">
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="blockchain ethereum">
                     <div class="project-content">
                         <h3>XueDao-Hackathon</h3>
                         <p>A hackathon project creating a decentralized news platform that allow users to post, vote, and comment on news articles.</p>
@@ -843,7 +996,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="blockchain ethereum web">
                     <div class="project-content">
                         <h3>SeedGrow</h3>
                         <p>A web3 crowd-funding app that allows users to create and manage campaigns, and donate to campaigns.</p>
@@ -858,7 +1011,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="blockchain solana">
                     <div class="project-content">
                         <h3>HandMatch</h3>
                         <p>A decentralized rental marketplace using Solana blockchain for secure peer-to-peer item rentals with mobile-first experience.</p>
@@ -874,7 +1027,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="game">
                     <div class="project-content">
                         <h3>UT-project</h3>
                         <p>A Unity game development project showcasing C# programming skills and game development fundamentals.</p>
@@ -888,7 +1041,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="web">
                     <div class="project-content">
                         <h3>CamelSean</h3>
                         <p>A TypeScript and Python based project demonstrating full-stack development capabilities and modern web technologies.</p>
@@ -902,7 +1055,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="blockchain solana web">
                     <div class="project-content">
                         <h3>Kairoria</h3>
                         <p>A Next.js project integrate with supabase and utilize solana as payment.</p>
@@ -916,7 +1069,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="blockchain ethereum web">
                     <div class="project-content">
                         <h3>BaseArcade</h3>
                         <p>A blockchain base web game platform, use react as frontend and node.js as backend and solidity as smart contract.</p>
@@ -931,7 +1084,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
+                <div class="project-card fade-in" data-category="web">
                     <div class="project-content">
                         <h3>Prokflow</h3>
                         <p>A project management system that have many project management framework in default for choose. Use react as frontend and supabase as backend service.</p>
@@ -948,39 +1101,115 @@
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section class="experience" id="experience">
+    <!-- Work Experience Section -->
+    <section class="work-experience" id="work-experience">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
+                <h2>Work Experience</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item fade-in-left">
+                    <div class="timeline-content">
+                        <h3>Backend / Blockchain Engineer</h3>
+                        <h4>PinTool | Taipei</h4>
+                        <p class="timeline-date">October 2025 - Present</p>
+                        <p>Founding engineer at a startup building an n8n-like workflow editor for Solana users. Responsible for designing and implementing backend systems with seamless blockchain integration.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Solana</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Backend</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in-right">
+                    <div class="timeline-content">
+                        <h3>Full-stack / Blockchain Developer</h3>
+                        <h4>Je Pun International Co., Ltd. | Taipei</h4>
+                        <p class="timeline-date">September 2025 - Present</p>
+                        <p>Providing technical guidance to team members, designing customized blockchain architectures, and conducting thorough code reviews to maintain high-quality standards.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Blockchain</span>
+                            <span class="tech-tag">Full-Stack</span>
+                            <span class="tech-tag">Architecture</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="experience" id="education">
+        <div class="container">
+            <div class="section-title fade-in">
                 <h2>Education & Learning Journey</h2>
             </div>
             <div class="timeline">
-                <div class="timeline-item">
+                <div class="timeline-item fade-in-left">
                     <div class="timeline-content">
-                        <h3>Self-Learning Blockchain Stuff</h3>
+                        <h3>Bachelor of Science in Computer Science</h3>
+                        <h4>University of Taipei | Taipei, Taiwan</h4>
+                        <p class="timeline-date">Graduated June 2025</p>
+                        <p>Focused on software development, algorithms, data structures, and blockchain technology fundamentals.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in-right">
+                    <div class="timeline-content">
+                        <h3>Self-Learning Blockchain Development</h3>
                         <h4>2021 - Present</h4>
                         <p>Self-taught blockchain developer with a strong foundation in Solidity, Ethereum, and smart contract development. Active participant in blockchain communities and forums.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item fade-in-left">
                     <div class="timeline-content">
                         <h3>Blockchain Development Bootcamp</h3>
                         <h4>Online Learning Platform | Summer 2024</h4>
                         <p>Completed intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item fade-in-right">
                     <div class="timeline-content">
                         <h3>XueDao-Hackathon</h3>
                         <h4>ETH Global | Summer 2024</h4>
                         <p>Participated in 48-hour hackathon developing a decentralized news platform. Collaborated with students from other schools.</p>
                     </div>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item fade-in-left">
                     <div class="timeline-content">
-                        <h3>Blockchain study group</h3>
+                        <h3>Blockchain Study Group</h3>
                         <h4>2025 - Present</h4>
-                        <p>A blockchain study group that host monthly meetups to discuss and learn about blockchain technology.</p>
+                        <p>A blockchain study group that hosts monthly meetups to discuss and learn about blockchain technology.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Languages Section -->
+    <section class="languages" id="languages">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Languages</h2>
+            </div>
+            <div class="languages-grid">
+                <div class="language-card fade-in">
+                    <div class="language-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>English</h3>
+                    <p>Full Professional Proficiency</p>
+                    <div class="language-bar">
+                        <div class="language-progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="language-card fade-in">
+                    <div class="language-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Chinese (Mandarin)</h3>
+                    <p>Native or Bilingual Proficiency</p>
+                    <div class="language-bar">
+                        <div class="language-progress" style="width: 100%;"></div>
                     </div>
                 </div>
             </div>
@@ -990,7 +1219,7 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title fade-in">
                 <h2>Get In Touch</h2>
             </div>
             <div class="contact-grid">
@@ -1014,6 +1243,10 @@
                             <i class="fas fa-wallet"></i>
                             <span>camelsean.eth</span>
                         </div>
+                        <div class="contact-link">
+                            <i class="fab fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/chi-lin-kuo-a47608209/" target="_blank">LinkedIn Profile</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1026,11 +1259,12 @@
             <div class="footer-content">
                 <div class="footer-logo">camelsean.eth</div>
                 <div class="footer-social">
-                    <a href="https://github.com/KCL1104"><i class="fab fa-github"></i></a>
+                    <a href="https://github.com/KCL1104" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/chi-lin-kuo-a47608209/" target="_blank"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Chi Lin Kuo | Blockchain Developer</p>
+                <p>&copy; 2025 Chi Lin Kuo | Backend & Blockchain Engineer</p>
             </div>
         </div>
     </footer>
@@ -1041,13 +1275,58 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
             });
         });
-        
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Project filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.dataset.filter;
+
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.classList.remove('hidden');
+                    } else {
+                        const categories = card.dataset.category.split(' ');
+                        if (categories.includes(filter)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
