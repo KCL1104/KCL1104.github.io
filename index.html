@@ -524,14 +524,6 @@
                         github: "https://github.com/KCL1104/Seed-Grow"
                     },
                     {
-                        id: "handmatch",
-                        name: "HandMatch",
-                        description: "A decentralized rental marketplace using Solana blockchain for secure peer-to-peer item rentals with mobile-first experience.",
-                        tech: ["Rust", "Solana", "React Native", "TypeScript", "Python"],
-                        category: ["blockchain", "solana"],
-                        github: "https://github.com/KCL1104/HandMatch"
-                    },
-                    {
                         id: "utproject",
                         name: "UT-project",
                         description: "A Unity game development project showcasing C# programming skills and game development fundamentals.",
@@ -556,28 +548,28 @@
                         github: "https://github.com/KCL1104/Kairoria"
                     },
                     {
-                        id: "basearcade",
-                        name: "BaseArcade",
-                        description: "A blockchain-based web game platform using React frontend, Node.js backend, and Solidity smart contracts.",
-                        tech: ["React", "Supabase", "Node.js", "Solidity"],
-                        category: ["blockchain", "ethereum", "web"],
-                        github: "https://github.com/KCL1104/BaseArcade"
-                    },
-                    {
-                        id: "prokflow",
-                        name: "Prokflow",
-                        description: "A project management system with multiple default framework templates. Built with React and Supabase.",
-                        tech: ["React", "Supabase"],
-                        category: ["web"],
-                        github: "https://github.com/KCL1104/Prokflow"
-                    },
-                    {
                         id: "pintool",
                         name: "Pintool",
                         description: "A n8n-liked workflow editor that allow users to automate their web3 strategies.",
                         tech: ["web3", "nest.js", "react.js"],
                         category: ["web3", "blockchain"],
                         github: "https://github.com/pintoolx"
+                    },
+                    {
+                        id: "deepflow",
+                        name: "DeepFlow",
+                        description: "A to-do list project with ai agent integration.",
+                        tech: ["langchain", "fastapi", "next.js", "opik"],
+                        category: ["web", "ai"],
+                        github: "https://github.com/KCL1104/DeepFlow"
+                    },
+                    {
+                        id: "solprivacy",
+                        name: "SolPrivacy",
+                        description: "A cli tool for solana privacy related developer to increase their dx.",
+                        tech: ["Rust", "Light Protocol", "Clap"],
+                        category: ["blockchain", "solana", "cli"],
+                        github: "https://github.com/KCL1104/SolPrivacy"
                     }
                 ],
 
@@ -723,6 +715,10 @@
                 social: {
                     description: "View social links",
                     execute: showSocial
+                },
+                resume: {
+                    description: "Open resume PDF",
+                    execute: showResume
                 },
                 // Easter eggs
                 sudo: {
@@ -933,7 +929,7 @@
             }
 
             function generateCommandHints() {
-                const mainCommands = ['about', 'projects', 'experience', 'contact'];
+                const mainCommands = ['about', 'projects', 'experience', 'contact', 'resume'];
                 const buttons = mainCommands.map(cmd =>
                     `<button class="hint-btn" onclick="runCommand('${cmd}')">${cmd}</button>`
                 ).join('');
@@ -1123,6 +1119,30 @@
                 printPrompt();
             }
 
+            function showResume() {
+                const resumeUrl = 'resume.pdf';
+
+                printOutput('');
+                printOutput('<span class="output-info">// Resume</span>');
+
+                fetch(resumeUrl, { method: 'HEAD' })
+                    .then(response => {
+                        if (response.ok) {
+                            printOutput(`Opening <a href="${resumeUrl}" target="_blank" class="output-link">${resumeUrl}</a>`);
+                            window.open(resumeUrl, '_blank');
+                        } else {
+                            printOutput('<span class="output-error">Resume PDF not found.</span>');
+                            printOutput(`Place the file at <span class="output-command">${resumeUrl}</span>.`);
+                        }
+                        printPrompt();
+                    })
+                    .catch(() => {
+                        printOutput('<span class="output-error">Unable to load resume right now.</span>');
+                        printOutput(`Expected file: <span class="output-command">${resumeUrl}</span>`);
+                        printPrompt();
+                    });
+            }
+
             function clearTerminal() {
                 outputEl.innerHTML = '';
                 showWelcome();
@@ -1144,7 +1164,7 @@
                 printOutput('');
                 printOutput('about/     projects/     experience/');
                 printOutput('education/ languages/    contact/');
-                printOutput('skills/    social/');
+                printOutput('skills/    social/       resume/');
                 printPrompt();
             }
 
