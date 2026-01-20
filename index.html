@@ -491,18 +491,12 @@
 
                 about: {
                     intro: "Full-stack blockchain developer with hands-on experience in Solana and Ethereum ecosystems. Currently building workflow automation tools for Web3 at PinTool.",
-                    background: "New grad with a strong foundation in blockchain technology and Web development. Focused on smart contract development, DeFi protocols, and user-based applications.",
-                    metrics: {
-                        smartContracts: 3,
-                        courses: 1,
-                        hackathons: 6
-                    },
-                    skills: [
-                        { name: "Solidity", level: 100 },
-                        { name: "Blockchain Fundamentals", level: 100 },
-                        { name: "Web3.js / Ethers.js", level: 100 },
-                        { name: "JavaScript / React", level: 100 },
-                        { name: "Web Development", level: 100 }
+                    background: "Have strong foundation in blockchain technology and Web development. Focused on smart contract development, DeFi protocols, and full-stack applications.",
+                    hackathonAwards: [
+                        "XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA",
+                        "Solana Cypherpunk: Won 2nd place on side track from Sanctum",
+                        "Encode Solan Winter Build Challenge 2025: Won first place on Best Consumer App on Solana track",
+                        "AI FinTech Innovation & Creativity Competition: Social Group 3rd Place"
                     ]
                 },
 
@@ -551,7 +545,7 @@
                         id: "pintool",
                         name: "Pintool",
                         description: "A n8n-liked workflow editor that allow users to automate their web3 strategies.",
-                        tech: ["web3", "nest.js", "react.js"],
+                        tech: ["web3", "nest.js", "react.js", "Supabase", "Solana"],
                         category: ["web3", "blockchain"],
                         github: "https://github.com/pintoolx"
                     },
@@ -559,7 +553,7 @@
                         id: "deepflow",
                         name: "DeepFlow",
                         description: "A to-do list project with ai agent integration.",
-                        tech: ["langchain", "fastapi", "next.js", "opik"],
+                        tech: ["langchain", "fastapi", "next.js", "opik", "postgresql"],
                         category: ["web", "ai"],
                         github: "https://github.com/KCL1104/DeepFlow"
                     },
@@ -611,12 +605,6 @@
                         institution: "Online Learning Platform",
                         date: "Summer 2024",
                         description: "Completed intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation."
-                    },
-                    {
-                        title: "XueDao-Hackathon",
-                        institution: "ETH Global",
-                        date: "Summer 2024",
-                        description: "Participated in 48-hour hackathon developing a decentralized news platform."
                     },
                     {
                         title: "Blockchain Study Group",
@@ -929,7 +917,7 @@
             }
 
             function generateCommandHints() {
-                const mainCommands = ['about', 'projects', 'experience', 'contact', 'resume'];
+                const mainCommands = ['about', 'projects', 'experience', 'contact', 'resume', 'help'];
                 const buttons = mainCommands.map(cmd =>
                     `<button class="hint-btn" onclick="runCommand('${cmd}')">${cmd}</button>`
                 ).join('');
@@ -969,23 +957,23 @@
                 printOutput('');
                 printOutput(about.background);
                 printOutput('');
-                printOutput('<span class="output-info">// Metrics</span>');
-                printOutput(`  Smart Contracts: ${about.metrics.smartContracts}`);
-                printOutput(`  Courses:         ${about.metrics.courses}`);
-                printOutput(`  Hackathons:      ${about.metrics.hackathons}`);
+                printOutput('<span class="output-info">// Hackathon Awards</span>');
+                about.hackathonAwards.forEach(award => {
+                    printOutput(`  ${award}`);
+                });
                 printOutput('');
-                printOutput('Run <span class="output-command">skills</span> to see technical skills.');
+                printOutput('Run <span class="output-command">skills</span> to see project tech stack.');
                 printPrompt();
             }
 
             function showSkills() {
                 printOutput('');
-                printOutput('<span class="output-info">// Technical Skills</span>');
+                printOutput('<span class="output-info">// Project Tech Stack</span>');
                 printOutput('');
 
-                PORTFOLIO_DATA.about.skills.forEach(skill => {
-                    const bar = generateSkillBar(skill.level);
-                    printOutput(`  ${skill.name.padEnd(25)} ${bar}`);
+                const techs = [...new Set(PORTFOLIO_DATA.projects.flatMap(project => project.tech))];
+                techs.forEach(tech => {
+                    printOutput(`  ${tech}`);
                 });
 
                 printPrompt();
