@@ -532,9 +532,9 @@
                     ],
                     hackathonAwards: [
                         "Encode Solana Hackathon: 2nd place, Cypherpunk side track (hosted by Sanctum) — PinTool",
-                        "AI Financial Innovation Hackathon: winner",
                         "XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA",
-                        "Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track"
+                        "Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track",
+                        "AI FinTech Innovation & Creativity Competition: Social Group 3rd Place"
                     ]
                 },
 
@@ -668,7 +668,7 @@
                 experience: [
                     {
                         title: "Backend Engineer",
-                        company: "StarVaults",
+                        company: "Star Vaults",
                         location: "Taipei",
                         date: "March 2026 - Present",
                         description: "Own an entire service module end-to-end (e-commerce platform / internal tooling). Collaborate with senior colleagues on architecture, then lead implementation, API design, data modeling, and deployment. Delegate boilerplate, unit tests, and repetitive code to Claude Code and other AI coding agents to focus on architectural decisions, API boundaries, and business logic; build reusable prompt templates and agent skills that keep agents aligned with team standards for commit messages, code reviews, and tests.",
@@ -1122,7 +1122,7 @@
                     printOutput(`  <span class="output-warning">★</span> ${award}`);
                 });
                 printOutput('');
-                printOutput('Run <span class="output-command">skills</span> to see my full tech stack.');
+                printOutput('Run <span class="output-command">ai</span> to see how I build with AI coding agents, or <span class="output-command">skills</span> for the full tech stack.');
                 printPrompt();
             }
 
@@ -1389,10 +1389,11 @@
 
             function cowsayCommand(args) {
                 const message = args.join(' ') || 'Moo! Check out my projects!';
+                const safe = escapeHtml(message);
                 const border = '_'.repeat(message.length + 2);
 
                 const cow = `  ${border}
-< ${message} >
+< ${safe} >
   ${'-'.repeat(message.length + 2)}
         \\   ^__^
          \\  (oo)\\_______
