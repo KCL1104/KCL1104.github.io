@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Meta tags for SEO -->
-    <meta name="description" content="PENGU - Backend & Blockchain Engineer. Interactive terminal portfolio showcasing blockchain projects and experience.">
-    <meta name="keywords" content="blockchain, developer, solana, ethereum, web3, portfolio, pengu">
+    <meta name="description" content="PENGU (Chi Lin Kuo) - AI-native Full-stack & Blockchain Engineer. Interactive terminal portfolio showcasing AI-agent tooling, backend, and blockchain projects.">
+    <meta name="keywords" content="AI engineer, ai-native, full-stack, backend, blockchain, solana, nestjs, nextjs, claude code, mcp, ai agents, langchain, portfolio, pengu">
 
     <style>
         /* ===========================================
@@ -183,8 +183,16 @@
             color: var(--terminal-success);
         }
 
+        .output-success {
+            color: var(--terminal-success);
+        }
+
         .output-prompt {
             color: var(--terminal-prompt);
+        }
+
+        .output-accent {
+            color: var(--terminal-magenta);
         }
 
         .output-error {
@@ -509,23 +517,120 @@
             // DATA STORE - All Portfolio Content
             // ===========================================
             const PORTFOLIO_DATA = {
-                name: "Kuo Chi Lin",
+                name: "Chi Lin Kuo (Charlie)",
                 handle: "PENGU",
-                title: "Full-stack & Blockchain Engineer",
+                title: "AI-native Full-stack & Blockchain Engineer",
                 wallet: "0x5ae4...fdd2",
 
                 about: {
-                    intro: "Full-stack blockchain developer with hands-on experience in Solana and Ethereum ecosystems. Currently building workflow automation tools for Web3 at PinTool.",
-                    background: "Have strong foundation in blockchain technology and Web development. Focused on smart contract development, DeFi protocols, and full-stack applications.",
+                    intro: "Computer Science graduate and AI-native full-stack engineer building development workflows centered around AI coding agents. I reliably ship backend and full-stack products in fast-iteration environments.",
+                    background: "Power user of AI development tools — I use Claude Code and similar agents as my primary development partner on a daily basis, accelerating the cycle from requirements to deployment through prompt engineering and agent harness design.",
+                    focus: [
+                        "AI-native development: Claude Code as my daily driver across requirement breakdown, design, and implementation",
+                        "Custom AI toolchains: MCP servers, agent skills, and automation scripts (issue triage, code review, commit standards) wired into team production workflows",
+                        "Fast-iteration shipping: reliably delivering backend and full-stack products under tight delivery cycles"
+                    ],
                     hackathonAwards: [
+                        "Encode Solana Hackathon: 2nd place, Cypherpunk side track (hosted by Sanctum) — PinTool",
+                        "AI Financial Innovation Hackathon: winner",
                         "XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA",
-                        "Solana Cypherpunk: Won 2nd place on side track from Sanctum",
-                        "Encode Solan Winter Build Challenge 2025: Won first place on Best Consumer App on Solana track",
-                        "AI FinTech Innovation & Creativity Competition: Social Group 3rd Place"
+                        "Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track"
                     ]
                 },
 
+                skills: {
+                    "Languages":    ["TypeScript", "Python", "JavaScript", "Rust", "Solidity"],
+                    "Backend":      ["Node.js", "NestJS", "Express", "FastAPI", "Django", "REST APIs"],
+                    "Frontend":     ["React", "Next.js", "Shadcn/UI", "Tailwind"],
+                    "AI / Agents":  ["Claude Code", "MCP servers", "Agent skills", "LangChain", "Google ADK", "A2A protocol", "Prompt engineering"],
+                    "Blockchain":   ["Solana", "Anchor", "Ethereum", "Web3.js", "Light Protocol"],
+                    "Data / Infra": ["PostgreSQL", "Supabase", "Redis", "MongoDB", "Docker", "CI/CD"]
+                },
+
+                aiAgents: {
+                    headline: "AI-agent development is the core of how I build — not a side experiment.",
+                    summary: "I treat AI coding agents as first-class teammates: I design the harnesses, tools, and skills they run on, then delegate the mechanical work so I can focus on architecture, API boundaries, and business logic.",
+                    practices: [
+                        {
+                            title: "Agent-driven delivery",
+                            detail: "Claude Code and other coding agents as my primary development partner on a daily basis — driving requirement breakdown, design, and implementation, and compressing the cycle from requirements to deployment."
+                        },
+                        {
+                            title: "Custom MCP servers",
+                            detail: "Build Model Context Protocol (MCP) servers that give agents first-class, typed access to internal tools, data, and services."
+                        },
+                        {
+                            title: "Agent skills & harnesses",
+                            detail: "Design reusable agent skills and prompt templates that keep agents consistently aligned with team standards for commit messages, code reviews, and test writing."
+                        },
+                        {
+                            title: "Workflow automation",
+                            detail: "Automation scripts for issue triage, code review, and commit-message standardization — integrated directly into team production workflows."
+                        },
+                        {
+                            title: "Multi-agent orchestration",
+                            detail: "Multi-agent collaboration with Google ADK and the A2A protocol (LorePack); LangChain agent layers for signal parsing, urgency scoring, and context-aware reasoning (DeepFlow)."
+                        },
+                        {
+                            title: "Prompt & context engineering",
+                            detail: "Prompt engineering and agent harness design — shaping context, tools, and guardrails so agents produce reliable, review-ready output."
+                        }
+                    ],
+                    stack: ["Claude Code", "MCP", "Agent skills", "LangChain", "Google ADK", "A2A protocol", "FastAPI", "TypeScript"]
+                },
+
                 projects: [
+                    {
+                        id: "pintool",
+                        name: "PinTool",
+                        role: "Backend Engineer",
+                        tag: "Hackathon-winning · Team project",
+                        period: "Oct 2025 - Present",
+                        description: "A Solana-native strategy automation platform where creators publish on-chain strategies and subscribers gain access through on-chain USDC subscriptions. I own backend architecture, API development, and subscription-verification logic, Anchor smart-contract integration, and on-chain/off-chain state synchronization, collaborating with the front-end partner on integration.",
+                        tech: ["NestJS", "Supabase", "Anchor (Solana)", "TypeScript"],
+                        category: ["blockchain", "solana", "web3", "backend"],
+                        github: "https://github.com/pintoolx",
+                        demo: "https://demo.pintool.fun/",
+                        award: "Encode Solana Hackathon — Cypherpunk side track (Sanctum) · AI Financial Innovation Hackathon"
+                    },
+                    {
+                        id: "lorepack",
+                        name: "LorePack",
+                        role: "Owner / Lead Developer",
+                        tag: "Personal project",
+                        period: "Feb 2026",
+                        description: "An AI-driven collaborative storytelling platform where users build persistent worlds, generate illustrated chapters via AI agents, and collaborate across universes. I designed the overall architecture and multi-agent collaboration flow, integrated the A2A protocol for inter-agent messaging, and built the frontend.",
+                        tech: ["Google ADK", "A2A protocol", "Next.js", "FastAPI"],
+                        category: ["ai", "web"],
+                        github: "https://github.com/KCL1104/LorePack"
+                    },
+                    {
+                        id: "deepflow",
+                        name: "DeepFlow",
+                        role: "Owner / Lead Developer",
+                        tag: "Personal project",
+                        period: "Jan 2026",
+                        description: "An \"intelligent defense system\" that uses context-aware scheduling and dynamic prioritization to filter out notification noise and protect deep work time. A Next.js + Shadcn/UI \"Focus Player\" and queue visualization front a FastAPI + Supabase + Redis backend that manages priority queues and ingests webhooks from Slack/Jira/Gmail; a LangChain agent layer handles signal parsing, urgency scoring, and context-aware responses. Implemented O(log N) dynamic priority queues using Redis Sorted Sets (ZSET).",
+                        tech: ["Next.js", "FastAPI", "LangChain", "Redis", "Supabase", "PostgreSQL"],
+                        category: ["ai", "web"],
+                        github: "https://github.com/KCL1104/DeepFlow"
+                    },
+                    {
+                        id: "kairoria",
+                        name: "Kairoria",
+                        description: "A Next.js project integrated with Supabase, using Solana for payments.",
+                        tech: ["Next.js", "Supabase", "Solana Anchor"],
+                        category: ["blockchain", "solana", "web"],
+                        github: "https://github.com/KCL1104/Kairoria"
+                    },
+                    {
+                        id: "solprivacy",
+                        name: "SolPrivacy",
+                        description: "A CLI tool that improves the developer experience for Solana privacy-focused developers.",
+                        tech: ["Rust", "Light Protocol", "Clap"],
+                        category: ["blockchain", "solana", "cli"],
+                        github: "https://github.com/KCL1104/SolPrivacy"
+                    },
                     {
                         id: "xuedao",
                         name: "XueDao-Hackathon",
@@ -543,14 +648,6 @@
                         github: "https://github.com/KCL1104/Seed-Grow"
                     },
                     {
-                        id: "utproject",
-                        name: "UT-project",
-                        description: "A Unity game development project showcasing C# programming skills and game development fundamentals.",
-                        tech: ["C#", "Unity", "Game Development"],
-                        category: ["game"],
-                        github: "https://github.com/KCL1104/UT-project"
-                    },
-                    {
                         id: "camelsean",
                         name: "CamelSean",
                         description: "A TypeScript and Python based project demonstrating full-stack development capabilities and modern web technologies.",
@@ -559,55 +656,31 @@
                         github: "https://github.com/KCL1104/camelsean"
                     },
                     {
-                        id: "kairoria",
-                        name: "Kairoria",
-                        description: "A Next.js project integrated with Supabase utilizing Solana as payment.",
-                        tech: ["Next.js", "Supabase", "Solana Anchor"],
-                        category: ["blockchain", "solana", "web"],
-                        github: "https://github.com/KCL1104/Kairoria"
-                    },
-                    {
-                        id: "pintool",
-                        name: "Pintool",
-                        description: "A n8n-liked workflow editor that allow users to automate their web3 strategies.",
-                        tech: ["web3", "nest.js", "react.js", "Supabase", "Solana"],
-                        category: ["web3", "blockchain"],
-                        github: "https://github.com/pintoolx"
-                    },
-                    {
-                        id: "deepflow",
-                        name: "DeepFlow",
-                        description: "A to-do list project with ai agent integration.",
-                        tech: ["langchain", "fastapi", "next.js", "opik", "postgresql"],
-                        category: ["web", "ai"],
-                        github: "https://github.com/KCL1104/DeepFlow"
-                    },
-                    {
-                        id: "solprivacy",
-                        name: "SolPrivacy",
-                        description: "A cli tool for solana privacy related developer to increase their dx.",
-                        tech: ["Rust", "Light Protocol", "Clap"],
-                        category: ["blockchain", "solana", "cli"],
-                        github: "https://github.com/KCL1104/SolPrivacy"
+                        id: "utproject",
+                        name: "UT-project",
+                        description: "A Unity game development project showcasing C# programming skills and game development fundamentals.",
+                        tech: ["C#", "Unity", "Game Development"],
+                        category: ["game"],
+                        github: "https://github.com/KCL1104/UT-project"
                     }
                 ],
 
                 experience: [
                     {
-                        title: "Backend / Blockchain Engineer",
-                        company: "PinTool",
+                        title: "Backend Engineer",
+                        company: "StarVaults",
                         location: "Taipei",
-                        date: "October 2025 - Present",
-                        description: "Founding engineer at a startup building an n8n-like workflow editor for Solana users. Responsible for designing and implementing backend systems with seamless blockchain integration.",
-                        tech: ["Solana", "Node.js", "Backend"]
+                        date: "March 2026 - Present",
+                        description: "Own an entire service module end-to-end (e-commerce platform / internal tooling). Collaborate with senior colleagues on architecture, then lead implementation, API design, data modeling, and deployment. Delegate boilerplate, unit tests, and repetitive code to Claude Code and other AI coding agents to focus on architectural decisions, API boundaries, and business logic; build reusable prompt templates and agent skills that keep agents aligned with team standards for commit messages, code reviews, and tests.",
+                        tech: ["Node.js", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Redis", "MongoDB", "React", "Next.js"]
                     },
                     {
-                        title: "Full-stack / Blockchain Developer",
-                        company: "Je Pun International Co., Ltd.",
+                        title: "Backend & Blockchain Engineer",
+                        company: "Jepun International",
                         location: "Taipei",
-                        date: "September 2025 - Present",
-                        description: "Providing technical guidance to team members, designing customized blockchain architectures, and conducting thorough code reviews.",
-                        tech: ["Blockchain", "Full-Stack", "Architecture"]
+                        date: "September 2025 - March 2026",
+                        description: "Owned several services/modules within a mid-sized product line (3-5 person cross-functional team). Designed and implemented RESTful APIs with Python (FastAPI/Django) and Node.js/Express plus corresponding database schema design; integrated multiple third-party APIs and SaaS services with cross-system data synchronization; led development of LLM-based product features (agent flow design and prompt tuning); built React/Next.js frontends with consistent data contracts; and maintained CI/CD pipelines and containerized deployments to shorten delivery cycles.",
+                        tech: ["Python", "FastAPI", "Node.js", "PostgreSQL", "MongoDB", "Supabase", "React", "Next.js", "CI/CD", "LLM"]
                     }
                 ],
 
@@ -680,6 +753,15 @@
                 skills: {
                     description: "View my technical skills",
                     execute: showSkills
+                },
+                ai: {
+                    description: "How I build with AI coding agents",
+                    execute: showAiAgents
+                },
+                agents: {
+                    description: "How I build with AI coding agents",
+                    hidden: true,
+                    execute: showAiAgents
                 },
                 projects: {
                     description: "List all projects",
@@ -979,6 +1061,7 @@
                 printOutput('');
                 printOutput(`Welcome to <span class="output-info">${PORTFOLIO_DATA.handle}</span>'s terminal portfolio!`);
                 printOutput(`<span class="output-prompt">${PORTFOLIO_DATA.title}</span>`);
+                printOutput(`<span class="output-accent">I build with AI coding agents — MCP servers, agent skills & harness design.</span>`);
                 printOutput('');
                 printOutput('Type <span class="output-command">help</span> to see available commands, or click below:');
                 printOutput('');
@@ -989,7 +1072,7 @@
             }
 
             function generateCommandHints() {
-                const mainCommands = ['about', 'projects', 'experience', 'contact', 'resume', 'help'];
+                const mainCommands = ['about', 'ai', 'projects', 'experience', 'resume', 'contact'];
                 const buttons = mainCommands.map(cmd =>
                     `<button class="hint-btn" onclick="runCommand('${cmd}')">${cmd}</button>`
                 ).join('');
@@ -1029,25 +1112,58 @@
                 printOutput('');
                 printOutput(about.background);
                 printOutput('');
-                printOutput('<span class="output-info">// Hackathon Awards</span>');
-                about.hackathonAwards.forEach(award => {
-                    printOutput(`  ${award}`);
+                printOutput('<span class="output-info">// Focus</span>');
+                about.focus.forEach(item => {
+                    printOutput(`  <span class="output-success">▹</span> ${item}`);
                 });
                 printOutput('');
-                printOutput('Run <span class="output-command">skills</span> to see project tech stack.');
+                printOutput('<span class="output-info">// Hackathon Awards</span>');
+                about.hackathonAwards.forEach(award => {
+                    printOutput(`  <span class="output-warning">★</span> ${award}`);
+                });
+                printOutput('');
+                printOutput('Run <span class="output-command">skills</span> to see my full tech stack.');
                 printPrompt();
             }
 
             function showSkills() {
                 printOutput('');
-                printOutput('<span class="output-info">// Project Tech Stack</span>');
+                printOutput('<span class="output-info">// Tech Stack</span>');
                 printOutput('');
 
-                const techs = [...new Set(PORTFOLIO_DATA.projects.flatMap(project => project.tech))];
-                techs.forEach(tech => {
-                    printOutput(`  ${tech}`);
+                const groups = PORTFOLIO_DATA.skills;
+                const labelWidth = Math.max(...Object.keys(groups).map(k => k.length)) + 1;
+
+                Object.entries(groups).forEach(([category, items]) => {
+                    const label = `${category}:`.padEnd(labelWidth + 1);
+                    printOutput(`  <span class="output-command">${escapeHtml(label)}</span> <span class="project-tech-tags">${items.map(escapeHtml).join(' · ')}</span>`);
                 });
 
+                printOutput('');
+                printOutput('<span class="output-prompt">Tip: AI-agent tooling (Claude Code, MCP, agent skills) is my core differentiator. Run </span><span class="output-command">ai</span><span class="output-prompt"> to dig in.</span>');
+                printPrompt();
+            }
+
+            function showAiAgents() {
+                const { aiAgents } = PORTFOLIO_DATA;
+
+                printOutput('');
+                printOutput('<span class="output-info">// AI-Agent Development</span>');
+                printOutput('');
+                printOutput(`<span class="output-accent">${escapeHtml(aiAgents.headline)}</span>`);
+                printOutput('');
+                printOutput(escapeHtml(aiAgents.summary));
+                printOutput('');
+
+                aiAgents.practices.forEach(p => {
+                    printOutput(`  <span class="output-success">▹</span> <span class="output-command">${escapeHtml(p.title)}</span>`);
+                    printOutput(`      <span class="project-tech-tags">${escapeHtml(p.detail)}</span>`);
+                    printOutput('');
+                });
+
+                printOutput(`<span class="output-command">Agent stack:</span> <span class="project-tech-tags">${aiAgents.stack.map(escapeHtml).join(' · ')}</span>`);
+                printOutput('');
+                printOutput('See it in action: <span class="output-command">cat lorepack</span> (multi-agent) and <span class="output-command">cat deepflow</span> (LangChain agent layer).');
                 printPrompt();
             }
 
@@ -1059,8 +1175,12 @@
                 printOutput('');
 
                 PORTFOLIO_DATA.projects.forEach((project, index) => {
-                    printOutput(`  <span class="project-name" onclick="runCommand('cat ${project.id}')">[${index + 1}] ${project.name}</span>`);
-                    printOutput(`      <span class="project-tech-tags">${project.tech.join(' | ')}</span>`);
+                    printOutput(`  <span class="project-name" onclick="runCommand('cat ${project.id}')">[${index + 1}] ${escapeHtml(project.name)}</span>`);
+                    const meta = [project.role, project.tag, project.period].filter(Boolean).join(' · ');
+                    if (meta) {
+                        printOutput(`      <span class="timeline-date">${escapeHtml(meta)}</span>`);
+                    }
+                    printOutput(`      <span class="project-tech-tags">${project.tech.map(escapeHtml).join(' | ')}</span>`);
                 });
 
                 printPrompt();
@@ -1089,13 +1209,23 @@
                 }
 
                 printOutput('');
-                printOutput(`<span class="output-info">// ${project.name}</span>`);
+                printOutput(`<span class="output-info">// ${escapeHtml(project.name)}</span>`);
+                const headMeta = [project.role, project.tag, project.period].filter(Boolean).join(' · ');
+                if (headMeta) {
+                    printOutput(`<span class="timeline-date">${escapeHtml(headMeta)}</span>`);
+                }
                 printOutput('');
-                printOutput(project.description);
+                printOutput(escapeHtml(project.description));
                 printOutput('');
-                printOutput(`<span class="output-command">Technologies:</span> ${project.tech.join(', ')}`);
-                printOutput(`<span class="output-command">Categories:</span>   ${project.category.join(', ')}`);
-                printOutput(`<span class="output-command">GitHub:</span>       <a href="${project.github}" target="_blank" class="output-link">${project.github}</a>`);
+                printOutput(`<span class="output-command">Technologies:</span> ${project.tech.map(escapeHtml).join(', ')}`);
+                printOutput(`<span class="output-command">Categories:</span>   ${project.category.map(escapeHtml).join(', ')}`);
+                if (project.demo) {
+                    printOutput(`<span class="output-command">Live demo:</span>    <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(project.demo)}</a>`);
+                }
+                printOutput(`<span class="output-command">GitHub:</span>       <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(project.github)}</a>`);
+                if (project.award) {
+                    printOutput(`<span class="output-command">Award:</span>        <span class="output-warning">★ ${escapeHtml(project.award)}</span>`);
+                }
                 printPrompt();
             }
 
@@ -1162,8 +1292,8 @@
                 printOutput(`  <span class="output-command">LinkedIn:</span> <a href="${contact.linkedin}" target="_blank" class="output-link">${contact.linkedin}</a>`);
                 printOutput(`  <span class="output-command">GitHub:</span>   <a href="${contact.github}" target="_blank" class="output-link">${contact.github}</a>`);
                 printOutput('');
-                printOutput('I am eager to connect with blockchain professionals, potential employers,');
-                printOutput('and fellow developers. Looking for collaboration on blockchain projects!');
+                printOutput('Open to backend / full-stack / AI-engineering roles and collaborations.');
+                printOutput('Always happy to chat about AI-agent tooling, blockchain, and shipping fast.');
                 printPrompt();
             }
 
@@ -1222,9 +1352,10 @@
 
             function listSections() {
                 printOutput('');
-                printOutput('about/     projects/     experience/');
-                printOutput('education/ languages/    contact/');
-                printOutput('skills/    social/       resume/');
+                printOutput('about/     ai/           skills/');
+                printOutput('projects/  experience/   education/');
+                printOutput('languages/ social/       contact/');
+                printOutput('resume/');
                 printPrompt();
             }
 
@@ -1283,7 +1414,7 @@
      //   \\ \\      <span style="color: var(--terminal-text)">Host: ${PORTFOLIO_DATA.name}</span>
     (|     | )     <span style="color: var(--terminal-text)">Role: ${PORTFOLIO_DATA.title}</span>
    /'\\_   _/\`\\     <span style="color: var(--terminal-text)">Projects: ${PORTFOLIO_DATA.projects.length}</span>
-   \\___)=(___/     <span style="color: var(--terminal-text)">Skills: ${PORTFOLIO_DATA.about.skills.length}</span>
+   \\___)=(___/     <span style="color: var(--terminal-text)">Skills: ${Object.values(PORTFOLIO_DATA.skills).flat().length}</span>
 </pre>`);
                 printPrompt();
             }
