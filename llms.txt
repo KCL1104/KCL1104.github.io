@@ -1,0 +1,15 @@
+# Chi Lin Kuo (Charlie)
+
+> Blockchain & AI & Full-stack Developer. AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.
+
+## Resume
+
+- [Resume (Markdown, EN + 繁體中文)](https://kcl1104.github.io/resume.md): the complete resume as plain Markdown
+- [Resume (JSON Resume schema)](https://kcl1104.github.io/resume.json): structured resume, including employment history
+- [Resume PDF (English)](https://kcl1104.github.io/resume/resumeEN0715.pdf)
+- [Resume PDF (繁體中文)](https://kcl1104.github.io/resume/resumeCN0715.pdf)
+
+## Profiles
+
+- [GitHub](https://github.com/KCL1104/)
+- [LinkedIn](https://www.linkedin.com/in/chi-lin-kuo-a47608209/)

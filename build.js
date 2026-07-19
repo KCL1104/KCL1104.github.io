@@ -88,7 +88,7 @@ const rendererSrc = html.slice(commentClose + 2, rend);
 let R;
 try {
     R = new Function('RESUME', 'BASE_URL', rendererSrc +
-        '\n; return { setLang, renderDoc, contentHash, canonicalSource, t, escapeHtml };'
+        '\n; return { setLang, renderDoc, contentHash, canonicalSource, t, escapeHtml, fmtRange };'
     )(data, data.meta.canonical);
 } catch (e) {
     fail('renderer region failed to evaluate in Node (it must stay DOM-free): ' + e.stack);
@@ -120,15 +120,13 @@ if (missing.length) {
     missing.forEach(p => console.warn('  - ' + p));
 }
 
-// ---------------------------------------------------------------- render both languages
-function renderLang(lang) {
-    R.setLang(lang);
-    return R.renderDoc();
-}
-
-const docHtml =
-    '<section lang="en">\n' + renderLang('en') + '\n</section>\n' +
-    '<section lang="zh-Hant">\n' + renderLang('zh') + '\n</section>';
+// ---------------------------------------------------------------- render (English only)
+// The static base is ONE language. Chinese is not baked: a JS client re-renders live
+// from the island via ?lang=zh (declared in the head's hreflang alternates), and no-JS
+// Chinese readers have resume.md and the Chinese PDF. This is what removes the EN→ZH
+// duplication from the payload every bot receives.
+R.setLang('en');
+const docHtml = R.renderDoc();
 
 // Hash the island AND the renderer source. Section headings, tip lines and the banner live
 // in the renderers, not the island, so an island-only hash would miss those edits entirely
@@ -136,6 +134,8 @@ const docHtml =
 const hash = R.contentHash(R.canonicalSource(data) + rendererSrc);
 
 // ---------------------------------------------------------------- JSON-LD
+// Identity, skills, education and awards ONLY. schema.org Person has no clean field for
+// an employment history — that lives in resume.json (JSON Resume schema) instead.
 // "<" is escaped so a stray "</script>" in any string cannot terminate the block early.
 function jsonLd() {
     R.setLang('en');
@@ -143,8 +143,8 @@ function jsonLd() {
     const person = {
         '@context': 'https://schema.org',
         '@type': 'Person',
-        name: data.name.en,
-        alternateName: data.name.zh,
+        name: data.personName,
+        alternateName: data.alternateNames,
         jobTitle: R.t(data.title),
         description: R.t(data.about.intro),
         email: 'mailto:' + c.email,
@@ -153,19 +153,98 @@ function jsonLd() {
         sameAs: [c.github, c.linkedin].filter(Boolean),
         knowsAbout: data.skills.reduce((all, g) => all.concat(g.items), []),
         knowsLanguage: data.languages.map(l => ({ '@type': 'Language', name: l.name.en })),
-        hasOccupation: data.experience.map(e => ({
-            '@type': 'OrganizationRole',
-            roleName: e.title.en,
-            startDate: e.start,
-            endDate: e.end,
-            memberOf: { '@type': 'Organization', name: e.company }
-        })),
+        award: data.about.hackathonAwards.map(a => a.en),
         alumniOf: data.education
-            .filter(e => e.institution && e.institution !== 'Independent Study' && e.institution !== 'Community')
-            .map(e => ({ '@type': 'EducationalOrganization', name: e.institution }))
+            .filter(e => e.institutionType)
+            .map(e => ({ '@type': e.institutionType, name: e.institution }))
     };
     const body = JSON.stringify(person, null, 2).replace(/</g, '\\u003c');
     return '    <script type="application/ld+json">\n' + body + '\n    </' + 'script>';
+}
+
+// ---------------------------------------------------------------- resume.json
+// JSON Resume schema (jsonresume.org). English only: the schema has no bilingual story,
+// and this file exists for tools that want a structured employment history.
+function resumeJson() {
+    R.setLang('en');
+    const c = data.contact;
+    const seg = (u, last) => {
+        const p = new URL(u).pathname.split('/').filter(Boolean);
+        return last ? p[p.length - 1] : p[0];
+    };
+    const resume = {
+        $schema: 'https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json',
+        basics: {
+            name: data.personName,
+            label: R.t(data.title),
+            image: data.meta.canonical + data.meta.photo,
+            email: c.email,
+            url: data.meta.canonical,
+            summary: data.about.intro.en + '\n\n' + data.about.background.en,
+            location: { city: c.city, countryCode: c.countryCode },
+            profiles: [
+                { network: 'GitHub', username: seg(c.github), url: c.github },
+                { network: 'LinkedIn', username: seg(c.linkedin, true), url: c.linkedin }
+            ]
+        },
+        work: data.experience.map(e => ({
+            name: e.company,
+            position: e.title.en,
+            location: e.location.en || undefined,
+            startDate: e.start,
+            endDate: e.end,
+            summary: e.description.en
+        })),
+        projects: data.projects.map(p => ({
+            name: p.name,
+            description: p.description.en,
+            startDate: p.start,
+            endDate: p.end,
+            url: p.demo || p.github,
+            roles: [p.role.en],
+            keywords: p.tech
+        })),
+        education: data.education.map(e => {
+            // "Bachelor of Science in Computer Science" → studyType + area; anything
+            // without an " in " keeps the whole title as area rather than inventing one.
+            const m = /^(.+) in (.+)$/.exec(e.title.en);
+            return {
+                institution: e.institution,
+                studyType: m ? m[1] : undefined,
+                area: m ? m[2] : e.title.en,
+                startDate: e.start,
+                endDate: e.end
+            };
+        }),
+        awards: data.about.hackathonAwards.map(a => ({ title: a.en })),
+        skills: data.skills.map(g => ({ name: g.category.en, keywords: g.items })),
+        languages: data.languages.map(l => ({ language: l.name.en, fluency: l.proficiency.en }))
+    };
+    return JSON.stringify(resume, null, 2) + '\n';
+}
+
+// ---------------------------------------------------------------- llms.txt
+function llmsTxt() {
+    R.setLang('en');
+    const base = data.meta.canonical;
+    return [
+        '# ' + R.t(data.name),
+        '',
+        '> ' + R.t(data.title) + '. ' + R.t(data.about.intro),
+        '',
+        '## Resume',
+        '',
+        '- [Resume (Markdown, EN + 繁體中文)](' + base + 'resume.md): the complete resume as plain Markdown',
+        '- [Resume (JSON Resume schema)](' + base + 'resume.json): structured resume, including employment history',
+        '- [Resume PDF (English)](' + base + data.meta.pdf.en + ')',
+        '- [Resume PDF (繁體中文)](' + base + data.meta.pdf.zh + ')',
+        '',
+        '## Profiles',
+        '',
+        '- [GitHub](' + data.contact.github + ')',
+        '- [LinkedIn](' + data.contact.linkedin + ')',
+        ''
+    ].join('\n');
 }
 
 // ---------------------------------------------------------------- resume.md
@@ -222,7 +301,7 @@ function markdown() {
         data.experience.forEach(e => {
             out.push('### ' + T(e.title) + ' — ' + e.company);
             out.push('');
-            out.push('*' + e.date + (T(e.location) ? ' · ' + T(e.location) : '') + '*');
+            out.push('*' + R.fmtRange(e.start, e.end) + (T(e.location) ? ' · ' + T(e.location) : '') + '*');
             out.push('');
             out.push(T(e.description));
             out.push('');
@@ -235,7 +314,7 @@ function markdown() {
         data.projects.forEach(p => {
             out.push('### ' + p.name);
             out.push('');
-            out.push('*' + [T(p.role), T(p.tag), p.period].filter(Boolean).join(' · ') + '*');
+            out.push('*' + [T(p.role), T(p.tag), R.fmtRange(p.start, p.end)].filter(Boolean).join(' · ') + '*');
             out.push('');
             out.push(T(p.description));
             out.push('');
@@ -251,7 +330,7 @@ function markdown() {
         data.education.forEach(e => {
             out.push('### ' + T(e.title) + ' — ' + e.institution);
             out.push('');
-            out.push('*' + e.date + (T(e.location) ? ' · ' + T(e.location) : '') + '*');
+            out.push('*' + R.fmtRange(e.start, e.end) + (T(e.location) ? ' · ' + T(e.location) : '') + '*');
             out.push('');
             out.push(T(e.description));
             out.push('');
@@ -299,7 +378,9 @@ next = next.replace(/"sourceHash":\s*"[^"]*"/, '"sourceHash": "' + hash + '"');
 
 fs.writeFileSync(INDEX, next);
 fs.writeFileSync(path.join(ROOT, 'resume.md'), markdown());
+fs.writeFileSync(path.join(ROOT, 'resume.json'), resumeJson());
+fs.writeFileSync(path.join(ROOT, 'llms.txt'), llmsTxt());
 
 const kb = n => (n / 1024).toFixed(1) + 'KB';
-console.log('build.js: baked doc-view (' + kb(docHtml.length) + '), JSON-LD, resume.md');
+console.log('build.js: baked doc-view (' + kb(docHtml.length) + '), JSON-LD, resume.md, resume.json, llms.txt');
 console.log('build.js: sourceHash ' + hash);

@@ -1,0 +1,213 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Chi Lin Kuo",
+    "label": "Blockchain & AI & Full-stack Developer",
+    "image": "https://kcl1104.github.io/kcl.jpg",
+    "email": "charlie011111@gmail.com",
+    "url": "https://kcl1104.github.io/",
+    "summary": "AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.\n\nAI agent development — I've taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.",
+    "location": {
+      "city": "Taipei",
+      "countryCode": "TW"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "KCL1104",
+        "url": "https://github.com/KCL1104/"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "chi-lin-kuo-a47608209",
+        "url": "https://www.linkedin.com/in/chi-lin-kuo-a47608209/"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Star Vaults",
+      "position": "Backend Engineer",
+      "location": "Taipei",
+      "startDate": "2026-03",
+      "endDate": "2026-05",
+      "summary": "Took one complete service module from zero to one (e-commerce platform / internal tooling). Architecture and implementation — worked through the architecture decisions with one or two senior engineers, then led the implementation, API design, data model and deployment. Backend — Node.js / NestJS, Python (FastAPI / Django), PostgreSQL, Supabase, Redis, MongoDB. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. Process — boilerplate, unit tests and repetitive code went to Claude Code. Wrote a set of prompt templates and agent skills so that commit messages, code review and tests followed team convention."
+    },
+    {
+      "name": "Jepun International",
+      "position": "Backend & Blockchain Engineer",
+      "location": "Taipei",
+      "startDate": "2025-09",
+      "endDate": "2026-03",
+      "summary": "Owned several services and modules in a mid-sized product line (3–5 person team, front and back). Backend — designed and built RESTful APIs in Python (FastAPI / Django) and Node.js / Express, along with the database schemas behind them (PostgreSQL, MongoDB, Supabase). Third-party integration — integrated multiple third-party APIs and SaaS services, handling cross-system data sync and error paths. AI / LLM features — built the LLM features in the product, covering agent flow design and prompt tuning. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. DevOps — automated CI/CD pipelines and containerized deploys."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Extrovid",
+      "description": "An AI-native film production system. It runs script, casting, storyboard, per-shot generation, voice and rough cut end to end, and you can talk to a director agent at any step to change something live. My work: multi-agent orchestration across 12 PydanticAI agents with outputs contracted through Pydantic schemas; a director agent carrying 8 stateful tools so the whole pipeline can be driven in plain language; a per-stage state machine so failures resolve to a single stage; LLM-as-judge review with best-of-N selection and a keyframe gate ahead of generation spend; and provider factories with USE_MOCK_* flags so 236 tests run offline.",
+      "startDate": "2026-06",
+      "endDate": "2026-07",
+      "url": "https://github.com/KCL1104/extrovid",
+      "roles": [
+        "Solo personal project"
+      ],
+      "keywords": [
+        "Python",
+        "FastAPI",
+        "PydanticAI",
+        "SQLAlchemy 2.0 (async)",
+        "PostgreSQL",
+        "Next.js"
+      ]
+    },
+    {
+      "name": "LorePack",
+      "description": "An AI-driven collaborative story world platform. Users build persistent worlds, AI agents generate illustrated chapters, and people collaborate across universes. My work: the overall architecture and the multi-agent collaboration flow; A2A protocol integration and the inter-agent messaging layer; and the frontend interface. Engineering focus: orchestration patterns for multi-agent systems, task delegation between agents, and aggregating their results.",
+      "startDate": "2026-02",
+      "endDate": "2026-02",
+      "url": "https://github.com/KCL1104/LorePack",
+      "roles": [
+        "Owner / Lead Developer"
+      ],
+      "keywords": [
+        "Google ADK",
+        "A2A protocol",
+        "Next.js",
+        "FastAPI"
+      ]
+    },
+    {
+      "name": "DeepFlow",
+      "description": "A personal project built on the idea of a \"smart defence system\": context-aware scheduling and dynamic priority filter out notification noise and protect deep work time. Frontend — Next.js (App Router) with shadcn/ui: the \"Focus Player\" and the queue visualisation. Backend — Python FastAPI, Supabase and Redis: priority queue management and multi-platform webhook intake (Slack / Jira / Gmail). Agent — Python and LangChain: signal parsing, urgency scoring, context-aware response generation. Technical highlights: a Redis sorted set (ZSET) gives O(log N) dynamic priority queueing; LangChain orchestrates the LLM calls.",
+      "startDate": "2026-01",
+      "endDate": "2026-01",
+      "url": "https://github.com/KCL1104/DeepFlow",
+      "roles": [
+        "Owner / Lead Developer"
+      ],
+      "keywords": [
+        "Next.js",
+        "shadcn/ui",
+        "FastAPI",
+        "LangChain",
+        "Redis",
+        "Supabase"
+      ]
+    },
+    {
+      "name": "PinTool",
+      "description": "A Solana-native strategy automation platform. Creators publish on-chain strategies; subscribers pay in USDC on-chain for access. My work: backend architecture, API development and subscription verification logic; Anchor contract integration and on-chain/off-chain state sync; and working with frontend to get the integration contract right.",
+      "startDate": "2025-10",
+      "url": "https://pintool.fun/",
+      "roles": [
+        "Backend Engineer"
+      ],
+      "keywords": [
+        "NestJS",
+        "Supabase",
+        "Anchor",
+        "TypeScript"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Taipei",
+      "studyType": "Bachelor of Science",
+      "area": "Computer Science",
+      "startDate": "2021-09",
+      "endDate": "2025-06"
+    },
+    {
+      "institution": "Independent Study",
+      "area": "Self-Learning Blockchain Development",
+      "startDate": "2021"
+    },
+    {
+      "institution": "Online Learning Platform",
+      "area": "Blockchain Development Bootcamp",
+      "startDate": "2024-06",
+      "endDate": "2024-08"
+    },
+    {
+      "institution": "Community",
+      "area": "Blockchain Study Group",
+      "startDate": "2025-02",
+      "endDate": "2025-06"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Encode Solana Hackathon: 2nd place, Cypherpunk side track (hosted by Sanctum) — PinTool"
+    },
+    {
+      "title": "AI FinTech Innovation & Creativity Competition: Social Group 3rd Place"
+    },
+    {
+      "title": "XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA"
+    },
+    {
+      "title": "Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track"
+    }
+  ],
+  "skills": [
+    {
+      "name": "LLM / Agent",
+      "keywords": [
+        "PydanticAI",
+        "LangChain",
+        "Google ADK",
+        "A2A protocol",
+        "MCP",
+        "function calling",
+        "LLM-as-judge",
+        "eval harness"
+      ]
+    },
+    {
+      "name": "Backend",
+      "keywords": [
+        "Python",
+        "FastAPI",
+        "Django",
+        "Node.js",
+        "NestJS",
+        "SQLAlchemy 2.0 (async)",
+        "PostgreSQL",
+        "Supabase",
+        "Redis",
+        "MongoDB"
+      ]
+    },
+    {
+      "name": "Frontend",
+      "keywords": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "shadcn/ui"
+      ]
+    },
+    {
+      "name": "Other",
+      "keywords": [
+        "Solana",
+        "Anchor",
+        "Docker",
+        "CI/CD",
+        "S3"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Chinese (Mandarin)",
+      "fluency": "Native or Bilingual Proficiency"
+    },
+    {
+      "language": "English",
+      "fluency": "Full Professional Proficiency"
+    }
+  ]
+}

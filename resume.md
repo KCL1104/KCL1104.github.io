@@ -45,7 +45,7 @@ I treat AI coding agents as first-class teammates: I design the harnesses, tools
 
 ### Backend Engineer — Star Vaults
 
-*03/2026 - 05/2026 · Taipei*
+*2026-03 – 2026-05 · Taipei*
 
 Took one complete service module from zero to one (e-commerce platform / internal tooling). Architecture and implementation — worked through the architecture decisions with one or two senior engineers, then led the implementation, API design, data model and deployment. Backend — Node.js / NestJS, Python (FastAPI / Django), PostgreSQL, Supabase, Redis, MongoDB. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. Process — boilerplate, unit tests and repetitive code went to Claude Code. Wrote a set of prompt templates and agent skills so that commit messages, code review and tests followed team convention.
 
@@ -53,7 +53,7 @@ Tech: Node.js, NestJS, Python, FastAPI, Django, PostgreSQL, Supabase, Redis, Mon
 
 ### Backend & Blockchain Engineer — Jepun International
 
-*09/2025 - 03/2026 · Taipei*
+*2025-09 – 2026-03 · Taipei*
 
 Owned several services and modules in a mid-sized product line (3–5 person team, front and back). Backend — designed and built RESTful APIs in Python (FastAPI / Django) and Node.js / Express, along with the database schemas behind them (PostgreSQL, MongoDB, Supabase). Third-party integration — integrated multiple third-party APIs and SaaS services, handling cross-system data sync and error paths. AI / LLM features — built the LLM features in the product, covering agent flow design and prompt tuning. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. DevOps — automated CI/CD pipelines and containerized deploys.
 
@@ -63,16 +63,16 @@ Tech: Python, FastAPI, Django, Node.js, Express, PostgreSQL, MongoDB, Supabase, 
 
 ### Extrovid
 
-*Solo personal project · AI-native film production · Jun 2026 - Jul 2026*
+*Solo personal project · AI-native film production · 2026-06 – 2026-07*
 
 An AI-native film production system. It runs script, casting, storyboard, per-shot generation, voice and rough cut end to end, and you can talk to a director agent at any step to change something live. My work: multi-agent orchestration across 12 PydanticAI agents with outputs contracted through Pydantic schemas; a director agent carrying 8 stateful tools so the whole pipeline can be driven in plain language; a per-stage state machine so failures resolve to a single stage; LLM-as-judge review with best-of-N selection and a keyframe gate ahead of generation spend; and provider factories with USE_MOCK_* flags so 236 tests run offline.
 
-Tech: Python, FastAPI, PydanticAI, SQLAlchemy 2.0 (async), PostgreSQL, Next.js 16
+Tech: Python, FastAPI, PydanticAI, SQLAlchemy 2.0 (async), PostgreSQL, Next.js
 GitHub: https://github.com/KCL1104/extrovid
 
 ### LorePack
 
-*Owner / Lead Developer · Personal project · Feb 2026*
+*Owner / Lead Developer · Personal project · 2026-02*
 
 An AI-driven collaborative story world platform. Users build persistent worlds, AI agents generate illustrated chapters, and people collaborate across universes. My work: the overall architecture and the multi-agent collaboration flow; A2A protocol integration and the inter-agent messaging layer; and the frontend interface. Engineering focus: orchestration patterns for multi-agent systems, task delegation between agents, and aggregating their results.
 
@@ -81,7 +81,7 @@ GitHub: https://github.com/KCL1104/LorePack
 
 ### DeepFlow
 
-*Owner / Lead Developer · Personal project · Jan 2026*
+*Owner / Lead Developer · Personal project · 2026-01*
 
 A personal project built on the idea of a "smart defence system": context-aware scheduling and dynamic priority filter out notification noise and protect deep work time. Frontend — Next.js (App Router) with shadcn/ui: the "Focus Player" and the queue visualisation. Backend — Python FastAPI, Supabase and Redis: priority queue management and multi-platform webhook intake (Slack / Jira / Gmail). Agent — Python and LangChain: signal parsing, urgency scoring, context-aware response generation. Technical highlights: a Redis sorted set (ZSET) gives O(log N) dynamic priority queueing; LangChain orchestrates the LLM calls.
 
@@ -90,11 +90,11 @@ GitHub: https://github.com/KCL1104/DeepFlow
 
 ### PinTool
 
-*Backend Engineer · Hackathon-winning · Team project · Oct 2025 - Present*
+*Backend Engineer · Hackathon-winning · Team project · 2025-10 – Present*
 
 A Solana-native strategy automation platform. Creators publish on-chain strategies; subscribers pay in USDC on-chain for access. My work: backend architecture, API development and subscription verification logic; Anchor contract integration and on-chain/off-chain state sync; and working with frontend to get the integration contract right.
 
-Tech: NestJS, Supabase, Anchor (Solana), TypeScript
+Tech: NestJS, Supabase, Anchor, TypeScript
 GitHub: https://github.com/pintoolx
 Demo: https://pintool.fun/
 Award: Encode Solana Hackathon — Cypherpunk side track (Sanctum) · AI FinTech Innovation Competition
@@ -103,25 +103,25 @@ Award: Encode Solana Hackathon — Cypherpunk side track (Sanctum) · AI FinTech
 
 ### Bachelor of Science in Computer Science — University of Taipei
 
-*Graduated June 2025 · Taipei, Taiwan*
+*2021-09 – 2025-06 · Taipei, Taiwan*
 
 Focused on software development, algorithms, data structures, and blockchain technology fundamentals.
 
 ### Self-Learning Blockchain Development — Independent Study
 
-*2021 - Present*
+*2021 – Present*
 
 Self-taught blockchain developer with a strong foundation in Solidity, Ethereum, and smart contract development.
 
 ### Blockchain Development Bootcamp — Online Learning Platform
 
-*Summer 2024*
+*2024-06 – 2024-08*
 
 Completed an intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation.
 
 ### Blockchain Study Group — Community
 
-*Feb 2025 - Jun 2025*
+*2025-02 – 2025-06*
 
 A blockchain study group hosting monthly meetups to discuss and learn about blockchain technology.
 
@@ -179,7 +179,7 @@ AI agent 開發是我建構軟體的核心方式，不是附加的實驗。
 
 ### 後端工程師 — Star Vaults
 
-*03/2026 - 05/2026 · 台北*
+*2026-03 – 2026-05 · 台北*
 
 從零到一負責某個完整服務模組（電商平台 / 內部工具場景）。架構與實作：與 1–2 位資深同事共同討論架構決策，由我主導後續實作、API 設計、資料模型與部署。後端服務開發：Node.js / NestJS、Python（FastAPI / Django）、PostgreSQL、Supabase、Redis、MongoDB。前端開發：以 React / Next.js 完成對應前端介面，確保前後端資料契約一致。開發流程：boilerplate、單元測試、重複性程式碼交給 Claude Code；寫了一組 prompt 模板跟 agent skills，讓 commit message、code review、test 這幾個環節照團隊規範走。
 
@@ -187,7 +187,7 @@ AI agent 開發是我建構軟體的核心方式，不是附加的實驗。
 
 ### 後端與區塊鏈工程師 — Jepun International
 
-*09/2025 - 03/2026 · 台北*
+*2025-09 – 2026-03 · 台北*
 
 負責中型產品線中的數個服務 / 模組（3–5 人團隊，跨前後端）。後端服務開發：使用 Python（FastAPI / Django）與 Node.js / Express 設計與實作 RESTful API，並負責對應的資料庫 schema 設計（PostgreSQL、MongoDB、Supabase）。第三方服務串接：整合多個第三方 API 與 SaaS 服務，處理跨系統資料同步與錯誤處理。AI / LLM 功能整合：負責產品中 LLM 相關功能的開發，涵蓋 agent flow 設計與 prompt 調校。前端開發：以 React / Next.js 完成對應前端介面，確保前後端資料契約一致。DevOps：自動化 CI/CD pipeline、容器化部署。
 
@@ -197,16 +197,16 @@ AI agent 開發是我建構軟體的核心方式，不是附加的實驗。
 
 ### Extrovid
 
-*個人專案 solo · AI native 影像生成工作站 · Jun 2026 - Jul 2026*
+*個人專案 solo · AI native 影像生成工作站 · 2026-06 – 2026-07*
 
 AI native 的 AI 影像生成工作站。自動跑完劇本、選角、分鏡、逐鏡生成、配音、粗剪，每一步都能跟 director agent 即時對話修改。個人負責：多 agent 編排，12 個 PydanticAI agent，輸出以 Pydantic schema 定義契約；Director agent 掛載 8 個 stateful tool，可用自然語言操作整條 pipeline；Pipeline 架構採 per-stage state machine，失敗可定位至單一 stage；品質與成本以 LLM-as-judge 評審與 best-of-N 選片，並以 keyframe 作為生成前的成本關卡；可測試性以 provider factory 搭配 USE_MOCK_*，236 個測試可離線執行。
 
-技術：Python, FastAPI, PydanticAI, SQLAlchemy 2.0 (async), PostgreSQL, Next.js 16
+技術：Python, FastAPI, PydanticAI, SQLAlchemy 2.0 (async), PostgreSQL, Next.js
 GitHub: https://github.com/KCL1104/extrovid
 
 ### LorePack
 
-*Owner / 主導開發 · 個人專案 · Feb 2026*
+*Owner / 主導開發 · 個人專案 · 2026-02*
 
 AI 驅動的故事世界共創平台。使用者可建立持久化世界觀、由 AI agent 生成插圖章節、並跨宇宙協作。個人負責：整體架構設計與多 agent 協作流程設計；A2A protocol 整合與 agent 間訊息傳遞機制；前端介面開發。學習重點：實作多 agent 系統的編排模式、agent 間任務委派與結果聚合。
 
@@ -215,7 +215,7 @@ GitHub: https://github.com/KCL1104/LorePack
 
 ### DeepFlow
 
-*Owner / 主導開發 · 個人專案 · Jan 2026*
+*Owner / 主導開發 · 個人專案 · 2026-01*
 
 以「智慧防禦系統」為概念的個人專案，透過 context-aware 排程與動態優先順序，過濾通知干擾、保護深度工作時間。Frontend：Next.js（App Router）+ shadcn/ui，負責「Focus Player」與佇列視覺化。Backend：Python FastAPI + Supabase + Redis，負責優先佇列管理與多平台 webhook 接收（Slack / Jira / Gmail）。Agent：Python + LangChain，負責訊號解析、緊急程度評分與 context-aware 回應生成。技術亮點：以 Redis Sorted Set（ZSET）實作 O(log N) 動態優先佇列；以 LangChain 編排 LLM 互動。
 
@@ -224,11 +224,11 @@ GitHub: https://github.com/KCL1104/DeepFlow
 
 ### PinTool
 
-*後端工程師 · Hackathon 得獎專案 · 團隊專案 · Oct 2025 - Present*
+*後端工程師 · Hackathon 得獎專案 · 團隊專案 · 2025-10 – Present*
 
 Solana 原生的策略自動化平台，創作者可發佈鏈上策略，訂閱者透過 USDC 鏈上訂閱取得存取權限。個人負責：後端架構設計、API 開發、訂閱驗證邏輯；Anchor 智能合約串接、鏈上鏈下狀態同步機制；與前端協作確定前後端串接正確。
 
-技術：NestJS, Supabase, Anchor (Solana), TypeScript
+技術：NestJS, Supabase, Anchor, TypeScript
 GitHub: https://github.com/pintoolx
 Demo: https://pintool.fun/
 獲獎：Encode Solana Hackathon — Cypherpunk side track（Sanctum）· AI 金融創新競賽
@@ -237,25 +237,25 @@ Demo: https://pintool.fun/
 
 ### 資訊科學學士 — University of Taipei
 
-*Graduated June 2025 · 台灣台北*
+*2021-09 – 2025-06 · 台灣台北*
 
 主修軟體開發、演算法、資料結構與區塊鏈技術基礎。
 
 ### 自學區塊鏈開發 — Independent Study
 
-*2021 - Present*
+*2021 – Present*
 
 自學區塊鏈開發，在 Solidity、Ethereum 與智能合約開發上具備扎實基礎。
 
 ### 區塊鏈開發訓練營 — Online Learning Platform
 
-*Summer 2024*
+*2024-06 – 2024-08*
 
 完成為期 8 週的密集訓練營，聚焦 Ethereum 開發、Solidity 與 dApp 實作。
 
 ### 區塊鏈讀書會 — Community
 
-*Feb 2025 - Jun 2025*
+*2025-02 – 2025-06*
 
 每月舉辦聚會、共同討論與學習區塊鏈技術的讀書會。
 
