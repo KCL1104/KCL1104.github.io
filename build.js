@@ -287,11 +287,15 @@ function markdown() {
         data.skills.forEach(g => out.push(bullet('**' + T(g.category) + '** — ' + g.items.join(', '))));
         out.push('');
 
+        out.push('## ' + L('AI-Native Development', 'AI-native 開發方法'));
+        out.push('');
+        out.push(T(data.aiNative.summary));
+        out.push('');
+        data.aiNative.practices.forEach(p => out.push(bullet('**' + T(p.title) + '** — ' + T(p.detail))));
+        out.push('');
         out.push('## ' + L('AI-Agent Development', 'AI Agent 開發'));
         out.push('');
         out.push(T(data.aiAgents.headline));
-        out.push('');
-        out.push(T(data.aiAgents.summary));
         out.push('');
         data.aiAgents.practices.forEach(p => out.push(bullet('**' + T(p.title) + '** — ' + T(p.detail))));
         out.push('');
