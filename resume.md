@@ -6,9 +6,9 @@ charlie011111@gmail.com · https://kcl1104.github.io/ · https://www.linkedin.co
 
 ## Summary
 
-AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.
+AI-native development — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.
 
-AI agent development — I've taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.
+AI-agent development — I've taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.
 
 - AI-native development: Claude Code as my daily driver across requirement breakdown, design, and implementation.
 - Custom AI toolchains: MCP servers, agent skills, and automation scripts (issue triage, code review, commit standards) wired into team production workflows.
@@ -143,7 +143,7 @@ charlie011111@gmail.com · https://kcl1104.github.io/ · https://www.linkedin.co
 
 ## 摘要
 
-AI 開發工具深度使用者：日常以 Claude Code 等 agent 作為主要開發夥伴，能透過自訂義 tools 以及 skills 加速從需求到部署的循環。
+AI-native 開發方法：日常以 Claude Code 等 agent 作為主要開發夥伴，能透過自訂義 tools 以及 skills 加速從需求到部署的循環。
 
 AI Agent 開發：有獨自進行 agent flow 設計、tool 串接、多 agent 編排、prompt 迭代、執行監控等由 0 到 1 獨自開發 AI agent 系統的能力。
 

@@ -6,7 +6,7 @@
     "image": "https://kcl1104.github.io/kcl.jpg",
     "email": "charlie011111@gmail.com",
     "url": "https://kcl1104.github.io/",
-    "summary": "AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.\n\nAI agent development — I've taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.",
+    "summary": "AI-native development — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.\n\nAI-agent development — I've taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.",
     "location": {
       "city": "Taipei",
       "countryCode": "TW"

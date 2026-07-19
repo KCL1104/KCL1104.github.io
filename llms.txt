@@ -1,6 +1,6 @@
 # Chi Lin Kuo (Charlie)
 
-> Blockchain & AI & Full-stack Developer. AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.
+> Blockchain & AI & Full-stack Developer. AI-native development — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.
 
 ## Resume
 
