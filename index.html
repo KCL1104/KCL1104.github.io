@@ -5,17 +5,160 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>PENGU | Terminal Portfolio</title>
 
+    <!--
+      Pre-paint bootstrap. Decides language + view BEFORE first paint so there is no flash.
+      Must stay inline, must stay first, must stay wrapped in try/catch: localStorage THROWS
+      (it does not return null) in hardened Safari/Firefox privacy modes, and if this script
+      dies the human never gets the terminal.
+
+      No class on <html> => document view: the full bilingual resume is the DEFAULT state.
+      Anything that does not run JS (curl, ClaudeBot, GPTBot, ATS scrapers, readability
+      extractors) therefore receives the complete resume with no negotiation.
+    -->
+    <script>
+    (function () {
+        var d = document.documentElement;
+        // Each read is individually guarded: localStorage THROWS on access in hardened
+        // privacy modes, and one shared try would let a storage failure discard an
+        // explicit ?view= / ?lang= deep link that had already been resolved.
+        function ls(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+        try {
+            var q = new URLSearchParams(location.search);
+            var view = q.get('view') || (location.hash === '#doc' ? 'doc' : null)
+                     || ls('pengu.view');
+            var lang = q.get('lang') || ls('pengu.lang')
+                     || (/^zh/i.test(navigator.language || '') ? 'zh' : 'en');
+            d.setAttribute('data-lang', lang === 'zh' ? 'zh' : 'en');
+            d.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+            if (view !== 'doc') d.className = 'js-terminal';
+        } catch (e) {
+            d.setAttribute('data-lang', 'en');
+            d.lang = 'en';
+            d.className = 'js-terminal';
+        }
+    })();
+    </script>
+
     <!-- Preload fonts for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <!-- Meta tags for SEO -->
-    <meta name="description" content="PENGU (Chi Lin Kuo) - AI-native Full-stack & Blockchain Engineer. Interactive terminal portfolio showcasing AI-agent tooling, backend, and blockchain projects.">
-    <meta name="keywords" content="AI engineer, ai-native, full-stack, backend, blockchain, solana, nestjs, nextjs, claude code, mcp, ai agents, langchain, portfolio, pengu">
+    <meta name="description" content="Chi Lin Kuo (郭啟霖 / PENGU) — Blockchain &amp; AI &amp; Full-stack Developer. Builds with AI coding agents: MCP servers, agent skills, multi-agent orchestration. Bilingual interactive terminal resume.">
+    <meta name="keywords" content="AI engineer, AI agent, full-stack, backend, blockchain, solana, nestjs, nextjs, fastapi, claude code, mcp, pydanticai, langchain, portfolio, pengu, 郭啟霖">
+    <meta name="author" content="Chi Lin Kuo">
+    <meta name="theme-color" content="#0d0d0d">
+
+    <link rel="canonical" href="https://kcl1104.github.io/">
+    <link rel="alternate" hreflang="en" href="https://kcl1104.github.io/?lang=en">
+    <link rel="alternate" hreflang="zh-Hant" href="https://kcl1104.github.io/?lang=zh">
+    <link rel="alternate" hreflang="x-default" href="https://kcl1104.github.io/">
+
+    <!-- Machine-readable alternates, for agents that prefer plain text over HTML -->
+    <link rel="alternate" type="text/markdown" href="/resume.md" title="Resume (Markdown)">
+    <link rel="alternate" type="application/pdf" hreflang="en" href="/resume/resumeEN0715.pdf" title="Resume (PDF, English)">
+    <link rel="alternate" type="application/pdf" hreflang="zh-Hant" href="/resume/resumeCN0715.pdf" title="Resume (PDF, 中文)">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:title" content="Chi Lin Kuo (Charlie) — Blockchain &amp; AI &amp; Full-stack Developer">
+    <meta property="og:description" content="Builds with AI coding agents: MCP servers, agent skills, multi-agent orchestration. Bilingual interactive terminal resume.">
+    <meta property="og:url" content="https://kcl1104.github.io/">
+    <meta property="og:image" content="https://kcl1104.github.io/kcl.jpg">
+    <meta property="profile:first_name" content="Chi Lin">
+    <meta property="profile:last_name" content="Kuo">
+    <meta name="twitter:card" content="summary">
+
+<!-- BEGIN:GENERATED jsonld -- DO NOT EDIT. Source: #resume-data. Run: node build.js -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Chi Lin Kuo (Charlie)",
+  "alternateName": "Chi Lin Kuo 郭啟霖",
+  "jobTitle": "Blockchain & AI & Full-stack Developer",
+  "description": "AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.",
+  "email": "mailto:charlie011111@gmail.com",
+  "url": "https://kcl1104.github.io/",
+  "image": "https://kcl1104.github.io/kcl.jpg",
+  "sameAs": [
+    "https://github.com/KCL1104/",
+    "https://www.linkedin.com/in/chi-lin-kuo-a47608209/"
+  ],
+  "knowsAbout": [
+    "PydanticAI",
+    "LangChain",
+    "Google ADK",
+    "A2A protocol",
+    "MCP",
+    "function calling",
+    "LLM-as-judge",
+    "eval harness",
+    "Python",
+    "FastAPI",
+    "Django",
+    "Node.js",
+    "NestJS",
+    "SQLAlchemy 2.0 (async)",
+    "PostgreSQL",
+    "Supabase",
+    "Redis",
+    "MongoDB",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "shadcn/ui",
+    "Solana",
+    "Anchor",
+    "Docker",
+    "CI/CD",
+    "S3"
+  ],
+  "knowsLanguage": [
+    {
+      "@type": "Language",
+      "name": "Chinese (Mandarin)"
+    },
+    {
+      "@type": "Language",
+      "name": "English"
+    }
+  ],
+  "hasOccupation": [
+    {
+      "@type": "OrganizationRole",
+      "roleName": "Backend Engineer",
+      "startDate": "2026-03",
+      "endDate": "2026-05",
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Star Vaults"
+      }
+    },
+    {
+      "@type": "OrganizationRole",
+      "roleName": "Backend & Blockchain Engineer",
+      "startDate": "2025-09",
+      "endDate": "2026-03",
+      "memberOf": {
+        "@type": "Organization",
+        "name": "Jepun International"
+      }
+    }
+  ],
+  "alumniOf": [
+    {
+      "@type": "EducationalOrganization",
+      "name": "University of Taipei"
+    },
+    {
+      "@type": "EducationalOrganization",
+      "name": "Online Learning Platform"
+    }
+  ]
+}
+    </script>
+<!-- END:GENERATED jsonld -->
 
     <style>
         /* ===========================================
@@ -40,8 +183,11 @@
             --btn-minimize: #3e3e42;
             --btn-maximize: #3e3e42;
 
-            /* Fonts */
-            --font-mono: 'Fira Code', 'JetBrains Mono', 'SF Mono', 'Consolas', 'Monaco', monospace;
+            /* Fonts. CJK fallbacks matter: Fira Code has no Chinese glyphs, so Chinese
+               always renders in a fallback face. Naming good ones keeps it legible. */
+            --font-mono: 'Fira Code', 'JetBrains Mono', 'SF Mono', 'Consolas', 'Monaco',
+                         'Sarasa Mono TC', 'Noto Sans Mono CJK TC', 'PingFang TC',
+                         'Microsoft JhengHei', monospace;
 
             /* Spacing */
             --terminal-padding: 20px;
@@ -57,7 +203,14 @@
             box-sizing: border-box;
         }
 
+        /* Default (document view / no JS): the page scrolls normally.
+           Only the terminal opts into the locked-viewport behaviour. */
         html, body {
+            height: auto;
+            overflow: visible;
+        }
+
+        html.js-terminal, html.js-terminal body {
             height: 100%;
             overflow: hidden;
         }
@@ -77,7 +230,7 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             max-width: 1200px;
             margin: 0 auto;
             background-color: var(--terminal-bg);
@@ -88,14 +241,46 @@
             position: relative;
         }
 
+        html.js-terminal .terminal-window {
+            height: 100vh;
+            min-height: 0;
+        }
+
         /* Desktop: Add margin and sizing */
         @media (min-width: 768px) {
             .terminal-window {
-                height: calc(100vh - 40px);
                 margin: 20px auto;
                 max-width: calc(100% - 40px);
+                min-height: calc(100vh - 40px);
+            }
+
+            html.js-terminal .terminal-window {
+                height: calc(100vh - 40px);
+                min-height: 0;
             }
         }
+
+        /* ===========================================
+           VIEW SWITCHING
+           The document is the default; the terminal opts in via html.js-terminal.
+           #resume-doc lives INSIDE .terminal-window, so both views inherit the same
+           frame, radius, shadow, title bar, scrollbar, font and breakpoint for free.
+
+           Written as html:not(.js-terminal) rather than a bare class selector on purpose:
+           .terminal-input-area sets `display: flex` further down the stylesheet, and at
+           equal specificity the later rule would win and leak the input into doc view.
+           =========================================== */
+        html:not(.js-terminal) #terminal-output,
+        html:not(.js-terminal) .terminal-input-area { display: none; }
+
+        html.js-terminal #resume-doc { display: none; }
+
+        /* Language visibility in the baked document. With no data-lang (JS off) NEITHER
+           rule matches, so both languages render, each correctly lang-tagged. That is the
+           right asymmetry: an agent gets everything in one GET; a human never sees this
+           state because the pre-paint script always stamps data-lang before first paint. */
+        html[data-lang="en"] #resume-doc [lang|="zh"] { display: none; }
+        html[data-lang="zh"] #resume-doc [lang|="en"] { display: none; }
 
         /* ===========================================
            TERMINAL HEADER (Window Chrome)
@@ -141,6 +326,47 @@
             padding-left: 10px;
             font-weight: 500;
         }
+
+        /* Header controls: view toggle + language toggle */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            order: 1;
+            margin-left: auto;
+            padding-right: 10px;
+        }
+
+        .chip {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 1;
+            padding: 5px 8px;
+            border: 1px solid var(--window-border);
+            border-radius: 4px;
+            color: var(--terminal-prompt);
+            background: transparent;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .chip:hover {
+            border-color: var(--terminal-link);
+            color: var(--terminal-link);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .chip[aria-current="true"] {
+            color: var(--terminal-success);
+            border-color: var(--terminal-success);
+        }
+
+        /* The view chips are reciprocal: show the one you can go TO. */
+        .chip-doc { display: none; }
+        html.js-terminal .chip-doc { display: inline-block; }
+        html.js-terminal .chip-terminal { display: none; }
 
         /* ===========================================
            TERMINAL OUTPUT AREA
@@ -216,6 +442,26 @@
         .output-link:hover {
             text-decoration: underline;
         }
+
+        /* ===========================================
+           MONOSPACE COLUMNS
+
+           These replace String.padEnd(). Padding with spaces never worked here: .output-line
+           is an inline formatting context with no `white-space: pre`, so a run of spaces
+           collapses to one. Chinese only made an existing bug louder — and counting width
+           more cleverly could not have fixed it either, since Chinese renders in a fallback
+           face whose advance is not guaranteed to be exactly 2x the Latin advance.
+           =========================================== */
+        .col, .col-8, .col-12, .col-22 {
+            display: inline-block;
+            vertical-align: top;
+        }
+        .col    { min-width: 14ch; }
+        .col-8  { min-width: 8ch; }
+        .col-12 { min-width: 12ch; }
+        .col-22 { min-width: 22ch; }
+        .ind    { padding-left: 2ch; }
+        .ind-6  { padding-left: 6ch; }
 
         .copy-toast {
             position: absolute;
@@ -377,6 +623,71 @@
         }
 
         /* ===========================================
+           DOCUMENT VIEW
+           Everything visible at once. Reuses every class above so it reads as the same
+           product: it is the terminal with every command already typed.
+           =========================================== */
+        #resume-doc {
+            flex: 1;
+            padding: var(--terminal-padding);
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .doc-section {
+            margin-bottom: 2.5rem;
+        }
+
+        #resume-doc a {
+            text-decoration: underline;
+        }
+
+        /* In a scrolling document, project names are anchors, not command triggers. */
+        #resume-doc .project-name {
+            cursor: pointer;
+        }
+
+        .doc-note {
+            color: var(--terminal-prompt);
+            font-size: 12px;
+            margin: 10px 0 24px;
+        }
+
+        /* Visually hidden but present for screen readers, html2text, readability
+           extractors and anything else that walks the DOM for structure. */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: var(--window-header);
+            color: var(--terminal-link);
+            padding: 8px 12px;
+            z-index: 10;
+        }
+
+        .skip-link:focus {
+            left: 8px;
+            top: 8px;
+        }
+
+        /* In terminal view the skip target is display:none, so the link would be inert —
+           and there is nothing to skip anyway, since init() focuses the input directly. */
+        html.js-terminal .skip-link { display: none; }
+
+        /* ===========================================
            MOBILE RESPONSIVE ADJUSTMENTS
            =========================================== */
         @media (max-width: 767px) {
@@ -394,7 +705,8 @@
             }
 
             .terminal-output,
-            .terminal-input-area {
+            .terminal-input-area,
+            #resume-doc {
                 padding: 12px;
             }
 
@@ -423,6 +735,22 @@
             .hint-btn {
                 padding: 8px 12px;
                 font-size: 13px;
+            }
+
+            /* The title is the first thing to sacrifice when the chips need room. */
+            .terminal-title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .header-controls {
+                gap: 4px;
+                padding-right: 6px;
+            }
+
+            .chip {
+                padding: 6px 7px;
             }
         }
 
@@ -458,6 +786,7 @@
 
         /* Focus styles for keyboard navigation */
         .hint-btn:focus,
+        .chip:focus,
         .terminal-input:focus,
         .output-link:focus {
             outline: 2px solid var(--terminal-link);
@@ -466,7 +795,9 @@
     </style>
 </head>
 <body>
-    <div class="terminal-window" role="application" aria-label="Terminal Portfolio">
+    <a class="skip-link" href="#resume-doc">Skip to resume</a>
+
+    <div class="terminal-window" aria-label="Terminal Portfolio">
 
         <!-- Terminal Header with Window Controls -->
         <div class="terminal-header">
@@ -475,13 +806,390 @@
                 <span class="window-btn minimize"></span>
                 <span class="window-btn maximize"></span>
             </div>
-            <div class="terminal-title">visitor@pengu - PowerShell</div>
+            <div class="terminal-title" id="window-title">visitor@pengu - PowerShell</div>
+            <div class="header-controls">
+                <!-- Real anchors, present in the raw HTML, so a JS-executing agent can
+                     discover the document view without guessing at a query parameter. -->
+                <a class="chip chip-doc" href="?view=doc" data-view="doc">[ doc ]</a>
+                <a class="chip chip-terminal" href="?view=terminal" data-view="terminal">[ terminal ]</a>
+                <a class="chip chip-lang" href="?lang=en" data-set-lang="en" hreflang="en">EN</a>
+                <a class="chip chip-lang" href="?lang=zh" data-set-lang="zh" hreflang="zh-Hant">中文</a>
+            </div>
         </div>
 
         <!-- Terminal Output Area (Scrollable) -->
         <div class="terminal-output" id="terminal-output" role="log" aria-live="polite">
             <!-- Output will be dynamically inserted here -->
         </div>
+
+        <!--
+          The document view. This is the DEFAULT state of the page: the content between the
+          markers below is served as static HTML, so a plain GET returns the complete
+          bilingual resume with no JavaScript involved. When JS is present it is re-rendered
+          live from #resume-data, so a JS viewer can never see a stale build.
+
+          DO NOT hand-edit between the markers. Edit #resume-data, then run: node build.js
+        -->
+        <main id="resume-doc" data-src-hash="4bcc4949">
+<!-- BEGIN:GENERATED doc-view -- DO NOT EDIT. Source: #resume-data. Run: node build.js -->
+<section lang="en">
+<pre class="ascii-art" role="img" aria-label="PENGU">
+██████╗ ███████╗███╗   ██╗ ██████╗ ██╗   ██╗
+██╔══██╗██╔════╝████╗  ██║██╔════╝ ██║   ██║
+██████╔╝█████╗  ██╔██╗ ██║██║  ███╗██║   ██║
+██╔═══╝ ██╔══╝  ██║╚██╗██║██║   ██║██║   ██║
+██║     ███████╗██║ ╚████║╚██████╔╝╚██████╔╝
+╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝</pre>
+<h1 class="sr-only">Chi Lin Kuo (Charlie) — Blockchain &amp; AI &amp; Full-stack Developer</h1>
+<p class="doc-note">This is the document view: the complete resume, everything expanded, nothing to type. The interactive terminal version is at ?view=terminal. Plain-text copies: /resume.md and the PDFs linked in the head.</p>
+<section id="about-en" class="doc-section"><h2 class="sr-only">About</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">about</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// About — Chi Lin Kuo (Charlie)</span></div>
+<div class="output-line "></div>
+<div class="output-line "><img src="kcl.jpg" alt="Chi Lin Kuo (Charlie)" class="profile-photo" width="200" height="200" loading="lazy"></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col-12">Name:</span>Chi Lin Kuo (Charlie)</div>
+<div class="output-line "><span class="output-command col-12">Handle:</span>PENGU</div>
+<div class="output-line "><span class="output-command col-12">Title:</span>Blockchain &amp; AI &amp; Full-stack Developer</div>
+<div class="output-line "></div>
+<div class="output-line ">AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.</div>
+<div class="output-line "></div>
+<div class="output-line ">AI agent development — I&#39;ve taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Focus</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> AI-native development: Claude Code as my daily driver across requirement breakdown, design, and implementation.</div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> Custom AI toolchains: MCP servers, agent skills, and automation scripts (issue triage, code review, commit standards) wired into team production workflows.</div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> Fast-iteration shipping: reliably delivering backend and full-stack products under tight delivery cycles.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Hackathon Awards</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> Encode Solana Hackathon: 2nd place, Cypherpunk side track (hosted by Sanctum) — PinTool</div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> AI FinTech Innovation &amp; Creativity Competition: Social Group 3rd Place</div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA</div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track</div>
+<div class="output-line "></div>
+<div class="output-line ">Run <span class="output-command">ai</span> to see how I build with AI coding agents, or <span class="output-command">skills</span> for the full tech stack.</div>
+<div class="output-line "></div></section>
+<section id="ai-en" class="doc-section"><h2 class="sr-only">AI-Agent Development</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">ai</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// AI-Agent Development</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-accent">AI-agent development is the core of how I build — not a side experiment.</span></div>
+<div class="output-line "></div>
+<div class="output-line ">I treat AI coding agents as first-class teammates: I design the harnesses, tools, and skills they run on, then delegate the mechanical work so I can focus on architecture, API boundaries, and business logic.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Agent-driven delivery</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Claude Code and other coding agents as my primary development partner on a daily basis — driving requirement breakdown, design, and implementation, and compressing the cycle from requirements to deployment.</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Custom MCP servers</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Build Model Context Protocol (MCP) servers that give agents first-class, typed access to internal tools, data, and services.</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Agent skills &amp; harnesses</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Design reusable agent skills and prompt templates that keep agents consistently aligned with team standards for commit messages, code reviews, and test writing.</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Workflow automation</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Automation scripts for issue triage, code review, and commit-message standardization — integrated directly into team production workflows.</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Multi-agent orchestration</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">12 PydanticAI agents with Pydantic-schema output contracts and a stateful director agent (Extrovid); Google ADK and the A2A protocol for inter-agent collaboration (LorePack); LangChain agent layers for signal parsing and urgency scoring (DeepFlow).</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Quality, cost &amp; testability</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">LLM-as-judge review with best-of-N selection, keyframe gates ahead of generation spend, and provider factories behind USE_MOCK_* flags so the whole suite runs offline.</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command">Agent stack:</span> <span class="project-tech-tags">Claude Code · MCP · Agent skills · PydanticAI · LangChain · Google ADK · A2A protocol · FastAPI · TypeScript</span></div>
+<div class="output-line "></div>
+<div class="output-line ">See it in action: <span class="output-command">cat extrovid</span> (12-agent orchestration) and <span class="output-command">cat deepflow</span> (LangChain agent layer).</div>
+<div class="output-line "></div></section>
+<section id="skills-en" class="doc-section"><h2 class="sr-only">Tech Stack</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">skills</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Tech Stack</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">LLM / Agent:</span><span class="project-tech-tags">PydanticAI · LangChain · Google ADK · A2A protocol · MCP · function calling · LLM-as-judge · eval harness</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">Backend:</span><span class="project-tech-tags">Python · FastAPI · Django · Node.js · NestJS · SQLAlchemy 2.0 (async) · PostgreSQL · Supabase · Redis · MongoDB</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">Frontend:</span><span class="project-tech-tags">Next.js · React · TypeScript · shadcn/ui</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">Other:</span><span class="project-tech-tags">Solana · Anchor · Docker · CI/CD · S3</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-prompt">Tip: AI-agent tooling (Claude Code, MCP, agent skills) is my core differentiator. Run </span><span class="output-command">ai</span><span class="output-prompt"> to dig in.</span></div>
+<div class="output-line "></div></section>
+<section id="projects-en" class="doc-section"><h2 class="sr-only">Projects</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">projects</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Projects</span></div>
+<div class="output-line "></div>
+<div class="output-line ">Use <span class="output-command">cat &lt;project-id&gt;</span> to view project details.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat extrovid" role="link" tabindex="0">[1] Extrovid</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">Solo personal project · AI-native film production · Jun 2026 - Jul 2026</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Python | FastAPI | PydanticAI | SQLAlchemy 2.0 (async) | PostgreSQL | Next.js 16</span></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat lorepack" role="link" tabindex="0">[2] LorePack</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">Owner / Lead Developer · Personal project · Feb 2026</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Google ADK | A2A protocol | Next.js | FastAPI</span></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat deepflow" role="link" tabindex="0">[3] DeepFlow</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">Owner / Lead Developer · Personal project · Jan 2026</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Next.js | shadcn/ui | FastAPI | LangChain | Redis | Supabase</span></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat pintool" role="link" tabindex="0">[4] PinTool</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">Backend Engineer · Hackathon-winning · Team project · Oct 2025 - Present</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">NestJS | Supabase | Anchor (Solana) | TypeScript</span></div>
+<div class="output-line "></div></section>
+<section id="experience-en" class="doc-section"><h2 class="sr-only">Work Experience</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">experience</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Work Experience</span></div>
+<div class="output-line "></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">Backend Engineer</span></div><div><span class="timeline-company">Star Vaults</span> | Taipei</div><div><span class="timeline-date">03/2026 - 05/2026</span></div><div>Took one complete service module from zero to one (e-commerce platform / internal tooling). Architecture and implementation — worked through the architecture decisions with one or two senior engineers, then led the implementation, API design, data model and deployment. Backend — Node.js / NestJS, Python (FastAPI / Django), PostgreSQL, Supabase, Redis, MongoDB. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. Process — boilerplate, unit tests and repetitive code went to Claude Code. Wrote a set of prompt templates and agent skills so that commit messages, code review and tests followed team convention.</div><div><span class="project-tech-tags">Node.js | NestJS | Python | FastAPI | Django | PostgreSQL | Supabase | Redis | MongoDB | React | Next.js</span></div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">Backend &amp; Blockchain Engineer</span></div><div><span class="timeline-company">Jepun International</span> | Taipei</div><div><span class="timeline-date">09/2025 - 03/2026</span></div><div>Owned several services and modules in a mid-sized product line (3–5 person team, front and back). Backend — designed and built RESTful APIs in Python (FastAPI / Django) and Node.js / Express, along with the database schemas behind them (PostgreSQL, MongoDB, Supabase). Third-party integration — integrated multiple third-party APIs and SaaS services, handling cross-system data sync and error paths. AI / LLM features — built the LLM features in the product, covering agent flow design and prompt tuning. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. DevOps — automated CI/CD pipelines and containerized deploys.</div><div><span class="project-tech-tags">Python | FastAPI | Django | Node.js | Express | PostgreSQL | MongoDB | Supabase | React | Next.js | CI/CD</span></div></div></div>
+<div class="output-line "></div></section>
+<section id="education-en" class="doc-section"><h2 class="sr-only">Education</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">education</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Education</span></div>
+<div class="output-line "></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">Bachelor of Science in Computer Science</span></div><div><span class="timeline-company">University of Taipei</span> | Taipei, Taiwan</div><div><span class="timeline-date">Graduated June 2025</span></div><div>Focused on software development, algorithms, data structures, and blockchain technology fundamentals.</div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">Self-Learning Blockchain Development</span></div><div><span class="timeline-company">Independent Study</span></div><div><span class="timeline-date">2021 - Present</span></div><div>Self-taught blockchain developer with a strong foundation in Solidity, Ethereum, and smart contract development.</div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">Blockchain Development Bootcamp</span></div><div><span class="timeline-company">Online Learning Platform</span></div><div><span class="timeline-date">Summer 2024</span></div><div>Completed an intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation.</div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">Blockchain Study Group</span></div><div><span class="timeline-company">Community</span></div><div><span class="timeline-date">Feb 2025 - Jun 2025</span></div><div>A blockchain study group hosting monthly meetups to discuss and learn about blockchain technology.</div></div></div>
+<div class="output-line "></div></section>
+<section id="languages-en" class="doc-section"><h2 class="sr-only">Languages</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">languages</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Languages</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-22">Chinese (Mandarin)</span><span class="skill-fill">████████████████████</span><span class="skill-bar"></span></div>
+<div class="output-line "><span class="ind"></span><span class="col-22"></span>Native or Bilingual Proficiency</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-22">English</span><span class="skill-fill">██████████████████</span><span class="skill-bar">░░</span></div>
+<div class="output-line "><span class="ind"></span><span class="col-22"></span>Full Professional Proficiency</div>
+<div class="output-line "></div>
+<div class="output-line "></div></section>
+<section id="contact-en" class="doc-section"><h2 class="sr-only">Contact</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">contact</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Contact</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">Email:</span><a href="mailto:charlie011111@gmail.com" class="output-link">charlie011111@gmail.com</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">Website:</span><a href="https://kcl1104.github.io/" rel="me" class="output-link">https://kcl1104.github.io/</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">LinkedIn:</span><a href="https://www.linkedin.com/in/chi-lin-kuo-a47608209/" target="_blank" rel="me noopener noreferrer" class="output-link">https://www.linkedin.com/in/chi-lin-kuo-a47608209/</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">GitHub:</span><a href="https://github.com/KCL1104/" target="_blank" rel="me noopener noreferrer" class="output-link">https://github.com/KCL1104/</a></div>
+<div class="output-line "></div>
+<div class="output-line ">Open to backend / full-stack / AI-engineering roles and collaborations.</div>
+<div class="output-line ">Always happy to chat about AI-agent tooling, blockchain, and shipping fast.</div>
+<div class="output-line "></div></section>
+<section id="project-details-en" class="doc-section"><h2 class="sr-only">Project Details</h2><article id="p-extrovid-en"><h3 class="sr-only">Extrovid</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat extrovid</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Extrovid</span></div>
+<div class="output-line "><span class="timeline-date">Solo personal project · AI-native film production · Jun 2026 - Jul 2026</span></div>
+<div class="output-line "></div>
+<div class="output-line ">An AI-native film production system. It runs script, casting, storyboard, per-shot generation, voice and rough cut end to end, and you can talk to a director agent at any step to change something live. My work: multi-agent orchestration across 12 PydanticAI agents with outputs contracted through Pydantic schemas; a director agent carrying 8 stateful tools so the whole pipeline can be driven in plain language; a per-stage state machine so failures resolve to a single stage; LLM-as-judge review with best-of-N selection and a keyframe gate ahead of generation spend; and provider factories with USE_MOCK_* flags so 236 tests run offline.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>Python, FastAPI, PydanticAI, SQLAlchemy 2.0 (async), PostgreSQL, Next.js 16</div>
+<div class="output-line "><span class="output-command col">Categories:</span>ai, agents, web</div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/KCL1104/extrovid" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/KCL1104/extrovid</a></div>
+<div class="output-line "></div></article>
+<article id="p-lorepack-en"><h3 class="sr-only">LorePack</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat lorepack</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// LorePack</span></div>
+<div class="output-line "><span class="timeline-date">Owner / Lead Developer · Personal project · Feb 2026</span></div>
+<div class="output-line "></div>
+<div class="output-line ">An AI-driven collaborative story world platform. Users build persistent worlds, AI agents generate illustrated chapters, and people collaborate across universes. My work: the overall architecture and the multi-agent collaboration flow; A2A protocol integration and the inter-agent messaging layer; and the frontend interface. Engineering focus: orchestration patterns for multi-agent systems, task delegation between agents, and aggregating their results.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>Google ADK, A2A protocol, Next.js, FastAPI</div>
+<div class="output-line "><span class="output-command col">Categories:</span>ai, agents, web</div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/KCL1104/LorePack" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/KCL1104/LorePack</a></div>
+<div class="output-line "></div></article>
+<article id="p-deepflow-en"><h3 class="sr-only">DeepFlow</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat deepflow</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// DeepFlow</span></div>
+<div class="output-line "><span class="timeline-date">Owner / Lead Developer · Personal project · Jan 2026</span></div>
+<div class="output-line "></div>
+<div class="output-line ">A personal project built on the idea of a &quot;smart defence system&quot;: context-aware scheduling and dynamic priority filter out notification noise and protect deep work time. Frontend — Next.js (App Router) with shadcn/ui: the &quot;Focus Player&quot; and the queue visualisation. Backend — Python FastAPI, Supabase and Redis: priority queue management and multi-platform webhook intake (Slack / Jira / Gmail). Agent — Python and LangChain: signal parsing, urgency scoring, context-aware response generation. Technical highlights: a Redis sorted set (ZSET) gives O(log N) dynamic priority queueing; LangChain orchestrates the LLM calls.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>Next.js, shadcn/ui, FastAPI, LangChain, Redis, Supabase</div>
+<div class="output-line "><span class="output-command col">Categories:</span>ai, agents, web</div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/KCL1104/DeepFlow" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/KCL1104/DeepFlow</a></div>
+<div class="output-line "></div></article>
+<article id="p-pintool-en"><h3 class="sr-only">PinTool</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat pintool</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// PinTool</span></div>
+<div class="output-line "><span class="timeline-date">Backend Engineer · Hackathon-winning · Team project · Oct 2025 - Present</span></div>
+<div class="output-line "></div>
+<div class="output-line ">A Solana-native strategy automation platform. Creators publish on-chain strategies; subscribers pay in USDC on-chain for access. My work: backend architecture, API development and subscription verification logic; Anchor contract integration and on-chain/off-chain state sync; and working with frontend to get the integration contract right.</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>NestJS, Supabase, Anchor (Solana), TypeScript</div>
+<div class="output-line "><span class="output-command col">Categories:</span>blockchain, solana, web3, backend</div>
+<div class="output-line "><span class="output-command col">Live demo:</span><a href="https://pintool.fun/" target="_blank" rel="noopener noreferrer" class="output-link">https://pintool.fun/</a></div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/pintoolx" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/pintoolx</a></div>
+<div class="output-line "><span class="output-command col">Award:</span><span class="output-warning">★ Encode Solana Hackathon — Cypherpunk side track (Sanctum) · AI FinTech Innovation Competition</span></div>
+<div class="output-line "></div></article></section>
+<section id="resume-en" class="doc-section"><h2 class="sr-only">Resume</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">resume</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Resume</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-8">EN</span><a href="https://kcl1104.github.io/resume/resumeEN0715.pdf" target="_blank" rel="noopener noreferrer" class="output-link">resume/resumeEN0715.pdf</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-8">中文</span><a href="https://kcl1104.github.io/resume/resumeCN0715.pdf" target="_blank" rel="noopener noreferrer" class="output-link">resume/resumeCN0715.pdf</a></div>
+<div class="output-line "></div>
+<div class="output-line ">Plain text for agents: <a href="resume.md" class="output-link">/resume.md</a></div></section>
+</section>
+<section lang="zh-Hant">
+<pre class="ascii-art" role="img" aria-label="PENGU">
+██████╗ ███████╗███╗   ██╗ ██████╗ ██╗   ██╗
+██╔══██╗██╔════╝████╗  ██║██╔════╝ ██║   ██║
+██████╔╝█████╗  ██╔██╗ ██║██║  ███╗██║   ██║
+██╔═══╝ ██╔══╝  ██║╚██╗██║██║   ██║██║   ██║
+██║     ███████╗██║ ╚████║╚██████╔╝╚██████╔╝
+╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝</pre>
+<h1 class="sr-only">Chi Lin Kuo 郭啟霖 — Blockchain &amp; AI &amp; Full-stack Developer</h1>
+<p class="doc-note">這是文件模式：完整履歷、全部展開、不需輸入任何指令。互動式終端機版本在 ?view=terminal。純文字版本：/resume.md 以及 head 中連結的 PDF。</p>
+<section id="about-zh" class="doc-section"><h2 class="sr-only">關於我</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">about</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 關於我 — Chi Lin Kuo 郭啟霖</span></div>
+<div class="output-line "></div>
+<div class="output-line "><img src="kcl.jpg" alt="Chi Lin Kuo 郭啟霖" class="profile-photo" width="200" height="200" loading="lazy"></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col-12">Name:</span>Chi Lin Kuo 郭啟霖</div>
+<div class="output-line "><span class="output-command col-12">Handle:</span>PENGU</div>
+<div class="output-line "><span class="output-command col-12">Title:</span>Blockchain &amp; AI &amp; Full-stack Developer</div>
+<div class="output-line "></div>
+<div class="output-line ">AI 開發工具深度使用者：日常以 Claude Code 等 agent 作為主要開發夥伴，能透過自訂義 tools 以及 skills 加速從需求到部署的循環。</div>
+<div class="output-line "></div>
+<div class="output-line ">AI Agent 開發：有獨自進行 agent flow 設計、tool 串接、多 agent 編排、prompt 迭代、執行監控等由 0 到 1 獨自開發 AI agent 系統的能力。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 專注領域</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> AI-native 開發流程：以 Claude Code 貫穿需求拆解、設計到實作的日常開發。</div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> 自訂 AI 工具鏈：MCP server、agent skills 與自動化腳本（issue 分類、code review、commit 規範），實際接進團隊的生產流程。</div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> 快速迭代交付：在緊湊的交付週期下穩定產出後端與全端產品。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Hackathon 得獎紀錄</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> Encode Solana Hackathon：Cypherpunk side track（由 Sanctum 主辦）第二名 — PinTool</div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> AI 金融創新與創意競賽：社會組第三名</div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> XueDao Hackathon：拿下國泰金控、Zircuit、BGA 三個賽道獎項</div>
+<div class="output-line "><span class="ind"></span><span class="output-warning">★</span> Encode Solana Winter Build Challenge 2025：Best Consumer App on Solana 賽道第一名</div>
+<div class="output-line "></div>
+<div class="output-line ">輸入 <span class="output-command">ai</span> 看我如何與 AI coding agent 協作，或 <span class="output-command">skills</span> 看完整技術棧。</div>
+<div class="output-line "></div></section>
+<section id="ai-zh" class="doc-section"><h2 class="sr-only">AI Agent 開發</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">ai</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// AI Agent 開發</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-accent">AI agent 開發是我建構軟體的核心方式，不是附加的實驗。</span></div>
+<div class="output-line "></div>
+<div class="output-line ">我把 AI coding agent 當成正式的團隊成員：由我設計它們運行所需的 harness、tools 與 skills，再把機械性的工作交出去，讓自己專注在架構、API 邊界與商業邏輯上。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Agent 驅動的交付</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">日常以 Claude Code 等 coding agent 作為主要開發夥伴，推動需求拆解、設計與實作，壓縮從需求到部署的循環。</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">自訂 MCP server</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">建置 Model Context Protocol（MCP）server，讓 agent 能以型別化、第一級的方式存取內部工具、資料與服務。</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">Agent skills 與 harness</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">設計可重複使用的 agent skills 與 prompt 模板，讓 agent 在 commit message、code review、測試撰寫上穩定符合團隊規範。</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">工作流自動化</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">issue 分類、code review、commit message 標準化的自動化腳本，直接整合進團隊的生產流程。</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">多 agent 編排</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">12 個 PydanticAI agent、以 Pydantic schema 定義輸出契約並搭配 stateful director agent（Extrovid）；以 Google ADK 與 A2A protocol 進行 agent 間協作（LorePack）；以 LangChain agent 層負責訊號解析與緊急程度評分（DeepFlow）。</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-success">▹</span> <span class="output-command">品質、成本與可測試性</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">以 LLM-as-judge 評審搭配 best-of-N 選片、在生成花費前設置 keyframe 關卡，並以 provider factory 搭配 USE_MOCK_* 讓整套測試可離線執行。</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command">Agent stack:</span> <span class="project-tech-tags">Claude Code · MCP · Agent skills · PydanticAI · LangChain · Google ADK · A2A protocol · FastAPI · TypeScript</span></div>
+<div class="output-line "></div>
+<div class="output-line ">實例：<span class="output-command">cat extrovid</span>（12 agent 編排）與 <span class="output-command">cat deepflow</span>（LangChain agent 層）。</div>
+<div class="output-line "></div></section>
+<section id="skills-zh" class="doc-section"><h2 class="sr-only">技術棧</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">skills</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 技術棧</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">LLM / Agent:</span><span class="project-tech-tags">PydanticAI · LangChain · Google ADK · A2A protocol · MCP · function calling · LLM-as-judge · eval harness</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">後端:</span><span class="project-tech-tags">Python · FastAPI · Django · Node.js · NestJS · SQLAlchemy 2.0 (async) · PostgreSQL · Supabase · Redis · MongoDB</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">前端:</span><span class="project-tech-tags">Next.js · React · TypeScript · shadcn/ui</span></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col">其他:</span><span class="project-tech-tags">Solana · Anchor · Docker · CI/CD · S3</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-prompt">提示：AI agent 工具鏈（Claude Code、MCP、agent skills）是我的核心差異化，輸入 </span><span class="output-command">ai</span><span class="output-prompt"> 深入了解。</span></div>
+<div class="output-line "></div></section>
+<section id="projects-zh" class="doc-section"><h2 class="sr-only">專案</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">projects</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 專案</span></div>
+<div class="output-line "></div>
+<div class="output-line ">使用 <span class="output-command">cat &lt;project-id&gt;</span> 查看專案細節。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat extrovid" role="link" tabindex="0">[1] Extrovid</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">個人專案 solo · AI native 影像生成工作站 · Jun 2026 - Jul 2026</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Python | FastAPI | PydanticAI | SQLAlchemy 2.0 (async) | PostgreSQL | Next.js 16</span></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat lorepack" role="link" tabindex="0">[2] LorePack</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">Owner / 主導開發 · 個人專案 · Feb 2026</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Google ADK | A2A protocol | Next.js | FastAPI</span></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat deepflow" role="link" tabindex="0">[3] DeepFlow</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">Owner / 主導開發 · 個人專案 · Jan 2026</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">Next.js | shadcn/ui | FastAPI | LangChain | Redis | Supabase</span></div>
+<div class="output-line "><span class="ind"></span><span class="project-name" data-cmd="cat pintool" role="link" tabindex="0">[4] PinTool</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="timeline-date">後端工程師 · Hackathon 得獎專案 · 團隊專案 · Oct 2025 - Present</span></div>
+<div class="output-line "><span class="ind-6"></span><span class="project-tech-tags">NestJS | Supabase | Anchor (Solana) | TypeScript</span></div>
+<div class="output-line "></div></section>
+<section id="experience-zh" class="doc-section"><h2 class="sr-only">工作經歷</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">experience</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 工作經歷</span></div>
+<div class="output-line "></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">後端工程師</span></div><div><span class="timeline-company">Star Vaults</span> | 台北</div><div><span class="timeline-date">03/2026 - 05/2026</span></div><div>從零到一負責某個完整服務模組（電商平台 / 內部工具場景）。架構與實作：與 1–2 位資深同事共同討論架構決策，由我主導後續實作、API 設計、資料模型與部署。後端服務開發：Node.js / NestJS、Python（FastAPI / Django）、PostgreSQL、Supabase、Redis、MongoDB。前端開發：以 React / Next.js 完成對應前端介面，確保前後端資料契約一致。開發流程：boilerplate、單元測試、重複性程式碼交給 Claude Code；寫了一組 prompt 模板跟 agent skills，讓 commit message、code review、test 這幾個環節照團隊規範走。</div><div><span class="project-tech-tags">Node.js | NestJS | Python | FastAPI | Django | PostgreSQL | Supabase | Redis | MongoDB | React | Next.js</span></div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">後端與區塊鏈工程師</span></div><div><span class="timeline-company">Jepun International</span> | 台北</div><div><span class="timeline-date">09/2025 - 03/2026</span></div><div>負責中型產品線中的數個服務 / 模組（3–5 人團隊，跨前後端）。後端服務開發：使用 Python（FastAPI / Django）與 Node.js / Express 設計與實作 RESTful API，並負責對應的資料庫 schema 設計（PostgreSQL、MongoDB、Supabase）。第三方服務串接：整合多個第三方 API 與 SaaS 服務，處理跨系統資料同步與錯誤處理。AI / LLM 功能整合：負責產品中 LLM 相關功能的開發，涵蓋 agent flow 設計與 prompt 調校。前端開發：以 React / Next.js 完成對應前端介面，確保前後端資料契約一致。DevOps：自動化 CI/CD pipeline、容器化部署。</div><div><span class="project-tech-tags">Python | FastAPI | Django | Node.js | Express | PostgreSQL | MongoDB | Supabase | React | Next.js | CI/CD</span></div></div></div>
+<div class="output-line "></div></section>
+<section id="education-zh" class="doc-section"><h2 class="sr-only">學歷與學習歷程</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">education</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 學歷與學習歷程</span></div>
+<div class="output-line "></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">資訊科學學士</span></div><div><span class="timeline-company">University of Taipei</span> | 台灣台北</div><div><span class="timeline-date">Graduated June 2025</span></div><div>主修軟體開發、演算法、資料結構與區塊鏈技術基礎。</div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">自學區塊鏈開發</span></div><div><span class="timeline-company">Independent Study</span></div><div><span class="timeline-date">2021 - Present</span></div><div>自學區塊鏈開發，在 Solidity、Ethereum 與智能合約開發上具備扎實基礎。</div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">區塊鏈開發訓練營</span></div><div><span class="timeline-company">Online Learning Platform</span></div><div><span class="timeline-date">Summer 2024</span></div><div>完成為期 8 週的密集訓練營，聚焦 Ethereum 開發、Solidity 與 dApp 實作。</div></div></div>
+<div class="output-line "><div class="timeline-entry"><div><span class="timeline-title">區塊鏈讀書會</span></div><div><span class="timeline-company">Community</span></div><div><span class="timeline-date">Feb 2025 - Jun 2025</span></div><div>每月舉辦聚會、共同討論與學習區塊鏈技術的讀書會。</div></div></div>
+<div class="output-line "></div></section>
+<section id="languages-zh" class="doc-section"><h2 class="sr-only">語言能力</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">languages</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 語言能力</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-22">中文（國語）</span><span class="skill-fill">████████████████████</span><span class="skill-bar"></span></div>
+<div class="output-line "><span class="ind"></span><span class="col-22"></span>母語／雙語程度</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-22">英文</span><span class="skill-fill">██████████████████</span><span class="skill-bar">░░</span></div>
+<div class="output-line "><span class="ind"></span><span class="col-22"></span>專業工作能力</div>
+<div class="output-line "></div>
+<div class="output-line "></div></section>
+<section id="contact-zh" class="doc-section"><h2 class="sr-only">聯絡方式</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">contact</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 聯絡方式</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">Email:</span><a href="mailto:charlie011111@gmail.com" class="output-link">charlie011111@gmail.com</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">Website:</span><a href="https://kcl1104.github.io/" rel="me" class="output-link">https://kcl1104.github.io/</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">LinkedIn:</span><a href="https://www.linkedin.com/in/chi-lin-kuo-a47608209/" target="_blank" rel="me noopener noreferrer" class="output-link">https://www.linkedin.com/in/chi-lin-kuo-a47608209/</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-12">GitHub:</span><a href="https://github.com/KCL1104/" target="_blank" rel="me noopener noreferrer" class="output-link">https://github.com/KCL1104/</a></div>
+<div class="output-line "></div>
+<div class="output-line ">目前開放後端 / 全端 / AI 工程相關職缺與合作機會。</div>
+<div class="output-line ">很樂意聊聊 AI agent 工具鏈、區塊鏈，以及如何快速交付。</div>
+<div class="output-line "></div></section>
+<section id="project-details-zh" class="doc-section"><h2 class="sr-only">專案細節</h2><article id="p-extrovid-zh"><h3 class="sr-only">Extrovid</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat extrovid</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// Extrovid</span></div>
+<div class="output-line "><span class="timeline-date">個人專案 solo · AI native 影像生成工作站 · Jun 2026 - Jul 2026</span></div>
+<div class="output-line "></div>
+<div class="output-line ">AI native 的 AI 影像生成工作站。自動跑完劇本、選角、分鏡、逐鏡生成、配音、粗剪，每一步都能跟 director agent 即時對話修改。個人負責：多 agent 編排，12 個 PydanticAI agent，輸出以 Pydantic schema 定義契約；Director agent 掛載 8 個 stateful tool，可用自然語言操作整條 pipeline；Pipeline 架構採 per-stage state machine，失敗可定位至單一 stage；品質與成本以 LLM-as-judge 評審與 best-of-N 選片，並以 keyframe 作為生成前的成本關卡；可測試性以 provider factory 搭配 USE_MOCK_*，236 個測試可離線執行。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>Python, FastAPI, PydanticAI, SQLAlchemy 2.0 (async), PostgreSQL, Next.js 16</div>
+<div class="output-line "><span class="output-command col">Categories:</span>ai, agents, web</div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/KCL1104/extrovid" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/KCL1104/extrovid</a></div>
+<div class="output-line "></div></article>
+<article id="p-lorepack-zh"><h3 class="sr-only">LorePack</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat lorepack</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// LorePack</span></div>
+<div class="output-line "><span class="timeline-date">Owner / 主導開發 · 個人專案 · Feb 2026</span></div>
+<div class="output-line "></div>
+<div class="output-line ">AI 驅動的故事世界共創平台。使用者可建立持久化世界觀、由 AI agent 生成插圖章節、並跨宇宙協作。個人負責：整體架構設計與多 agent 協作流程設計；A2A protocol 整合與 agent 間訊息傳遞機制；前端介面開發。學習重點：實作多 agent 系統的編排模式、agent 間任務委派與結果聚合。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>Google ADK, A2A protocol, Next.js, FastAPI</div>
+<div class="output-line "><span class="output-command col">Categories:</span>ai, agents, web</div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/KCL1104/LorePack" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/KCL1104/LorePack</a></div>
+<div class="output-line "></div></article>
+<article id="p-deepflow-zh"><h3 class="sr-only">DeepFlow</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat deepflow</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// DeepFlow</span></div>
+<div class="output-line "><span class="timeline-date">Owner / 主導開發 · 個人專案 · Jan 2026</span></div>
+<div class="output-line "></div>
+<div class="output-line ">以「智慧防禦系統」為概念的個人專案，透過 context-aware 排程與動態優先順序，過濾通知干擾、保護深度工作時間。Frontend：Next.js（App Router）+ shadcn/ui，負責「Focus Player」與佇列視覺化。Backend：Python FastAPI + Supabase + Redis，負責優先佇列管理與多平台 webhook 接收（Slack / Jira / Gmail）。Agent：Python + LangChain，負責訊號解析、緊急程度評分與 context-aware 回應生成。技術亮點：以 Redis Sorted Set（ZSET）實作 O(log N) 動態優先佇列；以 LangChain 編排 LLM 互動。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>Next.js, shadcn/ui, FastAPI, LangChain, Redis, Supabase</div>
+<div class="output-line "><span class="output-command col">Categories:</span>ai, agents, web</div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/KCL1104/DeepFlow" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/KCL1104/DeepFlow</a></div>
+<div class="output-line "></div></article>
+<article id="p-pintool-zh"><h3 class="sr-only">PinTool</h3><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">cat pintool</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// PinTool</span></div>
+<div class="output-line "><span class="timeline-date">後端工程師 · Hackathon 得獎專案 · 團隊專案 · Oct 2025 - Present</span></div>
+<div class="output-line "></div>
+<div class="output-line ">Solana 原生的策略自動化平台，創作者可發佈鏈上策略，訂閱者透過 USDC 鏈上訂閱取得存取權限。個人負責：後端架構設計、API 開發、訂閱驗證邏輯；Anchor 智能合約串接、鏈上鏈下狀態同步機制；與前端協作確定前後端串接正確。</div>
+<div class="output-line "></div>
+<div class="output-line "><span class="output-command col">Technologies:</span>NestJS, Supabase, Anchor (Solana), TypeScript</div>
+<div class="output-line "><span class="output-command col">Categories:</span>blockchain, solana, web3, backend</div>
+<div class="output-line "><span class="output-command col">Live demo:</span><a href="https://pintool.fun/" target="_blank" rel="noopener noreferrer" class="output-link">https://pintool.fun/</a></div>
+<div class="output-line "><span class="output-command col">GitHub:</span><a href="https://github.com/pintoolx" target="_blank" rel="noopener noreferrer" class="output-link">https://github.com/pintoolx</a></div>
+<div class="output-line "><span class="output-command col">Award:</span><span class="output-warning">★ Encode Solana Hackathon — Cypherpunk side track（Sanctum）· AI 金融創新競賽</span></div>
+<div class="output-line "></div></article></section>
+<section id="resume-zh" class="doc-section"><h2 class="sr-only">履歷</h2><p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> <span class="output-command">resume</span></p><div class="output-line "></div>
+<div class="output-line "><span class="output-info">// 履歷</span></div>
+<div class="output-line "></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-8">EN</span><a href="https://kcl1104.github.io/resume/resumeEN0715.pdf" target="_blank" rel="noopener noreferrer" class="output-link">resume/resumeEN0715.pdf</a></div>
+<div class="output-line "><span class="ind"></span><span class="output-command col-8">中文</span><a href="https://kcl1104.github.io/resume/resumeCN0715.pdf" target="_blank" rel="noopener noreferrer" class="output-link">resume/resumeCN0715.pdf</a></div>
+<div class="output-line "></div>
+<div class="output-line ">給 AI agent 的純文字版：<a href="resume.md" class="output-link">/resume.md</a></div></section>
+</section>
+<!-- END:GENERATED doc-view -->
+        </main>
 
         <!-- Terminal Input Area -->
         <div class="terminal-input-area">
@@ -505,6 +1213,321 @@
 
     </div>
 
+    <!--
+      SOURCE OF TRUTH. Every string on this site comes from here, in both languages.
+
+      Leaf-level i18n on ONE structural tree: prose leaves are {en, zh}; anything
+      language-invariant (URLs, ids, dates, tech tokens, emails, numbers) is written once.
+      That makes structural drift impossible — you cannot end up with four English projects
+      and three Chinese ones.
+
+      NOTE: a literal </script> anywhere in a string would terminate this island early and
+      blank the page with no error. build.js escapes "<" as < when it rewrites this
+      block; keep it that way.
+    -->
+    <script type="application/json" id="resume-data">
+{
+  "meta": {
+    "handle": "PENGU",
+    "canonical": "https://kcl1104.github.io/",
+    "photo": "kcl.jpg",
+    "pdf": { "en": "resume/resumeEN0715.pdf", "zh": "resume/resumeCN0715.pdf" },
+    "sourceHash": "4bcc4949"
+  },
+
+  "name": { "en": "Chi Lin Kuo (Charlie)", "zh": "Chi Lin Kuo 郭啟霖" },
+  "title": { "en": "Blockchain & AI & Full-stack Developer", "zh": "Blockchain & AI & Full-stack Developer" },
+
+  "about": {
+    "intro": {
+      "en": "AI development tooling — Claude Code and similar agents are my main development partner day to day. I write custom tools and skills for them, which is what shortens the loop from a requirement to a deploy.",
+      "zh": "AI 開發工具深度使用者：日常以 Claude Code 等 agent 作為主要開發夥伴，能透過自訂義 tools 以及 skills 加速從需求到部署的循環。"
+    },
+    "background": {
+      "en": "AI agent development — I've taken agent systems from zero to one on my own: agent flow design, tool integration, multi-agent orchestration, prompt iteration, run monitoring.",
+      "zh": "AI Agent 開發：有獨自進行 agent flow 設計、tool 串接、多 agent 編排、prompt 迭代、執行監控等由 0 到 1 獨自開發 AI agent 系統的能力。"
+    },
+    "focus": [
+      {
+        "en": "AI-native development: Claude Code as my daily driver across requirement breakdown, design, and implementation.",
+        "zh": "AI-native 開發流程：以 Claude Code 貫穿需求拆解、設計到實作的日常開發。"
+      },
+      {
+        "en": "Custom AI toolchains: MCP servers, agent skills, and automation scripts (issue triage, code review, commit standards) wired into team production workflows.",
+        "zh": "自訂 AI 工具鏈：MCP server、agent skills 與自動化腳本（issue 分類、code review、commit 規範），實際接進團隊的生產流程。"
+      },
+      {
+        "en": "Fast-iteration shipping: reliably delivering backend and full-stack products under tight delivery cycles.",
+        "zh": "快速迭代交付：在緊湊的交付週期下穩定產出後端與全端產品。"
+      }
+    ],
+    "hackathonAwards": [
+      {
+        "en": "Encode Solana Hackathon: 2nd place, Cypherpunk side track (hosted by Sanctum) — PinTool",
+        "zh": "Encode Solana Hackathon：Cypherpunk side track（由 Sanctum 主辦）第二名 — PinTool"
+      },
+      {
+        "en": "AI FinTech Innovation & Creativity Competition: Social Group 3rd Place",
+        "zh": "AI 金融創新與創意競賽：社會組第三名"
+      },
+      {
+        "en": "XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA",
+        "zh": "XueDao Hackathon：拿下國泰金控、Zircuit、BGA 三個賽道獎項"
+      },
+      {
+        "en": "Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track",
+        "zh": "Encode Solana Winter Build Challenge 2025：Best Consumer App on Solana 賽道第一名"
+      }
+    ]
+  },
+
+  "skills": [
+    {
+      "category": { "en": "LLM / Agent", "zh": "LLM / Agent" },
+      "items": ["PydanticAI", "LangChain", "Google ADK", "A2A protocol", "MCP", "function calling", "LLM-as-judge", "eval harness"]
+    },
+    {
+      "category": { "en": "Backend", "zh": "後端" },
+      "items": ["Python", "FastAPI", "Django", "Node.js", "NestJS", "SQLAlchemy 2.0 (async)", "PostgreSQL", "Supabase", "Redis", "MongoDB"]
+    },
+    {
+      "category": { "en": "Frontend", "zh": "前端" },
+      "items": ["Next.js", "React", "TypeScript", "shadcn/ui"]
+    },
+    {
+      "category": { "en": "Other", "zh": "其他" },
+      "items": ["Solana", "Anchor", "Docker", "CI/CD", "S3"]
+    }
+  ],
+
+  "aiAgents": {
+    "headline": {
+      "en": "AI-agent development is the core of how I build — not a side experiment.",
+      "zh": "AI agent 開發是我建構軟體的核心方式，不是附加的實驗。"
+    },
+    "summary": {
+      "en": "I treat AI coding agents as first-class teammates: I design the harnesses, tools, and skills they run on, then delegate the mechanical work so I can focus on architecture, API boundaries, and business logic.",
+      "zh": "我把 AI coding agent 當成正式的團隊成員：由我設計它們運行所需的 harness、tools 與 skills，再把機械性的工作交出去，讓自己專注在架構、API 邊界與商業邏輯上。"
+    },
+    "practices": [
+      {
+        "title": { "en": "Agent-driven delivery", "zh": "Agent 驅動的交付" },
+        "detail": {
+          "en": "Claude Code and other coding agents as my primary development partner on a daily basis — driving requirement breakdown, design, and implementation, and compressing the cycle from requirements to deployment.",
+          "zh": "日常以 Claude Code 等 coding agent 作為主要開發夥伴，推動需求拆解、設計與實作，壓縮從需求到部署的循環。"
+        }
+      },
+      {
+        "title": { "en": "Custom MCP servers", "zh": "自訂 MCP server" },
+        "detail": {
+          "en": "Build Model Context Protocol (MCP) servers that give agents first-class, typed access to internal tools, data, and services.",
+          "zh": "建置 Model Context Protocol（MCP）server，讓 agent 能以型別化、第一級的方式存取內部工具、資料與服務。"
+        }
+      },
+      {
+        "title": { "en": "Agent skills & harnesses", "zh": "Agent skills 與 harness" },
+        "detail": {
+          "en": "Design reusable agent skills and prompt templates that keep agents consistently aligned with team standards for commit messages, code reviews, and test writing.",
+          "zh": "設計可重複使用的 agent skills 與 prompt 模板，讓 agent 在 commit message、code review、測試撰寫上穩定符合團隊規範。"
+        }
+      },
+      {
+        "title": { "en": "Workflow automation", "zh": "工作流自動化" },
+        "detail": {
+          "en": "Automation scripts for issue triage, code review, and commit-message standardization — integrated directly into team production workflows.",
+          "zh": "issue 分類、code review、commit message 標準化的自動化腳本，直接整合進團隊的生產流程。"
+        }
+      },
+      {
+        "title": { "en": "Multi-agent orchestration", "zh": "多 agent 編排" },
+        "detail": {
+          "en": "12 PydanticAI agents with Pydantic-schema output contracts and a stateful director agent (Extrovid); Google ADK and the A2A protocol for inter-agent collaboration (LorePack); LangChain agent layers for signal parsing and urgency scoring (DeepFlow).",
+          "zh": "12 個 PydanticAI agent、以 Pydantic schema 定義輸出契約並搭配 stateful director agent（Extrovid）；以 Google ADK 與 A2A protocol 進行 agent 間協作（LorePack）；以 LangChain agent 層負責訊號解析與緊急程度評分（DeepFlow）。"
+        }
+      },
+      {
+        "title": { "en": "Quality, cost & testability", "zh": "品質、成本與可測試性" },
+        "detail": {
+          "en": "LLM-as-judge review with best-of-N selection, keyframe gates ahead of generation spend, and provider factories behind USE_MOCK_* flags so the whole suite runs offline.",
+          "zh": "以 LLM-as-judge 評審搭配 best-of-N 選片、在生成花費前設置 keyframe 關卡，並以 provider factory 搭配 USE_MOCK_* 讓整套測試可離線執行。"
+        }
+      }
+    ],
+    "stack": ["Claude Code", "MCP", "Agent skills", "PydanticAI", "LangChain", "Google ADK", "A2A protocol", "FastAPI", "TypeScript"]
+  },
+
+  "projects": [
+    {
+      "id": "extrovid",
+      "name": "Extrovid",
+      "period": "Jun 2026 - Jul 2026",
+      "start": "2026-06",
+      "end": "2026-07",
+      "tech": ["Python", "FastAPI", "PydanticAI", "SQLAlchemy 2.0 (async)", "PostgreSQL", "Next.js 16"],
+      "category": ["ai", "agents", "web"],
+      "github": "https://github.com/KCL1104/extrovid",
+      "role": { "en": "Solo personal project", "zh": "個人專案 solo" },
+      "tag": { "en": "AI-native film production", "zh": "AI native 影像生成工作站" },
+      "description": {
+        "en": "An AI-native film production system. It runs script, casting, storyboard, per-shot generation, voice and rough cut end to end, and you can talk to a director agent at any step to change something live. My work: multi-agent orchestration across 12 PydanticAI agents with outputs contracted through Pydantic schemas; a director agent carrying 8 stateful tools so the whole pipeline can be driven in plain language; a per-stage state machine so failures resolve to a single stage; LLM-as-judge review with best-of-N selection and a keyframe gate ahead of generation spend; and provider factories with USE_MOCK_* flags so 236 tests run offline.",
+        "zh": "AI native 的 AI 影像生成工作站。自動跑完劇本、選角、分鏡、逐鏡生成、配音、粗剪，每一步都能跟 director agent 即時對話修改。個人負責：多 agent 編排，12 個 PydanticAI agent，輸出以 Pydantic schema 定義契約；Director agent 掛載 8 個 stateful tool，可用自然語言操作整條 pipeline；Pipeline 架構採 per-stage state machine，失敗可定位至單一 stage；品質與成本以 LLM-as-judge 評審與 best-of-N 選片，並以 keyframe 作為生成前的成本關卡；可測試性以 provider factory 搭配 USE_MOCK_*，236 個測試可離線執行。"
+      }
+    },
+    {
+      "id": "lorepack",
+      "name": "LorePack",
+      "period": "Feb 2026",
+      "start": "2026-02",
+      "end": "2026-02",
+      "tech": ["Google ADK", "A2A protocol", "Next.js", "FastAPI"],
+      "category": ["ai", "agents", "web"],
+      "github": "https://github.com/KCL1104/LorePack",
+      "role": { "en": "Owner / Lead Developer", "zh": "Owner / 主導開發" },
+      "tag": { "en": "Personal project", "zh": "個人專案" },
+      "description": {
+        "en": "An AI-driven collaborative story world platform. Users build persistent worlds, AI agents generate illustrated chapters, and people collaborate across universes. My work: the overall architecture and the multi-agent collaboration flow; A2A protocol integration and the inter-agent messaging layer; and the frontend interface. Engineering focus: orchestration patterns for multi-agent systems, task delegation between agents, and aggregating their results.",
+        "zh": "AI 驅動的故事世界共創平台。使用者可建立持久化世界觀、由 AI agent 生成插圖章節、並跨宇宙協作。個人負責：整體架構設計與多 agent 協作流程設計；A2A protocol 整合與 agent 間訊息傳遞機制；前端介面開發。學習重點：實作多 agent 系統的編排模式、agent 間任務委派與結果聚合。"
+      }
+    },
+    {
+      "id": "deepflow",
+      "name": "DeepFlow",
+      "period": "Jan 2026",
+      "start": "2026-01",
+      "end": "2026-01",
+      "tech": ["Next.js", "shadcn/ui", "FastAPI", "LangChain", "Redis", "Supabase"],
+      "category": ["ai", "agents", "web"],
+      "github": "https://github.com/KCL1104/DeepFlow",
+      "role": { "en": "Owner / Lead Developer", "zh": "Owner / 主導開發" },
+      "tag": { "en": "Personal project", "zh": "個人專案" },
+      "description": {
+        "en": "A personal project built on the idea of a \"smart defence system\": context-aware scheduling and dynamic priority filter out notification noise and protect deep work time. Frontend — Next.js (App Router) with shadcn/ui: the \"Focus Player\" and the queue visualisation. Backend — Python FastAPI, Supabase and Redis: priority queue management and multi-platform webhook intake (Slack / Jira / Gmail). Agent — Python and LangChain: signal parsing, urgency scoring, context-aware response generation. Technical highlights: a Redis sorted set (ZSET) gives O(log N) dynamic priority queueing; LangChain orchestrates the LLM calls.",
+        "zh": "以「智慧防禦系統」為概念的個人專案，透過 context-aware 排程與動態優先順序，過濾通知干擾、保護深度工作時間。Frontend：Next.js（App Router）+ shadcn/ui，負責「Focus Player」與佇列視覺化。Backend：Python FastAPI + Supabase + Redis，負責優先佇列管理與多平台 webhook 接收（Slack / Jira / Gmail）。Agent：Python + LangChain，負責訊號解析、緊急程度評分與 context-aware 回應生成。技術亮點：以 Redis Sorted Set（ZSET）實作 O(log N) 動態優先佇列；以 LangChain 編排 LLM 互動。"
+      }
+    },
+    {
+      "id": "pintool",
+      "name": "PinTool",
+      "period": "Oct 2025 - Present",
+      "start": "2025-10",
+      "tech": ["NestJS", "Supabase", "Anchor (Solana)", "TypeScript"],
+      "category": ["blockchain", "solana", "web3", "backend"],
+      "github": "https://github.com/pintoolx",
+      "demo": "https://pintool.fun/",
+      "role": { "en": "Backend Engineer", "zh": "後端工程師" },
+      "tag": { "en": "Hackathon-winning · Team project", "zh": "Hackathon 得獎專案 · 團隊專案" },
+      "description": {
+        "en": "A Solana-native strategy automation platform. Creators publish on-chain strategies; subscribers pay in USDC on-chain for access. My work: backend architecture, API development and subscription verification logic; Anchor contract integration and on-chain/off-chain state sync; and working with frontend to get the integration contract right.",
+        "zh": "Solana 原生的策略自動化平台，創作者可發佈鏈上策略，訂閱者透過 USDC 鏈上訂閱取得存取權限。個人負責：後端架構設計、API 開發、訂閱驗證邏輯；Anchor 智能合約串接、鏈上鏈下狀態同步機制；與前端協作確定前後端串接正確。"
+      },
+      "award": {
+        "en": "Encode Solana Hackathon — Cypherpunk side track (Sanctum) · AI FinTech Innovation Competition",
+        "zh": "Encode Solana Hackathon — Cypherpunk side track（Sanctum）· AI 金融創新競賽"
+      }
+    }
+  ],
+
+  "experience": [
+    {
+      "company": "Star Vaults",
+      "date": "03/2026 - 05/2026",
+      "start": "2026-03",
+      "end": "2026-05",
+      "tech": ["Node.js", "NestJS", "Python", "FastAPI", "Django", "PostgreSQL", "Supabase", "Redis", "MongoDB", "React", "Next.js"],
+      "title": { "en": "Backend Engineer", "zh": "後端工程師" },
+      "location": { "en": "Taipei", "zh": "台北" },
+      "description": {
+        "en": "Took one complete service module from zero to one (e-commerce platform / internal tooling). Architecture and implementation — worked through the architecture decisions with one or two senior engineers, then led the implementation, API design, data model and deployment. Backend — Node.js / NestJS, Python (FastAPI / Django), PostgreSQL, Supabase, Redis, MongoDB. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. Process — boilerplate, unit tests and repetitive code went to Claude Code. Wrote a set of prompt templates and agent skills so that commit messages, code review and tests followed team convention.",
+        "zh": "從零到一負責某個完整服務模組（電商平台 / 內部工具場景）。架構與實作：與 1–2 位資深同事共同討論架構決策，由我主導後續實作、API 設計、資料模型與部署。後端服務開發：Node.js / NestJS、Python（FastAPI / Django）、PostgreSQL、Supabase、Redis、MongoDB。前端開發：以 React / Next.js 完成對應前端介面，確保前後端資料契約一致。開發流程：boilerplate、單元測試、重複性程式碼交給 Claude Code；寫了一組 prompt 模板跟 agent skills，讓 commit message、code review、test 這幾個環節照團隊規範走。"
+      }
+    },
+    {
+      "company": "Jepun International",
+      "date": "09/2025 - 03/2026",
+      "start": "2025-09",
+      "end": "2026-03",
+      "tech": ["Python", "FastAPI", "Django", "Node.js", "Express", "PostgreSQL", "MongoDB", "Supabase", "React", "Next.js", "CI/CD"],
+      "title": { "en": "Backend & Blockchain Engineer", "zh": "後端與區塊鏈工程師" },
+      "location": { "en": "Taipei", "zh": "台北" },
+      "description": {
+        "en": "Owned several services and modules in a mid-sized product line (3–5 person team, front and back). Backend — designed and built RESTful APIs in Python (FastAPI / Django) and Node.js / Express, along with the database schemas behind them (PostgreSQL, MongoDB, Supabase). Third-party integration — integrated multiple third-party APIs and SaaS services, handling cross-system data sync and error paths. AI / LLM features — built the LLM features in the product, covering agent flow design and prompt tuning. Frontend — built the matching interfaces in React / Next.js, keeping the data contract consistent across front and back. DevOps — automated CI/CD pipelines and containerized deploys.",
+        "zh": "負責中型產品線中的數個服務 / 模組（3–5 人團隊，跨前後端）。後端服務開發：使用 Python（FastAPI / Django）與 Node.js / Express 設計與實作 RESTful API，並負責對應的資料庫 schema 設計（PostgreSQL、MongoDB、Supabase）。第三方服務串接：整合多個第三方 API 與 SaaS 服務，處理跨系統資料同步與錯誤處理。AI / LLM 功能整合：負責產品中 LLM 相關功能的開發，涵蓋 agent flow 設計與 prompt 調校。前端開發：以 React / Next.js 完成對應前端介面，確保前後端資料契約一致。DevOps：自動化 CI/CD pipeline、容器化部署。"
+      }
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "University of Taipei",
+      "date": "Graduated June 2025",
+      "start": "2021-09",
+      "end": "2025-06",
+      "title": { "en": "Bachelor of Science in Computer Science", "zh": "資訊科學學士" },
+      "location": { "en": "Taipei, Taiwan", "zh": "台灣台北" },
+      "description": {
+        "en": "Focused on software development, algorithms, data structures, and blockchain technology fundamentals.",
+        "zh": "主修軟體開發、演算法、資料結構與區塊鏈技術基礎。"
+      }
+    },
+    {
+      "institution": "Independent Study",
+      "date": "2021 - Present",
+      "start": "2021-01",
+      "title": { "en": "Self-Learning Blockchain Development", "zh": "自學區塊鏈開發" },
+      "location": { "en": "", "zh": "" },
+      "description": {
+        "en": "Self-taught blockchain developer with a strong foundation in Solidity, Ethereum, and smart contract development.",
+        "zh": "自學區塊鏈開發，在 Solidity、Ethereum 與智能合約開發上具備扎實基礎。"
+      }
+    },
+    {
+      "institution": "Online Learning Platform",
+      "date": "Summer 2024",
+      "start": "2024-06",
+      "end": "2024-08",
+      "title": { "en": "Blockchain Development Bootcamp", "zh": "區塊鏈開發訓練營" },
+      "location": { "en": "", "zh": "" },
+      "description": {
+        "en": "Completed an intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation.",
+        "zh": "完成為期 8 週的密集訓練營，聚焦 Ethereum 開發、Solidity 與 dApp 實作。"
+      }
+    },
+    {
+      "institution": "Community",
+      "date": "Feb 2025 - Jun 2025",
+      "start": "2025-02",
+      "end": "2025-06",
+      "title": { "en": "Blockchain Study Group", "zh": "區塊鏈讀書會" },
+      "location": { "en": "", "zh": "" },
+      "description": {
+        "en": "A blockchain study group hosting monthly meetups to discuss and learn about blockchain technology.",
+        "zh": "每月舉辦聚會、共同討論與學習區塊鏈技術的讀書會。"
+      }
+    }
+  ],
+
+  "languages": [
+    {
+      "level": 100,
+      "name": { "en": "Chinese (Mandarin)", "zh": "中文（國語）" },
+      "proficiency": { "en": "Native or Bilingual Proficiency", "zh": "母語／雙語程度" }
+    },
+    {
+      "level": 90,
+      "name": { "en": "English", "zh": "英文" },
+      "proficiency": { "en": "Full Professional Proficiency", "zh": "專業工作能力" }
+    }
+  ],
+
+  "contact": {
+    "email": "charlie011111@gmail.com",
+    "website": "https://kcl1104.github.io/",
+    "linkedin": "https://www.linkedin.com/in/chi-lin-kuo-a47608209/",
+    "github": "https://github.com/KCL1104/"
+  }
+}
+    </script>
+
     <script>
         // ===========================================
         // TERMINAL PORTFOLIO - JavaScript Implementation
@@ -513,219 +1536,100 @@
         (function() {
             'use strict';
 
+            const RESUME = JSON.parse(document.getElementById('resume-data').textContent);
+            const BASE_URL = 'https://kcl1104.github.io/';
+
+/* BEGIN:RENDERERS
+   Everything between these markers is DOM-FREE and is evaluated verbatim by build.js in
+   Node to bake the static document view. Consequences, all of them load-bearing:
+     - No document/window/localStorage at MODULE level. Inside a function body is fine, as
+       long as that function is never reached during renderDoc().
+     - Every renderer must stay SYNCHRONOUS. capture() collects output synchronously; an
+       async renderer would return an empty string with no error.
+   Do not move these markers without updating build.js. */
+
+            const DATA = RESUME;
+            let LANG = 'en';
+
+            function setLang(l) {
+                LANG = (l === 'zh') ? 'zh' : 'en';
+            }
+
+            // Resolves a {en, zh} leaf. Bare strings pass through untouched, so
+            // language-invariant data (URLs, tech tokens, dates) needs no wrapper.
+            // Missing/empty zh falls back to en rather than rendering a hole.
+            function t(v) {
+                if (v && typeof v === 'object' && 'en' in v) {
+                    const s = v[LANG];
+                    return (s === undefined || s === null || s === '') ? v.en : s;
+                }
+                return v;
+            }
+
             // ===========================================
-            // DATA STORE - All Portfolio Content
+            // UI STRINGS
             // ===========================================
-            const PORTFOLIO_DATA = {
-                name: "Chi Lin Kuo (Charlie)",
-                handle: "PENGU",
-                title: "AI-native Full-stack & Blockchain Engineer",
-                wallet: "0x5ae4...fdd2",
-
-                about: {
-                    intro: "Computer Science graduate and AI-native full-stack engineer building development workflows centered around AI coding agents. I reliably ship backend and full-stack products in fast-iteration environments.",
-                    background: "Power user of AI development tools — I use Claude Code and similar agents as my primary development partner on a daily basis, accelerating the cycle from requirements to deployment through prompt engineering and agent harness design.",
-                    focus: [
-                        "AI-native development: Claude Code as my daily driver across requirement breakdown, design, and implementation",
-                        "Custom AI toolchains: MCP servers, agent skills, and automation scripts (issue triage, code review, commit standards) wired into team production workflows",
-                        "Fast-iteration shipping: reliably delivering backend and full-stack products under tight delivery cycles"
-                    ],
-                    hackathonAwards: [
-                        "Encode Solana Hackathon: 2nd place, Cypherpunk side track (hosted by Sanctum) — PinTool",
-                        "XueDao Hackathon: Won 3 tracks from Cathay Financial Holding, Zircuit, BGA",
-                        "Encode Solana Winter Build Challenge 2025: 1st place, Best Consumer App on Solana track",
-                        "AI FinTech Innovation & Creativity Competition: Social Group 3rd Place"
-                    ]
-                },
-
-                skills: {
-                    "Languages":    ["TypeScript", "Python", "JavaScript", "Rust", "Solidity"],
-                    "Backend":      ["Node.js", "NestJS", "Express", "FastAPI", "Django", "REST APIs"],
-                    "Frontend":     ["React", "Next.js", "Shadcn/UI", "Tailwind"],
-                    "AI / Agents":  ["Claude Code", "MCP servers", "Agent skills", "LangChain", "Google ADK", "A2A protocol", "Prompt engineering"],
-                    "Blockchain":   ["Solana", "Anchor", "Ethereum", "Web3.js", "Light Protocol"],
-                    "Data / Infra": ["PostgreSQL", "Supabase", "Redis", "MongoDB", "Docker", "CI/CD"]
-                },
-
-                aiAgents: {
-                    headline: "AI-agent development is the core of how I build — not a side experiment.",
-                    summary: "I treat AI coding agents as first-class teammates: I design the harnesses, tools, and skills they run on, then delegate the mechanical work so I can focus on architecture, API boundaries, and business logic.",
-                    practices: [
-                        {
-                            title: "Agent-driven delivery",
-                            detail: "Claude Code and other coding agents as my primary development partner on a daily basis — driving requirement breakdown, design, and implementation, and compressing the cycle from requirements to deployment."
-                        },
-                        {
-                            title: "Custom MCP servers",
-                            detail: "Build Model Context Protocol (MCP) servers that give agents first-class, typed access to internal tools, data, and services."
-                        },
-                        {
-                            title: "Agent skills & harnesses",
-                            detail: "Design reusable agent skills and prompt templates that keep agents consistently aligned with team standards for commit messages, code reviews, and test writing."
-                        },
-                        {
-                            title: "Workflow automation",
-                            detail: "Automation scripts for issue triage, code review, and commit-message standardization — integrated directly into team production workflows."
-                        },
-                        {
-                            title: "Multi-agent orchestration",
-                            detail: "Multi-agent collaboration with Google ADK and the A2A protocol (LorePack); LangChain agent layers for signal parsing, urgency scoring, and context-aware reasoning (DeepFlow)."
-                        },
-                        {
-                            title: "Prompt & context engineering",
-                            detail: "Prompt engineering and agent harness design — shaping context, tools, and guardrails so agents produce reliable, review-ready output."
-                        }
-                    ],
-                    stack: ["Claude Code", "MCP", "Agent skills", "LangChain", "Google ADK", "A2A protocol", "FastAPI", "TypeScript"]
-                },
-
-                projects: [
-                    {
-                        id: "pintool",
-                        name: "PinTool",
-                        role: "Backend Engineer",
-                        tag: "Hackathon-winning · Team project",
-                        period: "Oct 2025 - Present",
-                        description: "A Solana-native strategy automation platform where creators publish on-chain strategies and subscribers gain access through on-chain USDC subscriptions. I own backend architecture, API development, and subscription-verification logic, Anchor smart-contract integration, and on-chain/off-chain state synchronization, collaborating with the front-end partner on integration.",
-                        tech: ["NestJS", "Supabase", "Anchor (Solana)", "TypeScript"],
-                        category: ["blockchain", "solana", "web3", "backend"],
-                        github: "https://github.com/pintoolx",
-                        demo: "https://demo.pintool.fun/",
-                        award: "Encode Solana Hackathon — Cypherpunk side track (Sanctum) · AI Financial Innovation Hackathon"
-                    },
-                    {
-                        id: "lorepack",
-                        name: "LorePack",
-                        role: "Owner / Lead Developer",
-                        tag: "Personal project",
-                        period: "Feb 2026",
-                        description: "An AI-driven collaborative storytelling platform where users build persistent worlds, generate illustrated chapters via AI agents, and collaborate across universes. I designed the overall architecture and multi-agent collaboration flow, integrated the A2A protocol for inter-agent messaging, and built the frontend.",
-                        tech: ["Google ADK", "A2A protocol", "Next.js", "FastAPI"],
-                        category: ["ai", "web"],
-                        github: "https://github.com/KCL1104/LorePack"
-                    },
-                    {
-                        id: "deepflow",
-                        name: "DeepFlow",
-                        role: "Owner / Lead Developer",
-                        tag: "Personal project",
-                        period: "Jan 2026",
-                        description: "An \"intelligent defense system\" that uses context-aware scheduling and dynamic prioritization to filter out notification noise and protect deep work time. A Next.js + Shadcn/UI \"Focus Player\" and queue visualization front a FastAPI + Supabase + Redis backend that manages priority queues and ingests webhooks from Slack/Jira/Gmail; a LangChain agent layer handles signal parsing, urgency scoring, and context-aware responses. Implemented O(log N) dynamic priority queues using Redis Sorted Sets (ZSET).",
-                        tech: ["Next.js", "FastAPI", "LangChain", "Redis", "Supabase", "PostgreSQL"],
-                        category: ["ai", "web"],
-                        github: "https://github.com/KCL1104/DeepFlow"
-                    },
-                    {
-                        id: "kairoria",
-                        name: "Kairoria",
-                        description: "A Next.js project integrated with Supabase, using Solana for payments.",
-                        tech: ["Next.js", "Supabase", "Solana Anchor"],
-                        category: ["blockchain", "solana", "web"],
-                        github: "https://github.com/KCL1104/Kairoria"
-                    },
-                    {
-                        id: "solprivacy",
-                        name: "SolPrivacy",
-                        description: "A CLI tool that improves the developer experience for Solana privacy-focused developers.",
-                        tech: ["Rust", "Light Protocol", "Clap"],
-                        category: ["blockchain", "solana", "cli"],
-                        github: "https://github.com/KCL1104/SolPrivacy"
-                    },
-                    {
-                        id: "xuedao",
-                        name: "XueDao-Hackathon",
-                        description: "A hackathon project creating a decentralized news platform that allows users to post, vote, and comment on news articles.",
-                        tech: ["Solidity", "OpenZeppelin", "IPFS"],
-                        category: ["blockchain", "ethereum"],
-                        github: "https://github.com/KCL1104/XueDao-Hackathon"
-                    },
-                    {
-                        id: "seedgrow",
-                        name: "SeedGrow",
-                        description: "A web3 crowd-funding app that allows users to create and manage campaigns, and donate to campaigns.",
-                        tech: ["Solidity", "Web3.js", "Hardhat", "React"],
-                        category: ["blockchain", "ethereum", "web"],
-                        github: "https://github.com/KCL1104/Seed-Grow"
-                    },
-                    {
-                        id: "camelsean",
-                        name: "CamelSean",
-                        description: "A TypeScript and Python based project demonstrating full-stack development capabilities and modern web technologies.",
-                        tech: ["TypeScript", "Python", "Full-Stack"],
-                        category: ["web"],
-                        github: "https://github.com/KCL1104/camelsean"
-                    },
-                    {
-                        id: "utproject",
-                        name: "UT-project",
-                        description: "A Unity game development project showcasing C# programming skills and game development fundamentals.",
-                        tech: ["C#", "Unity", "Game Development"],
-                        category: ["game"],
-                        github: "https://github.com/KCL1104/UT-project"
-                    }
-                ],
-
-                experience: [
-                    {
-                        title: "Backend Engineer",
-                        company: "Star Vaults",
-                        location: "Taipei",
-                        date: "March 2026 - Present",
-                        description: "Own an entire service module end-to-end (e-commerce platform / internal tooling). Collaborate with senior colleagues on architecture, then lead implementation, API design, data modeling, and deployment. Delegate boilerplate, unit tests, and repetitive code to Claude Code and other AI coding agents to focus on architectural decisions, API boundaries, and business logic; build reusable prompt templates and agent skills that keep agents aligned with team standards for commit messages, code reviews, and tests.",
-                        tech: ["Node.js", "NestJS", "Python", "FastAPI", "PostgreSQL", "Supabase", "Redis", "MongoDB", "React", "Next.js"]
-                    },
-                    {
-                        title: "Backend & Blockchain Engineer",
-                        company: "Jepun International",
-                        location: "Taipei",
-                        date: "September 2025 - March 2026",
-                        description: "Owned several services/modules within a mid-sized product line (3-5 person cross-functional team). Designed and implemented RESTful APIs with Python (FastAPI/Django) and Node.js/Express plus corresponding database schema design; integrated multiple third-party APIs and SaaS services with cross-system data synchronization; led development of LLM-based product features (agent flow design and prompt tuning); built React/Next.js frontends with consistent data contracts; and maintained CI/CD pipelines and containerized deployments to shorten delivery cycles.",
-                        tech: ["Python", "FastAPI", "Node.js", "PostgreSQL", "MongoDB", "Supabase", "React", "Next.js", "CI/CD", "LLM"]
-                    }
-                ],
-
-                education: [
-                    {
-                        title: "Bachelor of Science in Computer Science",
-                        institution: "University of Taipei",
-                        location: "Taipei, Taiwan",
-                        date: "Graduated June 2025",
-                        description: "Focused on software development, algorithms, data structures, and blockchain technology fundamentals."
-                    },
-                    {
-                        title: "Self-Learning Blockchain Development",
-                        institution: "Independent Study",
-                        date: "2021 - Present",
-                        description: "Self-taught blockchain developer with strong foundation in Solidity, Ethereum, and smart contract development."
-                    },
-                    {
-                        title: "Blockchain Development Bootcamp",
-                        institution: "Online Learning Platform",
-                        date: "Summer 2024",
-                        description: "Completed intensive 8-week bootcamp focused on Ethereum development, Solidity, and dApp creation."
-                    },
-                    {
-                        title: "Blockchain Study Group",
-                        institution: "Community",
-                        date: "2025 Feb - 2025 June",
-                        description: "A blockchain study group that hosts monthly meetups to discuss and learn about blockchain technology."
-                    }
-                ],
-
-                languages: [
-                    { name: "English", proficiency: "Full Professional Proficiency", level: 90 },
-                    { name: "Chinese (Mandarin)", proficiency: "Native or Bilingual Proficiency", level: 100 }
-                ],
-
-                contact: {
-                    email: "charlie011111@gmail.com",
-                    telegram: "@wen1645",
-                    discord: "guoba8343",
-                    ens: "camelsean.eth",
-                    linkedin: "https://www.linkedin.com/in/chi-lin-kuo-a47608209/",
-                    github: "https://github.com/KCL1104"
+            const UI = {
+                about:      { en: 'About',              zh: '關於我' },
+                focus:      { en: 'Focus',              zh: '專注領域' },
+                awards:     { en: 'Hackathon Awards',   zh: 'Hackathon 得獎紀錄' },
+                stack:      { en: 'Tech Stack',         zh: '技術棧' },
+                ai:         { en: 'AI-Agent Development', zh: 'AI Agent 開發' },
+                projects:   { en: 'Projects',           zh: '專案' },
+                experience: { en: 'Work Experience',    zh: '工作經歷' },
+                education:  { en: 'Education',          zh: '學歷與學習歷程' },
+                languages:  { en: 'Languages',          zh: '語言能力' },
+                contact:    { en: 'Contact',            zh: '聯絡方式' },
+                resume:     { en: 'Resume',             zh: '履歷' },
+                social:     { en: 'Social Links',       zh: '社群連結' },
+                commands:   { en: 'Available Commands', zh: '可用指令' },
+                details:    { en: 'Project Details',    zh: '專案細節' },
+                agentNote:  {
+                    en: 'This is the document view: the complete resume, everything expanded, nothing to type. The interactive terminal version is at ?view=terminal. Plain-text copies: /resume.md and the PDFs linked in the head.',
+                    zh: '這是文件模式：完整履歷、全部展開、不需輸入任何指令。互動式終端機版本在 ?view=terminal。純文字版本：/resume.md 以及 head 中連結的 PDF。'
                 }
             };
+            const ui = k => t(UI[k]);
+
+            // ===========================================
+            // ESCAPING / URL SAFETY
+            // ===========================================
+            // Note this replaces a DOM-based escapeHtml that (a) could not run in Node and
+            // (b) did not escape quotes, making it unsafe for attribute contexts.
+            const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+            const escapeHtml = s => String(s === undefined || s === null ? '' : s).replace(/[&<>"']/g, c => ESC[c]);
+
+            // Escape-by-default tagged template: translates AND escapes every interpolation
+            // in one step. Templates that intentionally emit markup use plain backticks and
+            // are marked `raw:` — that asymmetry is the footgun, the comment is the guard.
+            function hh(strs) {
+                let out = '';
+                for (let i = 0; i < strs.length; i++) {
+                    out += strs[i];
+                    if (i + 1 < arguments.length) out += escapeHtml(t(arguments[i + 1]));
+                }
+                return out;
+            }
+
+            // Escaping alone does not stop `javascript:`; a whitelist alone does not stop
+            // attribute breakout. Both are required.
+            function safeUrl(u) {
+                try {
+                    const base = (typeof location !== 'undefined') ? location.href : BASE_URL;
+                    const p = new URL(String(u), base);
+                    return /^(https?|mailto):$/.test(p.protocol) ? p.href : '#';
+                } catch (e) {
+                    return '#';
+                }
+            }
+            const attrUrl = u => escapeHtml(safeUrl(u));
+
+            // Display width. CJK and full-width forms occupy two cells; spreading iterates
+            // code points, so astral characters are visited once rather than twice
+            // (String.length gets those wrong regardless of language). Emoji are included
+            // below; ZWJ sequences are still over-counted, accepted for an easter egg.
+            const WIDE = /[ᄀ-ᅟ⺀-〾ぁ-㏿㐀-䶿一-鿿ꀀ-꓏가-힣豈-﫿︰-﹏＀-｠￠-￦]|[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{20000}-\u{3FFFD}]/u;
+            const dw = s => [...String(s)].reduce((w, c) => w + (WIDE.test(c) ? 2 : 1), 0);
 
             // ===========================================
             // ASCII ART BANNER
@@ -739,118 +1643,707 @@
 ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚═════╝`;
 
             // ===========================================
+            // OUTPUT SINK
+            // When SINK is an array we are rendering to a string (document view, or
+            // build.js in Node). When it is null we are appending to the live DOM.
+            // ===========================================
+            let SINK = null;
+            let outputEl = null;
+
+            function printOutput(html, className = '') {
+                if (SINK) {
+                    SINK.push(`<div class="output-line ${className}">${html}</div>`);
+                    return;
+                }
+                if (!outputEl) return;
+                const line = document.createElement('div');
+                line.className = `output-line ${className}`;
+                line.innerHTML = html;
+                outputEl.appendChild(line);
+            }
+
+            function printPrompt() {
+                // Visual line break after command output
+                printOutput('');
+            }
+
+            function scrollToBottom() {
+                if (!outputEl) return;
+                outputEl.scrollTop = outputEl.scrollHeight;
+            }
+
+            // Runs fn with output redirected to a string. Synchronous by contract.
+            function capture(fn) {
+                const prev = SINK;
+                SINK = [];
+                try {
+                    fn();
+                    return SINK.join('\n');
+                } finally {
+                    SINK = prev;
+                }
+            }
+
+            function generateSkillBar(level, width = 20) {
+                const filled = Math.round((level / 100) * width);
+                const empty = width - filled;
+                return `<span class="skill-fill">${'█'.repeat(filled)}</span><span class="skill-bar">${'░'.repeat(empty)}</span>`;
+            }
+
+            // ===========================================
+            // COMMAND IMPLEMENTATIONS
+            // ===========================================
+            function showWelcome() {
+                /* raw: ASCII_BANNER is a trusted literal, not data */
+                printOutput(`<pre class="ascii-art">${ASCII_BANNER}</pre>`);
+                printOutput('');
+                printOutput(hh`Welcome to <span class="output-info">${DATA.meta.handle}</span>'s terminal portfolio!`);
+                printOutput(hh`<span class="output-prompt">${DATA.title}</span>`);
+                printOutput(hh`<span class="output-accent">${DATA.about.headline || 'I build with AI coding agents — MCP servers, agent skills & harness design.'}</span>`);
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '輸入 <span class="output-command">help</span> 查看可用指令，或直接點下方按鈕；<span class="output-command">doc</span> 可一次看完整份履歷。'
+                    : 'Type <span class="output-command">help</span> to see available commands, or click below. <span class="output-command">doc</span> shows the whole resume at once.');
+                printOutput('');
+
+                /* raw: generateCommandHints emits markup by design */
+                printOutput(generateCommandHints());
+                printOutput('');
+            }
+
+            function generateCommandHints() {
+                const mainCommands = ['about', 'ai', 'projects', 'experience', 'doc', 'resume', 'contact'];
+                const buttons = mainCommands.map(cmd =>
+                    `<button class="hint-btn" data-cmd="${escapeHtml(cmd)}">${escapeHtml(cmd)}</button>`
+                ).join('');
+                return `<div class="command-hints">${buttons}</div>`;
+            }
+
+            function showHelp() {
+                printOutput('');
+                printOutput(hh`<span class="output-info">${ui('commands')}:</span>`);
+                printOutput('');
+
+                Object.keys(COMMANDS).forEach(name => {
+                    const cmd = COMMANDS[name];
+                    if (cmd.hidden) return;
+                    printOutput(hh`<span class="ind"></span><span class="output-command col-12">${name}</span>${t(cmd.description)}`);
+                });
+
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '<span class="output-prompt">提示：Tab 自動補全，上下鍵瀏覽歷史紀錄</span>'
+                    : '<span class="output-prompt">Tip: Use Tab for autocomplete, Up/Down for history</span>');
+                printPrompt();
+            }
+
+            function showAbout() {
+                const about = DATA.about;
+
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('about')} — ${DATA.name}</span>`);
+                printOutput('');
+                printOutput(`<img src="${escapeHtml(DATA.meta.photo)}" alt="${escapeHtml(t(DATA.name))}" class="profile-photo" width="200" height="200" loading="lazy">`);
+                printOutput('');
+                printOutput(hh`<span class="output-command col-12">Name:</span>${DATA.name}`);
+                printOutput(hh`<span class="output-command col-12">Handle:</span>${DATA.meta.handle}`);
+                printOutput(hh`<span class="output-command col-12">Title:</span>${DATA.title}`);
+                printOutput('');
+                printOutput(hh`${about.intro}`);
+                printOutput('');
+                printOutput(hh`${about.background}`);
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('focus')}</span>`);
+                about.focus.forEach(item => {
+                    printOutput(hh`<span class="ind"></span><span class="output-success">▹</span> ${item}`);
+                });
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('awards')}</span>`);
+                about.hackathonAwards.forEach(award => {
+                    printOutput(hh`<span class="ind"></span><span class="output-warning">★</span> ${award}`);
+                });
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '輸入 <span class="output-command">ai</span> 看我如何與 AI coding agent 協作，或 <span class="output-command">skills</span> 看完整技術棧。'
+                    : 'Run <span class="output-command">ai</span> to see how I build with AI coding agents, or <span class="output-command">skills</span> for the full tech stack.');
+                printPrompt();
+            }
+
+            function showSkills() {
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('stack')}</span>`);
+                printOutput('');
+
+                DATA.skills.forEach(group => {
+                    printOutput(
+                        hh`<span class="ind"></span><span class="output-command col">${t(group.category) + ':'}</span>` +
+                        `<span class="project-tech-tags">${group.items.map(escapeHtml).join(' · ')}</span>`
+                    );
+                });
+
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '<span class="output-prompt">提示：AI agent 工具鏈（Claude Code、MCP、agent skills）是我的核心差異化，輸入 </span><span class="output-command">ai</span><span class="output-prompt"> 深入了解。</span>'
+                    : '<span class="output-prompt">Tip: AI-agent tooling (Claude Code, MCP, agent skills) is my core differentiator. Run </span><span class="output-command">ai</span><span class="output-prompt"> to dig in.</span>');
+                printPrompt();
+            }
+
+            function showAiAgents() {
+                const aiAgents = DATA.aiAgents;
+
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('ai')}</span>`);
+                printOutput('');
+                printOutput(hh`<span class="output-accent">${aiAgents.headline}</span>`);
+                printOutput('');
+                printOutput(hh`${aiAgents.summary}`);
+                printOutput('');
+
+                aiAgents.practices.forEach(p => {
+                    printOutput(hh`<span class="ind"></span><span class="output-success">▹</span> <span class="output-command">${p.title}</span>`);
+                    printOutput(hh`<span class="ind-6"></span><span class="project-tech-tags">${p.detail}</span>`);
+                    printOutput('');
+                });
+
+                printOutput(hh`<span class="output-command">Agent stack:</span> ` +
+                    `<span class="project-tech-tags">${aiAgents.stack.map(escapeHtml).join(' · ')}</span>`);
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '實例：<span class="output-command">cat extrovid</span>（12 agent 編排）與 <span class="output-command">cat deepflow</span>（LangChain agent 層）。'
+                    : 'See it in action: <span class="output-command">cat extrovid</span> (12-agent orchestration) and <span class="output-command">cat deepflow</span> (LangChain agent layer).');
+                printPrompt();
+            }
+
+            function showProjects() {
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('projects')}</span>`);
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '使用 <span class="output-command">cat &lt;project-id&gt;</span> 查看專案細節。'
+                    : 'Use <span class="output-command">cat &lt;project-id&gt;</span> to view project details.');
+                printOutput('');
+
+                DATA.projects.forEach((project, index) => {
+                    printOutput(
+                        `<span class="ind"></span>` +
+                        hh`<span class="project-name" data-cmd="cat ${project.id}" role="link" tabindex="0">[${String(index + 1)}] ${project.name}</span>`
+                    );
+                    const meta = [t(project.role), t(project.tag), project.period].filter(Boolean).join(' · ');
+                    if (meta) {
+                        printOutput(hh`<span class="ind-6"></span><span class="timeline-date">${meta}</span>`);
+                    }
+                    printOutput(`<span class="ind-6"></span><span class="project-tech-tags">${project.tech.map(escapeHtml).join(' | ')}</span>`);
+                });
+
+                printPrompt();
+            }
+
+            function catProject(args) {
+                const projectId = (args[0] || '').toLowerCase();
+
+                if (!projectId) {
+                    printOutput('<span class="output-error">Usage: cat &lt;project-id&gt;</span>');
+                    printOutput('');
+                    printOutput(LANG === 'zh' ? '可用專案：' : 'Available projects:');
+                    DATA.projects.forEach(p => {
+                        printOutput(hh`<span class="ind"></span>- ${p.id}`);
+                    });
+                    return;
+                }
+
+                const project = DATA.projects.find(p =>
+                    p.id === projectId || p.name.toLowerCase().indexOf(projectId) !== -1
+                );
+
+                if (!project) {
+                    printOutput(hh`<span class="output-error">Project not found: ${projectId}</span>`);
+                    return;
+                }
+
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${project.name}</span>`);
+                const headMeta = [t(project.role), t(project.tag), project.period].filter(Boolean).join(' · ');
+                if (headMeta) {
+                    printOutput(hh`<span class="timeline-date">${headMeta}</span>`);
+                }
+                printOutput('');
+                printOutput(hh`${project.description}`);
+                printOutput('');
+                printOutput(hh`<span class="output-command col">Technologies:</span>` +
+                    escapeHtml(project.tech.join(', ')));
+                printOutput(hh`<span class="output-command col">Categories:</span>` +
+                    escapeHtml(project.category.join(', ')));
+                if (project.demo) {
+                    printOutput(`<span class="output-command col">Live demo:</span>` +
+                        `<a href="${attrUrl(project.demo)}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(project.demo)}</a>`);
+                }
+                if (project.github) {
+                    printOutput(`<span class="output-command col">GitHub:</span>` +
+                        `<a href="${attrUrl(project.github)}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(project.github)}</a>`);
+                }
+                if (project.award) {
+                    printOutput(hh`<span class="output-command col">Award:</span><span class="output-warning">★ ${project.award}</span>`);
+                }
+                printPrompt();
+            }
+
+            function showExperience() {
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('experience')}</span>`);
+                printOutput('');
+
+                DATA.experience.forEach(exp => {
+                    // One printOutput per entry. Splitting it across calls used to auto-close
+                    // the timeline-entry div (printOutput wraps each call in its own div), so
+                    // the left border rail never rendered.
+                    const loc = t(exp.location);
+                    printOutput(
+                        '<div class="timeline-entry">' +
+                        hh`<div><span class="timeline-title">${exp.title}</span></div>` +
+                        hh`<div><span class="timeline-company">${exp.company}</span>${loc ? ' | ' + loc : ''}</div>` +
+                        `<div><span class="timeline-date">${escapeHtml(exp.date)}</span></div>` +
+                        hh`<div>${exp.description}</div>` +
+                        `<div><span class="project-tech-tags">${exp.tech.map(escapeHtml).join(' | ')}</span></div>` +
+                        '</div>'
+                    );
+                });
+
+                printPrompt();
+            }
+
+            function showEducation() {
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('education')}</span>`);
+                printOutput('');
+
+                DATA.education.forEach(edu => {
+                    const loc = t(edu.location);
+                    printOutput(
+                        '<div class="timeline-entry">' +
+                        hh`<div><span class="timeline-title">${edu.title}</span></div>` +
+                        hh`<div><span class="timeline-company">${edu.institution}</span>${loc ? ' | ' + loc : ''}</div>` +
+                        `<div><span class="timeline-date">${escapeHtml(edu.date)}</span></div>` +
+                        hh`<div>${edu.description}</div>` +
+                        '</div>'
+                    );
+                });
+
+                printPrompt();
+            }
+
+            function showLanguages() {
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('languages')}</span>`);
+                printOutput('');
+
+                DATA.languages.forEach(lang => {
+                    /* raw: generateSkillBar emits markup by design */
+                    printOutput(hh`<span class="ind"></span><span class="output-command col-22">${lang.name}</span>` +
+                        generateSkillBar(lang.level));
+                    printOutput(hh`<span class="ind"></span><span class="col-22"></span>${lang.proficiency}`);
+                    printOutput('');
+                });
+
+                printPrompt();
+            }
+
+            function showContact() {
+                const contact = DATA.contact;
+
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('contact')}</span>`);
+                printOutput('');
+                printOutput(`<span class="ind"></span><span class="output-command col-12">Email:</span>` +
+                    `<a href="${attrUrl('mailto:' + contact.email)}" class="output-link">${escapeHtml(contact.email)}</a>`);
+                printOutput(`<span class="ind"></span><span class="output-command col-12">Website:</span>` +
+                    `<a href="${attrUrl(contact.website)}" rel="me" class="output-link">${escapeHtml(contact.website)}</a>`);
+                printOutput(`<span class="ind"></span><span class="output-command col-12">LinkedIn:</span>` +
+                    `<a href="${attrUrl(contact.linkedin)}" target="_blank" rel="me noopener noreferrer" class="output-link">${escapeHtml(contact.linkedin)}</a>`);
+                printOutput(`<span class="ind"></span><span class="output-command col-12">GitHub:</span>` +
+                    `<a href="${attrUrl(contact.github)}" target="_blank" rel="me noopener noreferrer" class="output-link">${escapeHtml(contact.github)}</a>`);
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '目前開放後端 / 全端 / AI 工程相關職缺與合作機會。'
+                    : 'Open to backend / full-stack / AI-engineering roles and collaborations.');
+                printOutput(LANG === 'zh'
+                    ? '很樂意聊聊 AI agent 工具鏈、區塊鏈，以及如何快速交付。'
+                    : 'Always happy to chat about AI-agent tooling, blockchain, and shipping fast.');
+                printPrompt();
+            }
+
+            function showSocial() {
+                const contact = DATA.contact;
+
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('social')}</span>`);
+                printOutput('');
+                printOutput(`<span class="ind"></span><span class="col-12">[GitHub]</span>` +
+                    `<a href="${attrUrl(contact.github)}" target="_blank" rel="me noopener noreferrer" class="output-link">${escapeHtml(contact.github)}</a>`);
+                printOutput(`<span class="ind"></span><span class="col-12">[LinkedIn]</span>` +
+                    `<a href="${attrUrl(contact.linkedin)}" target="_blank" rel="me noopener noreferrer" class="output-link">${escapeHtml(contact.linkedin)}</a>`);
+                printOutput(`<span class="ind"></span><span class="col-12">[Email]</span>` +
+                    `<a href="${attrUrl('mailto:' + contact.email)}" class="output-link">${escapeHtml(contact.email)}</a>`);
+                printPrompt();
+            }
+
+            // Pure: prints the links, opens nothing. Safe to call from renderDoc().
+            function resumeLinks() {
+                const pdf = DATA.meta.pdf;
+                printOutput('');
+                printOutput(hh`<span class="output-info">// ${ui('resume')}</span>`);
+                printOutput('');
+                [['EN', pdf.en], ['中文', pdf.zh]].forEach(pair => {
+                    printOutput(`<span class="ind"></span><span class="output-command col-8">${escapeHtml(pair[0])}</span>` +
+                        `<a href="${attrUrl(pair[1])}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(pair[1])}</a>`);
+                });
+                printOutput('');
+                printOutput(LANG === 'zh'
+                    ? '給 AI agent 的純文字版：<a href="resume.md" class="output-link">/resume.md</a>'
+                    : 'Plain text for agents: <a href="resume.md" class="output-link">/resume.md</a>');
+            }
+
+            // Command wrapper. window.open must be called synchronously inside the user
+            // gesture, otherwise Safari and Firefox block the popup. The old version awaited
+            // a fetch(HEAD) probe first, which is exactly why it was blocked.
+            function showResume(args) {
+                const want = (args[0] || '').toLowerCase();
+                const pdf = DATA.meta.pdf;
+                const l = /^(zh|cn|tw)/.test(want) ? 'zh' : (want === 'en' ? 'en' : LANG);
+                resumeLinks();
+                if (typeof window !== 'undefined') {
+                    window.open(pdf[l] || pdf.en, '_blank', 'noopener');
+                }
+                printPrompt();
+            }
+
+            function whoami() {
+                printOutput('');
+                printOutput('visitor');
+                printPrompt();
+            }
+
+            function showDate() {
+                printOutput('');
+                printOutput(escapeHtml(new Date().toString()));
+                printPrompt();
+            }
+
+            function listSections() {
+                printOutput('');
+                printOutput('about/     ai/           skills/');
+                printOutput('projects/  experience/   education/');
+                printOutput('languages/ social/       contact/');
+                printOutput('resume/    doc/          lang/');
+                printPrompt();
+            }
+
+            // ===========================================
+            // EASTER EGGS
+            // ===========================================
+            function sudoCommand() {
+                printOutput('');
+                printOutput('<span class="output-error">[sudo] password for visitor: </span>');
+                printOutput('<span class="output-error">Sorry, visitor is not in the sudoers file. This incident will be reported.</span>');
+                printPrompt();
+            }
+
+            function hackCommand() {
+                printOutput('');
+                printOutput('<span class="output-success">Initiating hack sequence...</span>');
+                printOutput('<span class="output-error">Just kidding! I am a friendly portfolio, not a hacker tool.</span>');
+                printOutput('<span class="output-info">But if you want to see real blockchain magic, check out my projects!</span>');
+                printPrompt();
+            }
+
+            function matrixCommand() {
+                printOutput('');
+                printOutput('<span class="output-success">Wake up, Neo...</span>');
+                printOutput('<span class="output-success">The Matrix has you...</span>');
+                printOutput('<span class="output-success">Follow the white rabbit.</span>');
+                printOutput('');
+                printOutput('(Try the <span class="output-command">projects</span> command instead)');
+                printPrompt();
+            }
+
+            function cowsayCommand(args) {
+                const message = args.join(' ') || 'Moo! Check out my projects!';
+                const safe = escapeHtml(message);
+                // dw(), not .length: the box is drawn in characters inside a <pre>, so this
+                // is the one place CSS columns cannot help. Chinese and emoji both need it.
+                const width = dw(message) + 2;
+                const border = '_'.repeat(width);
+
+                const cow = `  ${border}
+< ${safe} >
+  ${'-'.repeat(width)}
+        \\   ^__^
+         \\  (oo)\\_______
+            (__)\\       )\\/\\
+                ||----w |
+                ||     ||`;
+
+                printOutput('');
+                printOutput(`<pre style="margin: 0; font-family: inherit;">${cow}</pre>`);
+                printPrompt();
+            }
+
+            function neofetchCommand() {
+                const skillCount = DATA.skills.reduce((n, g) => n + g.items.length, 0);
+                /* raw: the <pre> block is a trusted literal; every interpolation is escaped */
+                printOutput('');
+                printOutput(`<pre class="ascii-art" style="color: var(--terminal-cyan);">
+       .--.        <span style="color: var(--terminal-text)">visitor@pengu</span>
+      |o_o |       <span style="color: var(--terminal-text)">--------------</span>
+      |:_/ |       <span style="color: var(--terminal-text)">OS: Portfolio Terminal</span>
+     //   \\ \\      <span style="color: var(--terminal-text)">Host: ${escapeHtml(t(DATA.name))}</span>
+    (|     | )     <span style="color: var(--terminal-text)">Role: ${escapeHtml(t(DATA.title))}</span>
+   /'\\_   _/\`\\     <span style="color: var(--terminal-text)">Projects: ${DATA.projects.length}</span>
+   \\___)=(___/     <span style="color: var(--terminal-text)">Skills: ${skillCount}</span>
+</pre>`);
+                printPrompt();
+            }
+
+            // ===========================================
+            // VIEW / LANGUAGE COMMANDS (browser-only bodies)
+            // ===========================================
+            function docCommand() {
+                if (typeof document === 'undefined') return;
+                setView('doc');
+            }
+
+            function terminalCommand() {
+                if (typeof document === 'undefined') return;
+                setView('terminal');
+            }
+
+            function langCommand(args) {
+                const want = (args[0] || '').toLowerCase();
+                if (!want) {
+                    printOutput('');
+                    printOutput(hh`<span class="output-info">// ${ui('languages')}</span>`);
+                    printOutput(`Current: <span class="output-command">${LANG}</span>`);
+                    printOutput('Usage: <span class="output-command">lang en</span> | <span class="output-command">lang zh</span>');
+                    printPrompt();
+                    return;
+                }
+                applyLang(/^(zh|cn|tw)/.test(want) ? 'zh' : 'en');
+            }
+
+            // Lives inside the region because COMMANDS references it eagerly.
+            function clearTerminal() {
+                if (!outputEl) return;
+                outputEl.innerHTML = '';
+                showWelcome();
+            }
+
+            // ===========================================
             // COMMAND DEFINITIONS
             // ===========================================
             const COMMANDS = {
-                help: {
-                    description: "Show available commands",
-                    execute: showHelp
-                },
-                about: {
-                    description: "Learn about me",
-                    execute: showAbout
-                },
-                skills: {
-                    description: "View my technical skills",
-                    execute: showSkills
-                },
-                ai: {
-                    description: "How I build with AI coding agents",
-                    execute: showAiAgents
-                },
-                agents: {
-                    description: "How I build with AI coding agents",
-                    hidden: true,
-                    execute: showAiAgents
-                },
-                projects: {
-                    description: "List all projects",
-                    execute: showProjects
-                },
-                experience: {
-                    description: "View work experience",
-                    execute: showExperience
-                },
-                education: {
-                    description: "View education history",
-                    execute: showEducation
-                },
-                languages: {
-                    description: "View language proficiencies",
-                    execute: showLanguages
-                },
-                contact: {
-                    description: "Get contact information",
-                    execute: showContact
-                },
-                clear: {
-                    description: "Clear the terminal",
-                    execute: clearTerminal
-                },
-                cls: {
-                    description: "Clear the terminal",
-                    execute: clearTerminal
-                },
-                whoami: {
-                    description: "Display current user",
-                    execute: whoami
-                },
-                date: {
-                    description: "Show current date/time",
-                    execute: showDate
-                },
-                cat: {
-                    description: "View project details (usage: cat <project-id>)",
-                    execute: catProject
-                },
-                ls: {
-                    description: "List available sections",
-                    execute: listSections
-                },
-                social: {
-                    description: "View social links",
-                    execute: showSocial
-                },
-                resume: {
-                    description: "Open resume PDF",
-                    execute: showResume
-                },
-                // Easter eggs
-                sudo: {
-                    description: "Hidden command",
-                    hidden: true,
-                    execute: sudoCommand
-                },
-                hack: {
-                    description: "Hidden command",
-                    hidden: true,
-                    execute: hackCommand
-                },
-                matrix: {
-                    description: "Hidden command",
-                    hidden: true,
-                    execute: matrixCommand
-                },
-                cowsay: {
-                    description: "Hidden command",
-                    hidden: true,
-                    execute: cowsayCommand
-                },
-                neofetch: {
-                    description: "Hidden command",
-                    hidden: true,
-                    execute: neofetchCommand
-                }
+                help:       { description: { en: 'Show available commands',        zh: '顯示所有可用指令' },   execute: showHelp },
+                about:      { description: { en: 'Learn about me',                 zh: '關於我' },             execute: showAbout },
+                skills:     { description: { en: 'View my technical skills',       zh: '技術棧' },             execute: showSkills },
+                ai:         { description: { en: 'How I build with AI agents',     zh: '我如何與 AI agent 協作' }, execute: showAiAgents },
+                projects:   { description: { en: 'List all projects',              zh: '所有專案' },           execute: showProjects },
+                experience: { description: { en: 'View work experience',           zh: '工作經歷' },           execute: showExperience },
+                education:  { description: { en: 'View education history',         zh: '學歷與學習歷程' },     execute: showEducation },
+                languages:  { description: { en: 'View language proficiencies',    zh: '語言能力' },           execute: showLanguages },
+                contact:    { description: { en: 'Get contact information',        zh: '聯絡方式' },           execute: showContact },
+                doc:        { description: { en: 'Show the whole resume at once',  zh: '一次顯示完整履歷' },   execute: docCommand },
+                lang:       { description: { en: 'Switch language (en | zh)',      zh: '切換語言（en | zh）' }, execute: langCommand },
+                resume:     { description: { en: 'Open resume PDF',                zh: '開啟履歷 PDF' },       execute: showResume },
+                cat:        { description: { en: 'View project details (cat <project-id>)', zh: '查看專案細節（cat <project-id>）' }, execute: catProject },
+                ls:         { description: { en: 'List available sections',        zh: '列出所有區塊' },       execute: listSections },
+                social:     { description: { en: 'View social links',              zh: '社群連結' },           execute: showSocial },
+                clear:      { description: { en: 'Clear the terminal',             zh: '清空畫面' },           execute: clearTerminal },
+                whoami:     { description: { en: 'Display current user',           zh: '顯示目前使用者' },     execute: whoami },
+                date:       { description: { en: 'Show current date/time',         zh: '顯示目前時間' },       execute: showDate },
+
+                // Aliases and easter eggs, hidden from help and autocomplete
+                agents:     { description: { en: 'How I build with AI agents', zh: '我如何與 AI agent 協作' }, hidden: true, execute: showAiAgents },
+                cv:         { description: { en: 'Alias of doc',   zh: 'doc 的別名' },   hidden: true, execute: docCommand },
+                agent:      { description: { en: 'Alias of doc',   zh: 'doc 的別名' },   hidden: true, execute: docCommand },
+                terminal:   { description: { en: 'Back to terminal', zh: '回到終端機' }, hidden: true, execute: terminalCommand },
+                cls:        { description: { en: 'Clear the terminal', zh: '清空畫面' }, hidden: true, execute: clearTerminal },
+                sudo:       { description: { en: 'Hidden command', zh: '隱藏指令' }, hidden: true, execute: sudoCommand },
+                hack:       { description: { en: 'Hidden command', zh: '隱藏指令' }, hidden: true, execute: hackCommand },
+                matrix:     { description: { en: 'Hidden command', zh: '隱藏指令' }, hidden: true, execute: matrixCommand },
+                cowsay:     { description: { en: 'Hidden command', zh: '隱藏指令' }, hidden: true, execute: cowsayCommand },
+                neofetch:   { description: { en: 'Hidden command', zh: '隱藏指令' }, hidden: true, execute: neofetchCommand }
             };
 
             // ===========================================
-            // TERMINAL STATE
+            // DOCUMENT VIEW RENDERER
+            // Runs the SAME command renderers as the terminal, captured to a string. That is
+            // the guarantee that the two views cannot drift: there is one renderer, not two.
+            // ===========================================
+            const DOC_SECTIONS = [
+                { id: 'about',      cmd: 'about',      title: 'about' },
+                { id: 'ai',         cmd: 'ai',         title: 'ai' },
+                { id: 'skills',     cmd: 'skills',     title: 'stack' },
+                { id: 'projects',   cmd: 'projects',   title: 'projects' },
+                { id: 'experience', cmd: 'experience', title: 'experience' },
+                { id: 'education',  cmd: 'education',  title: 'education' },
+                { id: 'languages',  cmd: 'languages',  title: 'languages' },
+                { id: 'contact',    cmd: 'contact',    title: 'contact' }
+            ];
+
+            // Both languages are baked into the same document, so ids must be per-language
+            // or they collide (invalid HTML, and getElementById would pick the wrong one).
+            const docId = base => base + '-' + LANG;
+
+            function echoLine(cmd) {
+                return `<p class="output-line"><span class="output-prompt">visitor@pengu:~$</span> ` +
+                       `<span class="output-command">${escapeHtml(cmd)}</span></p>`;
+            }
+
+            function renderDoc() {
+                const parts = [];
+
+                parts.push(`<pre class="ascii-art" role="img" aria-label="PENGU">${ASCII_BANNER}</pre>`);
+                parts.push(hh`<h1 class="sr-only">${DATA.name} — ${DATA.title}</h1>`);
+                parts.push(hh`<p class="doc-note">${UI.agentNote}</p>`);
+
+                DOC_SECTIONS.forEach(sec => {
+                    const command = COMMANDS[sec.cmd];
+                    if (!command) return;
+                    parts.push(
+                        `<section id="${escapeHtml(docId(sec.id))}" class="doc-section">` +
+                        hh`<h2 class="sr-only">${UI[sec.title]}</h2>` +
+                        echoLine(sec.cmd) +
+                        capture(() => command.execute([])) +
+                        `</section>`
+                    );
+                });
+
+                // 一目了然: every project expanded inline, so nothing requires typing `cat`.
+                parts.push(
+                    `<section id="${escapeHtml(docId('project-details'))}" class="doc-section">` +
+                    hh`<h2 class="sr-only">${UI.details}</h2>` +
+                    DATA.projects.map(p =>
+                        `<article id="${escapeHtml(docId('p-' + p.id))}">` +
+                        hh`<h3 class="sr-only">${p.name}</h3>` +
+                        echoLine('cat ' + p.id) +
+                        capture(() => catProject([p.id])) +
+                        `</article>`
+                    ).join('\n') +
+                    `</section>`
+                );
+
+                parts.push(
+                    `<section id="${escapeHtml(docId('resume'))}" class="doc-section">` +
+                    hh`<h2 class="sr-only">${UI.resume}</h2>` +
+                    echoLine('resume') +
+                    capture(() => resumeLinks()) +
+                    `</section>`
+                );
+
+                return parts.join('\n');
+            }
+
+            // Cheap synchronous content hash (FNV-1a). Used only to notice that the baked
+            // document view predates the current island — never for anything security-bearing.
+            function contentHash(str) {
+                let hval = 0x811c9dc5;
+                for (let i = 0; i < str.length; i++) {
+                    hval ^= str.charCodeAt(i);
+                    hval = (hval + ((hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24))) >>> 0;
+                }
+                return hval.toString(16).padStart(8, '0');
+            }
+
+            function canonicalSource(data) {
+                const clone = JSON.parse(JSON.stringify(data));
+                if (clone.meta) delete clone.meta.sourceHash;
+                return JSON.stringify(clone);
+            }
+
+/* END:RENDERERS */
+
+            // ===========================================
+            // TERMINAL STATE (browser only)
             // ===========================================
             let commandHistory = [];
             let historyIndex = -1;
-            let outputEl, inputEl, toastEl;
+            let inputEl, toastEl, docEl;
             let copyToastTimer = null;
             let lastCopiedText = '';
+
+            // ===========================================
+            // VIEW / LANGUAGE PLUMBING (browser only)
+            // ===========================================
+            // Slices the RENDERERS region back out of our own <script> text, using the same
+            // markers build.js uses, so both sides hash identical bytes.
+            function readRendererSource() {
+                const scripts = document.getElementsByTagName('script');
+                for (let i = 0; i < scripts.length; i++) {
+                    const txt = scripts[i].textContent || '';
+                    const b = txt.indexOf('/* BEGIN:REND' + 'ERERS');
+                    if (b === -1) continue;
+                    const c = txt.indexOf('*/', b);
+                    const e = txt.indexOf('/* END:REND' + 'ERERS */', c);
+                    if (c !== -1 && e !== -1) return txt.slice(c + 2, e);
+                }
+                return '';
+            }
+
+            function store(key, value) {
+                try { localStorage.setItem(key, value); } catch (e) { /* private mode */ }
+            }
+
+            function updateQuery(key, value) {
+                try {
+                    const url = new URL(location.href);
+                    url.searchParams.set(key, value);
+                    history.replaceState(null, '', url);
+                } catch (e) { /* file:// */ }
+            }
+
+            function isTerminalView() {
+                return document.documentElement.classList.contains('js-terminal');
+            }
+
+            function setView(view) {
+                const root = document.documentElement;
+                if (view === 'doc') {
+                    // Always re-render from the island, so a JS viewer can never see a stale
+                    // build even if `node build.js` was forgotten.
+                    docEl.innerHTML = renderDoc();
+                    root.classList.remove('js-terminal');
+                    document.getElementById('window-title').textContent = 'visitor@pengu - resume.md';
+                    window.scrollTo(0, 0);
+                } else {
+                    root.classList.add('js-terminal');
+                    document.getElementById('window-title').textContent = 'visitor@pengu - PowerShell';
+                    if (inputEl) inputEl.focus();
+                }
+                store('pengu.view', view);
+                updateQuery('view', view);
+                syncChips();
+            }
+
+            function applyLang(lang) {
+                setLang(lang);
+                const root = document.documentElement;
+                root.setAttribute('data-lang', LANG);
+                root.lang = (LANG === 'zh') ? 'zh-Hant' : 'en';
+                store('pengu.lang', LANG);
+                updateQuery('lang', LANG);
+                syncChips();
+
+                // Re-render BOTH. The terminal scrollback is populated at boot even when we
+                // booted into doc view, and its lines have the language baked in at print
+                // time — so skipping it here would leave English output sitting under a
+                // Chinese header the moment the user switched back.
+                clearTerminal();
+                if (!isTerminalView()) docEl.innerHTML = renderDoc();
+            }
+
+            function syncChips() {
+                document.querySelectorAll('[data-set-lang]').forEach(el => {
+                    el.setAttribute('aria-current', el.dataset.setLang === LANG ? 'true' : 'false');
+                });
+            }
 
             // ===========================================
             // INITIALIZATION
@@ -859,22 +2352,72 @@
                 outputEl = document.getElementById('terminal-output');
                 inputEl = document.getElementById('terminal-input');
                 toastEl = document.getElementById('copy-toast');
+                docEl = document.getElementById('resume-doc');
 
-                // Show welcome message
+                setLang(document.documentElement.getAttribute('data-lang') === 'zh' ? 'zh' : 'en');
+                syncChips();
+
                 showWelcome();
+
+                // If we booted straight into doc view, render it live from the island.
+                if (!isTerminalView()) {
+                    docEl.innerHTML = renderDoc();
+                    document.getElementById('window-title').textContent = 'visitor@pengu - resume.md';
+                }
+
+                // Staleness: the baked bytes only matter to non-JS consumers, so this is a
+                // console warning, never a banner a recruiter could see.
+                // The hash must cover the RENDERERS region as well as the island — half the
+                // visible document text (section headings, tips, the banner) lives in the
+                // renderers, and an island-only hash would never notice those edits.
+                const baked = docEl.getAttribute('data-src-hash');
+                const current = contentHash(canonicalSource(DATA) + readRendererSource());
+                if (baked && baked !== current) {
+                    console.warn('[build] #resume-doc is stale (baked ' + baked + ', current ' + current + '). Run: node build.js');
+                }
 
                 // Event listeners
                 inputEl.addEventListener('keydown', handleKeydown);
                 inputEl.addEventListener('input', handleInput);
 
-                // Focus input on click anywhere
+                // Delegated command triggers, replacing inline onclick handlers.
                 document.querySelector('.terminal-window').addEventListener('click', (e) => {
+                    const trigger = e.target.closest('[data-cmd]');
+                    if (trigger) {
+                        e.preventDefault();
+                        window.runCommand(trigger.dataset.cmd);
+                        return;
+                    }
+                    const viewChip = e.target.closest('[data-view]');
+                    if (viewChip) {
+                        e.preventDefault();
+                        setView(viewChip.dataset.view);
+                        return;
+                    }
+                    const langChip = e.target.closest('[data-set-lang]');
+                    if (langChip) {
+                        e.preventDefault();
+                        applyLang(langChip.dataset.setLang);
+                        return;
+                    }
+
+                    // Focus input on click anywhere else (terminal view only)
+                    if (!isTerminalView()) return;
                     const selection = window.getSelection();
                     const hasSelection = selection && !selection.isCollapsed && selection.toString().trim().length > 0;
                     if (hasSelection) return;
                     if (!e.target.closest('a') && !e.target.closest('.hint-btn')) {
                         inputEl.focus();
                     }
+                });
+
+                // Keyboard activation for the role="link" project names
+                document.querySelector('.terminal-window').addEventListener('keydown', (e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    const trigger = e.target.closest('[data-cmd]');
+                    if (!trigger || trigger.tagName === 'BUTTON') return;
+                    e.preventDefault();
+                    window.runCommand(trigger.dataset.cmd);
                 });
 
                 document.addEventListener('selectionchange', () => {
@@ -893,8 +2436,12 @@
                     copySelectionText(text);
                 });
 
-                // Initial focus
-                inputEl.focus();
+                // bfcache restore can resurrect the pre-navigation scroll lock; re-assert it.
+                window.addEventListener('pageshow', () => {
+                    if (isTerminalView()) window.scrollTo(0, 0);
+                });
+
+                if (isTerminalView()) inputEl.focus();
             }
 
             // ===========================================
@@ -907,13 +2454,16 @@
                         executeCommand(inputEl.value.trim());
                         inputEl.value = '';
                         break;
+                    // Up walks BACK through history, which means incrementing the index.
+                    // These were inverted, so Up always hit the `historyIndex < 0` branch
+                    // and cleared the input instead of recalling anything.
                     case 'ArrowUp':
                         e.preventDefault();
-                        navigateHistory(-1);
+                        navigateHistory(1);
                         break;
                     case 'ArrowDown':
                         e.preventDefault();
-                        navigateHistory(1);
+                        navigateHistory(-1);
                         break;
                     case 'Tab':
                         e.preventDefault();
@@ -964,7 +2514,7 @@
                 if (matches.length === 1) {
                     inputEl.value = matches[0];
                 } else if (matches.length > 1) {
-                    printOutput(`\nPossible commands: ${matches.join(', ')}`);
+                    printOutput(`\nPossible commands: ${escapeHtml(matches.join(', '))}`);
                     printPrompt();
                 }
             }
@@ -998,30 +2548,8 @@
             }
 
             // ===========================================
-            // OUTPUT HELPERS
+            // CLIPBOARD
             // ===========================================
-            function printOutput(html, className = '') {
-                const line = document.createElement('div');
-                line.className = `output-line ${className}`;
-                line.innerHTML = html;
-                outputEl.appendChild(line);
-            }
-
-            function printPrompt() {
-                // Visual line break after command output
-                printOutput('');
-            }
-
-            function scrollToBottom() {
-                outputEl.scrollTop = outputEl.scrollHeight;
-            }
-
-            function escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
-            }
-
             function copySelectionText(text) {
                 if (!text) return;
                 if (navigator.clipboard && window.isSecureContext) {
@@ -1033,7 +2561,7 @@
                 try {
                     const ok = document.execCommand('copy');
                     if (ok) showCopyToast();
-                } catch {}
+                } catch (e) {}
             }
 
             function showCopyToast() {
@@ -1047,383 +2575,22 @@
                 }, 1200);
             }
 
-            function generateSkillBar(level, width = 20) {
-                const filled = Math.round((level / 100) * width);
-                const empty = width - filled;
-                return `<span class="skill-fill">${'█'.repeat(filled)}</span><span class="skill-bar">${'░'.repeat(empty)}</span>`;
-            }
-
-            // ===========================================
-            // COMMAND IMPLEMENTATIONS
-            // ===========================================
-            function showWelcome() {
-                printOutput(`<pre class="ascii-art">${ASCII_BANNER}</pre>`);
-                printOutput('');
-                printOutput(`Welcome to <span class="output-info">${PORTFOLIO_DATA.handle}</span>'s terminal portfolio!`);
-                printOutput(`<span class="output-prompt">${PORTFOLIO_DATA.title}</span>`);
-                printOutput(`<span class="output-accent">I build with AI coding agents — MCP servers, agent skills & harness design.</span>`);
-                printOutput('');
-                printOutput('Type <span class="output-command">help</span> to see available commands, or click below:');
-                printOutput('');
-
-                // Add clickable command hints
-                printOutput(generateCommandHints());
-                printOutput('');
-            }
-
-            function generateCommandHints() {
-                const mainCommands = ['about', 'ai', 'projects', 'experience', 'resume', 'contact'];
-                const buttons = mainCommands.map(cmd =>
-                    `<button class="hint-btn" onclick="runCommand('${cmd}')">${cmd}</button>`
-                ).join('');
-                return `<div class="command-hints">${buttons}</div>`;
-            }
-
-            function showHelp() {
-                printOutput('');
-                printOutput('<span class="output-info">Available Commands:</span>');
-                printOutput('');
-
-                Object.entries(COMMANDS).forEach(([name, cmd]) => {
-                    if (!cmd.hidden) {
-                        printOutput(`  <span class="output-command">${name.padEnd(12)}</span> ${cmd.description}`);
-                    }
-                });
-
-                printOutput('');
-                printOutput('<span class="output-prompt">Tip: Use Tab for autocomplete, Up/Down for history</span>');
-                printPrompt();
-            }
-
-            function showAbout() {
-                const { about, name, title, wallet } = PORTFOLIO_DATA;
-
-                printOutput('');
-                printOutput(`<span class="output-info">// About ${name}</span>`);
-                printOutput('');
-                printOutput(`<img src="kcl.jpg" alt="${name}" class="profile-photo">`);
-                printOutput('');
-                printOutput(`<span class="output-command">Name:</span>     ${name}`);
-                printOutput(`<span class="output-command">Handle:</span>   ${PORTFOLIO_DATA.handle}`);
-                printOutput(`<span class="output-command">Title:</span>    ${title}`);
-                printOutput(`<span class="output-command">Wallet:</span>   ${wallet}`);
-                printOutput('');
-                printOutput(about.intro);
-                printOutput('');
-                printOutput(about.background);
-                printOutput('');
-                printOutput('<span class="output-info">// Focus</span>');
-                about.focus.forEach(item => {
-                    printOutput(`  <span class="output-success">▹</span> ${item}`);
-                });
-                printOutput('');
-                printOutput('<span class="output-info">// Hackathon Awards</span>');
-                about.hackathonAwards.forEach(award => {
-                    printOutput(`  <span class="output-warning">★</span> ${award}`);
-                });
-                printOutput('');
-                printOutput('Run <span class="output-command">ai</span> to see how I build with AI coding agents, or <span class="output-command">skills</span> for the full tech stack.');
-                printPrompt();
-            }
-
-            function showSkills() {
-                printOutput('');
-                printOutput('<span class="output-info">// Tech Stack</span>');
-                printOutput('');
-
-                const groups = PORTFOLIO_DATA.skills;
-                const labelWidth = Math.max(...Object.keys(groups).map(k => k.length)) + 1;
-
-                Object.entries(groups).forEach(([category, items]) => {
-                    const label = `${category}:`.padEnd(labelWidth + 1);
-                    printOutput(`  <span class="output-command">${escapeHtml(label)}</span> <span class="project-tech-tags">${items.map(escapeHtml).join(' · ')}</span>`);
-                });
-
-                printOutput('');
-                printOutput('<span class="output-prompt">Tip: AI-agent tooling (Claude Code, MCP, agent skills) is my core differentiator. Run </span><span class="output-command">ai</span><span class="output-prompt"> to dig in.</span>');
-                printPrompt();
-            }
-
-            function showAiAgents() {
-                const { aiAgents } = PORTFOLIO_DATA;
-
-                printOutput('');
-                printOutput('<span class="output-info">// AI-Agent Development</span>');
-                printOutput('');
-                printOutput(`<span class="output-accent">${escapeHtml(aiAgents.headline)}</span>`);
-                printOutput('');
-                printOutput(escapeHtml(aiAgents.summary));
-                printOutput('');
-
-                aiAgents.practices.forEach(p => {
-                    printOutput(`  <span class="output-success">▹</span> <span class="output-command">${escapeHtml(p.title)}</span>`);
-                    printOutput(`      <span class="project-tech-tags">${escapeHtml(p.detail)}</span>`);
-                    printOutput('');
-                });
-
-                printOutput(`<span class="output-command">Agent stack:</span> <span class="project-tech-tags">${aiAgents.stack.map(escapeHtml).join(' · ')}</span>`);
-                printOutput('');
-                printOutput('See it in action: <span class="output-command">cat lorepack</span> (multi-agent) and <span class="output-command">cat deepflow</span> (LangChain agent layer).');
-                printPrompt();
-            }
-
-            function showProjects() {
-                printOutput('');
-                printOutput('<span class="output-info">// Featured Projects</span>');
-                printOutput('');
-                printOutput('Use <span class="output-command">cat &lt;project-id&gt;</span> to view project details.');
-                printOutput('');
-
-                PORTFOLIO_DATA.projects.forEach((project, index) => {
-                    printOutput(`  <span class="project-name" onclick="runCommand('cat ${project.id}')">[${index + 1}] ${escapeHtml(project.name)}</span>`);
-                    const meta = [project.role, project.tag, project.period].filter(Boolean).join(' · ');
-                    if (meta) {
-                        printOutput(`      <span class="timeline-date">${escapeHtml(meta)}</span>`);
-                    }
-                    printOutput(`      <span class="project-tech-tags">${project.tech.map(escapeHtml).join(' | ')}</span>`);
-                });
-
-                printPrompt();
-            }
-
-            function catProject(args) {
-                const projectId = args[0]?.toLowerCase();
-
-                if (!projectId) {
-                    printOutput('<span class="output-error">Usage: cat &lt;project-id&gt;</span>');
-                    printOutput('');
-                    printOutput('Available projects:');
-                    PORTFOLIO_DATA.projects.forEach(p => {
-                        printOutput(`  - ${p.id}`);
-                    });
-                    return;
-                }
-
-                const project = PORTFOLIO_DATA.projects.find(p =>
-                    p.id === projectId || p.name.toLowerCase().includes(projectId)
-                );
-
-                if (!project) {
-                    printOutput(`<span class="output-error">Project not found: ${escapeHtml(projectId)}</span>`);
-                    return;
-                }
-
-                printOutput('');
-                printOutput(`<span class="output-info">// ${escapeHtml(project.name)}</span>`);
-                const headMeta = [project.role, project.tag, project.period].filter(Boolean).join(' · ');
-                if (headMeta) {
-                    printOutput(`<span class="timeline-date">${escapeHtml(headMeta)}</span>`);
-                }
-                printOutput('');
-                printOutput(escapeHtml(project.description));
-                printOutput('');
-                printOutput(`<span class="output-command">Technologies:</span> ${project.tech.map(escapeHtml).join(', ')}`);
-                printOutput(`<span class="output-command">Categories:</span>   ${project.category.map(escapeHtml).join(', ')}`);
-                if (project.demo) {
-                    printOutput(`<span class="output-command">Live demo:</span>    <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(project.demo)}</a>`);
-                }
-                printOutput(`<span class="output-command">GitHub:</span>       <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="output-link">${escapeHtml(project.github)}</a>`);
-                if (project.award) {
-                    printOutput(`<span class="output-command">Award:</span>        <span class="output-warning">★ ${escapeHtml(project.award)}</span>`);
-                }
-                printPrompt();
-            }
-
-            function showExperience() {
-                printOutput('');
-                printOutput('<span class="output-info">// Work Experience</span>');
-                printOutput('');
-
-                PORTFOLIO_DATA.experience.forEach(exp => {
-                    printOutput(`<div class="timeline-entry">`);
-                    printOutput(`  <span class="timeline-title">${exp.title}</span>`);
-                    printOutput(`  <span class="timeline-company">${exp.company}</span> | ${exp.location}`);
-                    printOutput(`  <span class="timeline-date">${exp.date}</span>`);
-                    printOutput(`  ${exp.description}`);
-                    printOutput(`  <span class="project-tech-tags">${exp.tech.join(' | ')}</span>`);
-                    printOutput(`</div>`);
-                });
-
-                printPrompt();
-            }
-
-            function showEducation() {
-                printOutput('');
-                printOutput('<span class="output-info">// Education & Learning Journey</span>');
-                printOutput('');
-
-                PORTFOLIO_DATA.education.forEach(edu => {
-                    printOutput(`<div class="timeline-entry">`);
-                    printOutput(`  <span class="timeline-title">${edu.title}</span>`);
-                    printOutput(`  <span class="timeline-company">${edu.institution}</span>${edu.location ? ` | ${edu.location}` : ''}`);
-                    printOutput(`  <span class="timeline-date">${edu.date}</span>`);
-                    printOutput(`  ${edu.description}`);
-                    printOutput(`</div>`);
-                });
-
-                printPrompt();
-            }
-
-            function showLanguages() {
-                printOutput('');
-                printOutput('<span class="output-info">// Languages</span>');
-                printOutput('');
-
-                PORTFOLIO_DATA.languages.forEach(lang => {
-                    const bar = generateSkillBar(lang.level);
-                    printOutput(`  <span class="output-command">${lang.name.padEnd(20)}</span> ${bar}`);
-                    printOutput(`  ${' '.repeat(20)} ${lang.proficiency}`);
-                    printOutput('');
-                });
-
-                printPrompt();
-            }
-
-            function showContact() {
-                const { contact } = PORTFOLIO_DATA;
-
-                printOutput('');
-                printOutput('<span class="output-info">// Contact Information</span>');
-                printOutput('');
-                printOutput(`  <span class="output-command">Email:</span>    <a href="mailto:${contact.email}" class="output-link">${contact.email}</a>`);
-                printOutput(`  <span class="output-command">Telegram:</span> ${contact.telegram}`);
-                printOutput(`  <span class="output-command">Discord:</span>  ${contact.discord}`);
-                printOutput(`  <span class="output-command">ENS:</span>      ${contact.ens}`);
-                printOutput(`  <span class="output-command">LinkedIn:</span> <a href="${contact.linkedin}" target="_blank" class="output-link">${contact.linkedin}</a>`);
-                printOutput(`  <span class="output-command">GitHub:</span>   <a href="${contact.github}" target="_blank" class="output-link">${contact.github}</a>`);
-                printOutput('');
-                printOutput('Open to backend / full-stack / AI-engineering roles and collaborations.');
-                printOutput('Always happy to chat about AI-agent tooling, blockchain, and shipping fast.');
-                printPrompt();
-            }
-
-            function showSocial() {
-                const { contact } = PORTFOLIO_DATA;
-
-                printOutput('');
-                printOutput('<span class="output-info">// Social Links</span>');
-                printOutput('');
-                printOutput(`  [GitHub]   <a href="${contact.github}" target="_blank" class="output-link">${contact.github}</a>`);
-                printOutput(`  [LinkedIn] <a href="${contact.linkedin}" target="_blank" class="output-link">${contact.linkedin}</a>`);
-                printOutput(`  [Email]    <a href="mailto:${contact.email}" class="output-link">${contact.email}</a>`);
-                printPrompt();
-            }
-
-            function showResume() {
-                const resumeUrl = 'resume.pdf';
-
-                printOutput('');
-                printOutput('<span class="output-info">// Resume</span>');
-
-                fetch(resumeUrl, { method: 'HEAD' })
-                    .then(response => {
-                        if (response.ok) {
-                            printOutput(`Opening <a href="${resumeUrl}" target="_blank" class="output-link">${resumeUrl}</a>`);
-                            window.open(resumeUrl, '_blank');
-                        } else {
-                            printOutput('<span class="output-error">Resume PDF not found.</span>');
-                            printOutput(`Place the file at <span class="output-command">${resumeUrl}</span>.`);
-                        }
-                        printPrompt();
-                    })
-                    .catch(() => {
-                        printOutput('<span class="output-error">Unable to load resume right now.</span>');
-                        printOutput(`Expected file: <span class="output-command">${resumeUrl}</span>`);
-                        printPrompt();
-                    });
-            }
-
-            function clearTerminal() {
-                outputEl.innerHTML = '';
-                showWelcome();
-            }
-
-            function whoami() {
-                printOutput('');
-                printOutput('visitor');
-                printPrompt();
-            }
-
-            function showDate() {
-                printOutput('');
-                printOutput(new Date().toString());
-                printPrompt();
-            }
-
-            function listSections() {
-                printOutput('');
-                printOutput('about/     ai/           skills/');
-                printOutput('projects/  experience/   education/');
-                printOutput('languages/ social/       contact/');
-                printOutput('resume/');
-                printPrompt();
-            }
-
-            // ===========================================
-            // EASTER EGGS
-            // ===========================================
-            function sudoCommand(args) {
-                printOutput('');
-                printOutput('<span class="output-error">[sudo] password for visitor: </span>');
-                printOutput('<span class="output-error">Sorry, visitor is not in the sudoers file. This incident will be reported.</span>');
-                printPrompt();
-            }
-
-            function hackCommand() {
-                printOutput('');
-                printOutput('<span class="output-success">Initiating hack sequence...</span>');
-                printOutput('<span class="output-error">Just kidding! I am a friendly portfolio, not a hacker tool.</span>');
-                printOutput('<span class="output-info">But if you want to see real blockchain magic, check out my projects!</span>');
-                printPrompt();
-            }
-
-            function matrixCommand() {
-                printOutput('');
-                printOutput('<span class="output-success">Wake up, Neo...</span>');
-                printOutput('<span class="output-success">The Matrix has you...</span>');
-                printOutput('<span class="output-success">Follow the white rabbit.</span>');
-                printOutput('');
-                printOutput('(Try the <span class="output-command">projects</span> command instead)');
-                printPrompt();
-            }
-
-            function cowsayCommand(args) {
-                const message = args.join(' ') || 'Moo! Check out my projects!';
-                const safe = escapeHtml(message);
-                const border = '_'.repeat(message.length + 2);
-
-                const cow = `  ${border}
-< ${safe} >
-  ${'-'.repeat(message.length + 2)}
-        \\   ^__^
-         \\  (oo)\\_______
-            (__)\\       )\\/\\
-                ||----w |
-                ||     ||`;
-
-                printOutput('');
-                printOutput(`<pre style="margin: 0; font-family: inherit;">${cow}</pre>`);
-                printPrompt();
-            }
-
-            function neofetchCommand() {
-                printOutput('');
-                printOutput(`<pre class="ascii-art" style="color: var(--terminal-cyan);">
-       .--.        <span style="color: var(--terminal-text)">visitor@pengu</span>
-      |o_o |       <span style="color: var(--terminal-text)">--------------</span>
-      |:_/ |       <span style="color: var(--terminal-text)">OS: Portfolio Terminal</span>
-     //   \\ \\      <span style="color: var(--terminal-text)">Host: ${PORTFOLIO_DATA.name}</span>
-    (|     | )     <span style="color: var(--terminal-text)">Role: ${PORTFOLIO_DATA.title}</span>
-   /'\\_   _/\`\\     <span style="color: var(--terminal-text)">Projects: ${PORTFOLIO_DATA.projects.length}</span>
-   \\___)=(___/     <span style="color: var(--terminal-text)">Skills: ${Object.values(PORTFOLIO_DATA.skills).flat().length}</span>
-</pre>`);
-                printPrompt();
-            }
-
             // ===========================================
             // GLOBAL FUNCTION FOR CLICKABLE COMMANDS
             // ===========================================
             window.runCommand = function(cmd) {
+                // In document view there is no prompt to type into, so a `cat <id>` click
+                // becomes a jump to that project's expanded section.
+                if (!isTerminalView()) {
+                    if (cmd === 'terminal' || cmd === 'clear' || cmd === 'cls') return setView('terminal');
+                    if (cmd === 'doc' || cmd === 'cv' || cmd === 'agent') return;
+                    const catMatch = /^cat\s+(\S+)/.exec(cmd);
+                    const target = catMatch
+                        ? document.getElementById('p-' + catMatch[1] + '-' + LANG)
+                        : document.getElementById(cmd + '-' + LANG);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    return;
+                }
                 inputEl.value = cmd;
                 executeCommand(cmd);
                 inputEl.value = '';
